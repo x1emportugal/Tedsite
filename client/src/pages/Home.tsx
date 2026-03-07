@@ -11,11 +11,17 @@ import { useEffect, useRef, useState } from "react";
 const WHATSAPP_URL =
   "https://wa.me/351936331843?text=Olá%20Ted!%20Gostaria%20de%20pedir%20um%20orçamento%20para%20uma%20festa%20de%20aniversário.";
 
-const IMG_HERO     = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/ted-hero-bg-kiuqVHoWDhc8fQ4ap5wU4o.webp";
-const IMG_SLIME    = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/ted-activities-PhWAmoFGekchjkUqDSXTXP.webp";
-const IMG_TREASURE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/ted-treasure-hunt-cN4P4wSBVmgacmHMnLnio8.webp";
-const IMG_PORTRAIT = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/ted-portrait-8BRTq5XorsEiWQLfD9bkVu.webp";
-const IMG_GAMES    = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/ted-games-9gXPX77hwcPSYYaxZYF62g.webp";
+// Fotos reais do Ted — carregadas pelo cliente
+const IMG_HERO     = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/cc0492e2-b3e8-4726-b1c4-f155cb09206e_60b5132a.JPG"; // animação exterior — crianças no sofá
+const IMG_SLIME    = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/1ab7aa02-d676-4c09-9d4f-3aed1c051b09_46966b5c.JPG"; // pintura facial — menina
+const IMG_TREASURE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/fce2c001-9eda-4fca-ad6a-7e130124e161_6f93023a.JPG"; // Ted pirata com balão
+const IMG_PORTRAIT = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/IMG_7700_581ac365.JPG"; // Ted com criança — balão
+const IMG_GAMES    = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/IMG_7702_76980a0f.JPG"; // Ted a contar história às crianças
+const IMG_FACEPAINT2 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/2f32c304-accd-4a76-9a82-47a2a52d8400_10c766dd.JPG"; // grupo pintura facial
+const IMG_PIRATE2    = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/IMG_1467_49a8efcb.jpg"; // festa exterior
+const IMG_EXTRA1     = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/IMG_4726_2809ca19.jpg"; // atividade
+const IMG_EXTRA2     = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/IMG_5591_aac38b02.jpg"; // atividade
+const IMG_EXTRA3     = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/IMG_5639_b4ccc02a.jpg"; // atividade
 
 // ── Scroll-reveal hook ───────────────────────────────────────
 function useReveal() {
@@ -496,8 +502,8 @@ function SobreSection() {
 // ── ATIVIDADES ───────────────────────────────────────────────
 const ACTIVITIES = [
   { icon: <IconMap size={28} color="#FAF0DC"/>, title: "Caça ao Tesouro", desc: "Uma aventura cheia de pistas, desafios e mistérios escondidos pelo espaço da festa.", color: "#2D7A6E", img: IMG_TREASURE },
-  { icon: <IconFlask size={28} color="#1a2e2a"/>, title: "Oficina de Slime", desc: "Uma atividade divertida e sensorial onde as crianças criam o seu próprio slime para levar para casa.", color: "#F5C842", img: IMG_SLIME },
-  { icon: <IconBracelet size={28} color="#1a2e2a"/>, title: "Pulseiras Criativas", desc: "Oficina onde cada participante cria uma pulseira personalizada para recordar a festa.", color: "#7BC67E", img: null },
+  { icon: <IconPalette size={28} color="#1a2e2a"/>, title: "Pintura Facial", desc: "Arte na cara com designs personalizados — de animais a super-heróis, cada criança escolhe o seu.", color: "#F5C842", img: IMG_SLIME },
+  { icon: <IconBracelet size={28} color="#1a2e2a"/>, title: "Pulseiras Criativas", desc: "Oficina onde cada participante cria uma pulseira personalizada para recordar a festa.", color: "#7BC67E", img: IMG_FACEPAINT2 },
   { icon: <IconRun size={28} color="#FAF0DC"/>, title: "Jogos e Desafios", desc: "Estafetas, jogos em equipa, desafios e muita energia para toda a turma.", color: "#E8845A", img: IMG_GAMES },
 ];
 
@@ -640,11 +646,16 @@ function ComoFuncionaSection() {
 function GaleriaSection() {
   const { ref, visible } = useReveal();
   const photos = [
-    { src: IMG_HERO,     alt: "Festa de aniversário com animação no Algarve" },
-    { src: IMG_SLIME,    alt: "Oficina de slime — crianças a criar slime colorido" },
-    { src: IMG_TREASURE, alt: "Caça ao tesouro no jardim" },
-    { src: IMG_PORTRAIT, alt: "Ted com crianças na festa" },
-    { src: IMG_GAMES,    alt: "Jogos em equipa no Algarve" },
+    { src: IMG_HERO,       alt: "Animação infantil no Algarve — crianças e animador" },
+    { src: IMG_SLIME,      alt: "Pintura facial — menina com decoração artística" },
+    { src: IMG_FACEPAINT2, alt: "Grupo com pintura facial divertida" },
+    { src: IMG_TREASURE,   alt: "Ted animador pirata com balão" },
+    { src: IMG_PORTRAIT,   alt: "Ted com criança pequena" },
+    { src: IMG_GAMES,      alt: "Ted a contar história às crianças" },
+    { src: IMG_PIRATE2,    alt: "Festa de aniversário no exterior" },
+    { src: IMG_EXTRA1,     alt: "Atividade de animação infantil" },
+    { src: IMG_EXTRA2,     alt: "Atividade criativa na festa" },
+    { src: IMG_EXTRA3,     alt: "Animação infantil no Algarve" },
   ];
 
   return (
@@ -662,29 +673,44 @@ function GaleriaSection() {
           </h2>
         </div>
 
-        {/* Desktop mosaic */}
+        {/* Desktop mosaic — 10 fotos reais */}
         <div className="hidden md:grid" style={{ gridTemplateColumns: "repeat(12, 1fr)", gap: "1rem", opacity: visible ? 1 : 0, transition: "all 0.8s ease-out 0.2s" }}>
-          <div style={{ gridColumn: "1 / 8", gridRow: "1 / 3", borderRadius: "2rem", overflow: "hidden", aspectRatio: "4/3" }}>
+          {/* Row 1 */}
+          <div style={{ gridColumn: "1 / 6", borderRadius: "2rem", overflow: "hidden", aspectRatio: "4/3" }}>
             <img src={photos[0].src} alt={photos[0].alt} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.4s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}/>
           </div>
-          <div style={{ gridColumn: "8 / 13", gridRow: "1 / 2", borderRadius: "2rem", overflow: "hidden", aspectRatio: "16/9" }}>
+          <div style={{ gridColumn: "6 / 10", borderRadius: "2rem", overflow: "hidden", aspectRatio: "4/3" }}>
             <img src={photos[1].src} alt={photos[1].alt} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.4s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}/>
           </div>
-          <div style={{ gridColumn: "8 / 13", gridRow: "2 / 3", borderRadius: "2rem", overflow: "hidden", aspectRatio: "16/9" }}>
+          <div style={{ gridColumn: "10 / 13", borderRadius: "2rem", overflow: "hidden", aspectRatio: "3/4" }}>
             <img src={photos[2].src} alt={photos[2].alt} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.4s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}/>
           </div>
-          <div style={{ gridColumn: "1 / 7", gridRow: "3 / 4", borderRadius: "2rem", overflow: "hidden", aspectRatio: "16/9" }}>
+          {/* Row 2 */}
+          <div style={{ gridColumn: "1 / 4", borderRadius: "2rem", overflow: "hidden", aspectRatio: "3/4" }}>
             <img src={photos[3].src} alt={photos[3].alt} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.4s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}/>
           </div>
-          <div style={{ gridColumn: "7 / 13", gridRow: "3 / 4", borderRadius: "2rem", overflow: "hidden", aspectRatio: "16/9" }}>
+          <div style={{ gridColumn: "4 / 8", borderRadius: "2rem", overflow: "hidden", aspectRatio: "4/3" }}>
             <img src={photos[4].src} alt={photos[4].alt} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.4s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}/>
+          </div>
+          <div style={{ gridColumn: "8 / 13", borderRadius: "2rem", overflow: "hidden", aspectRatio: "16/9" }}>
+            <img src={photos[5].src} alt={photos[5].alt} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.4s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}/>
+          </div>
+          {/* Row 3 */}
+          <div style={{ gridColumn: "1 / 5", borderRadius: "2rem", overflow: "hidden", aspectRatio: "4/3" }}>
+            <img src={photos[6].src} alt={photos[6].alt} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.4s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}/>
+          </div>
+          <div style={{ gridColumn: "5 / 9", borderRadius: "2rem", overflow: "hidden", aspectRatio: "4/3" }}>
+            <img src={photos[7].src} alt={photos[7].alt} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.4s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}/>
+          </div>
+          <div style={{ gridColumn: "9 / 13", borderRadius: "2rem", overflow: "hidden", aspectRatio: "4/3" }}>
+            <img src={photos[8].src} alt={photos[8].alt} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.4s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}/>
           </div>
         </div>
 
         {/* Mobile grid */}
-        <div className="grid grid-cols-2 gap-4 md:hidden">
-          {photos.map((p, i) => (
-            <div key={i} style={{ borderRadius: "1.5rem", overflow: "hidden", aspectRatio: "4/3", gridColumn: i === 0 ? "1 / 3" : "auto" }}>
+        <div className="grid grid-cols-2 gap-3 md:hidden">
+          {photos.slice(0, 8).map((p, i) => (
+            <div key={i} style={{ borderRadius: "1.2rem", overflow: "hidden", aspectRatio: i === 0 ? "16/9" : "4/3", gridColumn: i === 0 ? "1 / 3" : "auto" }}>
               <img src={p.src} alt={p.alt} style={{ width: "100%", height: "100%", objectFit: "cover" }}/>
             </div>
           ))}
