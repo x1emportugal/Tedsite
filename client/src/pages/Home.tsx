@@ -335,11 +335,9 @@ function Navbar() {
     >
       <div className="container flex items-center justify-between py-4">
         <a href="#inicio" className="flex items-center gap-3 no-underline">
-          <div style={{ width: "3rem", height: "3rem", borderRadius: "1rem", background: "#2D7A6E", border: "2.5px dashed #F5C842", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <span style={{ fontFamily: "'Baloo 2',cursive", fontWeight: 800, fontSize: "1.2rem", color: "#FAF0DC" }}>T</span>
-          </div>
+          <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/ted-logo_d9f03a52.png" alt="Ted Animações" style={{ width: "3.2rem", height: "3.2rem", objectFit: "contain", filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.12))" }} />
           <div>
-            <div style={{ fontFamily: "'Baloo 2',cursive", fontWeight: 800, fontSize: "1.1rem", color: "#1a2e2a", lineHeight: 1 }}>Ted Company</div>
+            <div style={{ fontFamily: "'Baloo 2',cursive", fontWeight: 800, fontSize: "1.1rem", color: "#1a2e2a", lineHeight: 1 }}>Ted Animações</div>
             <div style={{ fontFamily: "'Nunito',sans-serif", fontSize: "0.7rem", color: "#2D7A6E", fontWeight: 600 }}>animação infantil</div>
           </div>
         </a>
@@ -824,11 +822,9 @@ function ContactosSection() {
         <div className="grid md:grid-cols-3 gap-12 mb-12">
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div style={{ width: "3.5rem", height: "3.5rem", borderRadius: "1.2rem", background: "#2D7A6E", border: "2.5px dashed #F5C842", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <span style={{ fontFamily: "'Baloo 2',cursive", fontWeight: 800, fontSize: "1.3rem", color: "#FAF0DC" }}>T</span>
-              </div>
+              <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/ted-logo_d9f03a52.png" alt="Ted Animações" style={{ width: "3.5rem", height: "3.5rem", objectFit: "contain", filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.3)) brightness(1.05)" }} />
               <div>
-                <div style={{ fontFamily: "'Baloo 2',cursive", fontWeight: 800, fontSize: "1.2rem", color: "#FAF0DC" }}>Ted Company</div>
+                <div style={{ fontFamily: "'Baloo 2',cursive", fontWeight: 800, fontSize: "1.2rem", color: "#FAF0DC" }}>Ted Animações</div>
                 <div style={{ fontFamily: "'Nunito',sans-serif", fontSize: "0.75rem", color: "#7BC67E", fontWeight: 600 }}>animação infantil</div>
               </div>
             </div>
@@ -891,7 +887,7 @@ function ContactosSection() {
 
         <div style={{ borderTop: "1px solid rgba(255,255,255,0.1)", paddingTop: "1.5rem", display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: "1rem" }}>
           <p style={{ fontFamily: "'Nunito',sans-serif", fontSize: "0.85rem", color: "#5a7a74" }}>
-            © 2025 Ted Company — Ted in Portugal. Todos os direitos reservados.
+              © 2025 Ted Animações — Ted in Portugal. Todos os direitos reservados.
           </p>
           <div className="flex flex-wrap gap-2">
             {["animador infantil Algarve", "festa aniversário Faro", "animação infantil Portugal"].map(tag => (
