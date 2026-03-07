@@ -1,3 +1,12 @@
+/* ============================================================
+   TED COMPANY — Design System
+   Inspirado em: mega-kids.pt
+   Estilo: Organic Playful — fundo creme, formas orgânicas teal,
+           círculos amarelos, tipografia bold e arejada
+   Fontes: Baloo 2 (display) + Nunito (body)
+   Cores: Creme #FAF0DC | Teal #2D7A6E | Amarelo #F5C842 | Verde-lima #7BC67E
+   ============================================================ */
+
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -43,135 +52,335 @@
 }
 
 :root {
-  --primary: var(--color-blue-700);
-  --primary-foreground: var(--color-blue-50);
-  --sidebar-primary: var(--color-blue-600);
-  --sidebar-primary-foreground: var(--color-blue-50);
-  --chart-1: var(--color-blue-300);
-  --chart-2: var(--color-blue-500);
-  --chart-3: var(--color-blue-600);
-  --chart-4: var(--color-blue-700);
-  --chart-5: var(--color-blue-800);
-  --radius: 0.65rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.235 0.015 65);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.235 0.015 65);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.235 0.015 65);
-  --secondary: oklch(0.98 0.001 286.375);
-  --secondary-foreground: oklch(0.4 0.015 65);
-  --muted: oklch(0.967 0.001 286.375);
-  --muted-foreground: oklch(0.552 0.016 285.938);
-  --accent: oklch(0.967 0.001 286.375);
-  --accent-foreground: oklch(0.141 0.005 285.823);
+  --radius: 1.25rem;
+
+  /* Ted Brand — Mega-Kids inspired palette */
+  --background: #FAF0DC;
+  --foreground: #1a2e2a;
+  --card: #FAF0DC;
+  --card-foreground: #1a2e2a;
+  --popover: #FAF0DC;
+  --popover-foreground: #1a2e2a;
+
+  /* Primary = Teal */
+  --primary: #2D7A6E;
+  --primary-foreground: #FAF0DC;
+
+  /* Secondary = Yellow */
+  --secondary: #F5C842;
+  --secondary-foreground: #1a2e2a;
+
+  --muted: #F0E4C4;
+  --muted-foreground: #5a7a74;
+  --accent: #7BC67E;
+  --accent-foreground: #1a2e2a;
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.92 0.004 286.32);
-  --input: oklch(0.92 0.004 286.32);
-  --ring: oklch(0.623 0.214 259.815);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.235 0.015 65);
-  --sidebar-accent: oklch(0.967 0.001 286.375);
-  --sidebar-accent-foreground: oklch(0.141 0.005 285.823);
-  --sidebar-border: oklch(0.92 0.004 286.32);
-  --sidebar-ring: oklch(0.623 0.214 259.815);
-}
-
-.dark {
-  --primary: var(--color-blue-700);
-  --primary-foreground: var(--color-blue-50);
-  --sidebar-primary: var(--color-blue-500);
-  --sidebar-primary-foreground: var(--color-blue-50);
-  --background: oklch(0.141 0.005 285.823);
-  --foreground: oklch(0.85 0.005 65);
-  --card: oklch(0.21 0.006 285.885);
-  --card-foreground: oklch(0.85 0.005 65);
-  --popover: oklch(0.21 0.006 285.885);
-  --popover-foreground: oklch(0.85 0.005 65);
-  --secondary: oklch(0.24 0.006 286.033);
-  --secondary-foreground: oklch(0.7 0.005 65);
-  --muted: oklch(0.274 0.006 286.033);
-  --muted-foreground: oklch(0.705 0.015 286.067);
-  --accent: oklch(0.274 0.006 286.033);
-  --accent-foreground:  oklch(0.92 0.005 65);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.488 0.243 264.376);
-  --chart-1: var(--color-blue-300);
-  --chart-2: var(--color-blue-500);
-  --chart-3: var(--color-blue-600);
-  --chart-4: var(--color-blue-700);
-  --chart-5: var(--color-blue-800);
-  --sidebar: oklch(0.21 0.006 285.885);
-  --sidebar-foreground: oklch(0.85 0.005 65);
-  --sidebar-accent: oklch(0.274 0.006 286.033);
-  --sidebar-accent-foreground:  oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.488 0.243 264.376);
+  --border: #E0D4B0;
+  --input: #E0D4B0;
+  --ring: #2D7A6E;
+  --chart-1: #2D7A6E;
+  --chart-2: #F5C842;
+  --chart-3: #7BC67E;
+  --chart-4: #E8845A;
+  --chart-5: #9B6BB5;
+  --sidebar: #F0E4C4;
+  --sidebar-foreground: #1a2e2a;
+  --sidebar-primary: #2D7A6E;
+  --sidebar-primary-foreground: #FAF0DC;
+  --sidebar-accent: #F5C842;
+  --sidebar-accent-foreground: #1a2e2a;
+  --sidebar-border: #E0D4B0;
+  --sidebar-ring: #2D7A6E;
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
-    @apply bg-background text-foreground;
+    background-color: #FAF0DC;
+    color: #1a2e2a;
+    font-family: 'Nunito', sans-serif;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Baloo 2', cursive;
+    color: #1a2e2a;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
   [type="button"]:not(:disabled),
   [type="submit"]:not(:disabled),
-  [type="reset"]:not(:disabled),
   a[href],
-  select:not(:disabled),
-  input[type="checkbox"]:not(:disabled),
-  input[type="radio"]:not(:disabled) {
-    @apply cursor-pointer;
+  select:not(:disabled) {
+    cursor: pointer;
   }
 }
 
 @layer components {
-  /**
-   * Custom container utility that centers content and adds responsive padding.
-   *
-   * This overrides Tailwind's default container behavior to:
-   * - Auto-center content (mx-auto)
-   * - Add responsive horizontal padding
-   * - Set max-width for large screens
-   *
-   * Usage: <div className="container">...</div>
-   *
-   * For custom widths, use max-w-* utilities directly:
-   * <div className="max-w-6xl mx-auto px-4">...</div>
-   */
   .container {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 1rem; /* 16px - mobile padding */
-    padding-right: 1rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
-
   .flex {
     min-height: 0;
     min-width: 0;
   }
-
   @media (min-width: 640px) {
-    .container {
-      padding-left: 1.5rem; /* 24px - tablet padding */
-      padding-right: 1.5rem;
-    }
+    .container { padding-left: 2rem; padding-right: 2rem; }
+  }
+  @media (min-width: 1024px) {
+    .container { padding-left: 3rem; padding-right: 3rem; max-width: 1280px; }
   }
 
-  @media (min-width: 1024px) {
-    .container {
-      padding-left: 2rem; /* 32px - desktop padding */
-      padding-right: 2rem;
-      max-width: 1280px; /* Standard content width */
-    }
+  /* ── Fonts ── */
+  .font-display { font-family: 'Baloo 2', cursive; }
+  .font-body    { font-family: 'Nunito', sans-serif; }
+
+  /* ── Buttons ── */
+  .btn-whatsapp {
+    background-color: #25D366;
+    color: #fff;
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    border-radius: 9999px;
+    padding: 0.9rem 2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: all 0.25s ease;
+    box-shadow: 0 6px 24px rgba(37,211,102,0.35);
+    text-decoration: none;
+    font-size: 1rem;
+  }
+  .btn-whatsapp:hover {
+    background-color: #1ebe5d;
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 10px 32px rgba(37,211,102,0.45);
+  }
+
+  .btn-teal {
+    background-color: #2D7A6E;
+    color: #FAF0DC;
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    border-radius: 9999px;
+    padding: 0.9rem 2.2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: all 0.25s ease;
+    box-shadow: 0 6px 24px rgba(45,122,110,0.3);
+    text-decoration: none;
+    font-size: 1rem;
+  }
+  .btn-teal:hover {
+    background-color: #235f56;
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 10px 32px rgba(45,122,110,0.4);
+  }
+
+  .btn-outline-teal {
+    background-color: transparent;
+    color: #2D7A6E;
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    border-radius: 9999px;
+    padding: 0.85rem 2.2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: all 0.25s ease;
+    border: 2.5px solid #2D7A6E;
+    text-decoration: none;
+    font-size: 1rem;
+  }
+  .btn-outline-teal:hover {
+    background-color: #2D7A6E;
+    color: #FAF0DC;
+    transform: translateY(-3px);
+  }
+
+  /* ── Section backgrounds ── */
+  .bg-cream   { background-color: #FAF0DC; }
+  .bg-teal    { background-color: #2D7A6E; }
+  .bg-yellow  { background-color: #F5C842; }
+  .bg-green   { background-color: #7BC67E; }
+  .bg-dark-cream { background-color: #F0E4C4; }
+
+  /* ── Organic shape decorators (SVG inline) ── */
+  .organic-deco {
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* ── Activity card ── */
+  .activity-card {
+    background-color: #fff;
+    border-radius: 2rem;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 20px rgba(45,122,110,0.10);
+  }
+  .activity-card:hover {
+    transform: translateY(-8px) rotate(0.5deg);
+    box-shadow: 0 16px 48px rgba(45,122,110,0.18);
+  }
+
+  /* ── Step circle ── */
+  .step-circle {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 9999px;
+    background-color: #F5C842;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: #1a2e2a;
+    flex-shrink: 0;
+  }
+
+  /* ── Floating WhatsApp button ── */
+  .whatsapp-float {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 9999;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 9999px;
+    background-color: #25D366;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 24px rgba(37,211,102,0.5);
+    animation: pulse-wa 2.5s ease-in-out infinite;
+    transition: transform 0.2s ease;
+  }
+  .whatsapp-float:hover {
+    transform: scale(1.12);
+  }
+
+  /* ── Animations ── */
+  @keyframes pulse-wa {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(37,211,102,0.55); }
+    50%       { box-shadow: 0 0 0 14px rgba(37,211,102,0); }
+  }
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0px) rotate(-3deg); }
+    50%       { transform: translateY(-14px) rotate(3deg); }
+  }
+  @keyframes float-med {
+    0%, 100% { transform: translateY(0px) rotate(2deg); }
+    50%       { transform: translateY(-10px) rotate(-2deg); }
+  }
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(32px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scale-in {
+    from { opacity: 0; transform: scale(0.85); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  .animate-float-slow { animation: float-slow 5s ease-in-out infinite; }
+  .animate-float-med  { animation: float-med  4s ease-in-out infinite; }
+  .animate-spin-slow  { animation: spin-slow 18s linear infinite; }
+  .animate-fade-up    { animation: fade-up 0.7s ease-out forwards; }
+  .animate-scale-in   { animation: scale-in 0.6s ease-out forwards; }
+
+  /* ── Wavy divider ── */
+  .wave-divider {
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+  }
+  .wave-divider svg {
+    display: block;
+    width: 100%;
+  }
+
+  /* ── Nav link ── */
+  .nav-link {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 700;
+    color: #1a2e2a;
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 2px;
+    transition: color 0.2s;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2.5px;
+    background: #2D7A6E;
+    border-radius: 2px;
+    transition: width 0.25s ease;
+  }
+  .nav-link:hover { color: #2D7A6E; }
+  .nav-link:hover::after { width: 100%; }
+
+  /* ── Testimonial card ── */
+  .testimonial-card {
+    background: #fff;
+    border-radius: 2rem;
+    padding: 2rem;
+    box-shadow: 0 4px 24px rgba(45,122,110,0.08);
+    position: relative;
+  }
+  .testimonial-card::before {
+    content: '"';
+    font-family: 'Baloo 2', cursive;
+    font-size: 5rem;
+    color: #F5C842;
+    position: absolute;
+    top: -0.5rem;
+    left: 1.5rem;
+    line-height: 1;
+  }
+
+  /* ── Why-choose badge ── */
+  .why-badge {
+    background: #fff;
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    box-shadow: 0 4px 20px rgba(45,122,110,0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .why-badge:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 32px rgba(45,122,110,0.15);
+  }
+  .why-badge-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 1rem;
+    background: #F5C842;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
   }
 }
