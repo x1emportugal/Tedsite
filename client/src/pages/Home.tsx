@@ -23,6 +23,17 @@ const IMG_EXTRA1     = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015
 const IMG_EXTRA2     = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/IMG_5591_aac38b02.jpg"; // atividade
 const IMG_EXTRA3     = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/IMG_5639_b4ccc02a.jpg"; // atividade
 
+// Novas fotos reais — sessão profissional
+const IMG_DSC07078 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/DSC07078_3d9e520c.jpg"; // Ted a cortar
+const IMG_DSC07148 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/DSC07148_b7487a59.jpg"; // Ted com crianças em roda
+const IMG_DSC07095 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/DSC07095_e858ec2f.jpg"; // Ted sentado com crianças
+const IMG_DSC07229 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/DSC07229_b33b644e.jpg"; // Ted e mãe com criança
+const IMG_DSC07215 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/DSC07215_ff5ca155.jpg"; // Ted sorridente
+const IMG_DSC07153 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/DSC07153_6c351d92.jpg"; // Ted com caixa de contas
+const IMG_DSC07155 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/DSC07155_ff6be72e.jpg"; // mãos a escolher contas
+const IMG_DSC07157 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/DSC07157_296eefae.jpg"; // Ted a fazer pulseiras
+const IMG_DSC07164 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/DSC07164_03d4efb0.jpg"; // crianças a escolher contas
+
 // ── Scroll-reveal hook ───────────────────────────────────────
 function useReveal() {
   const ref = useRef<HTMLDivElement>(null);
@@ -501,7 +512,7 @@ function SobreSection() {
 const ACTIVITIES = [
   { icon: <IconMap size={28} color="#FAF0DC"/>, title: "Caça ao Tesouro", desc: "Uma aventura cheia de pistas, desafios e mistérios escondidos pelo espaço da festa.", color: "#2D7A6E", img: IMG_TREASURE },
   { icon: <IconPalette size={28} color="#1a2e2a"/>, title: "Pintura Facial", desc: "Arte na cara com designs personalizados — de animais a super-heróis, cada criança escolhe o seu.", color: "#F5C842", img: IMG_SLIME },
-  { icon: <IconBracelet size={28} color="#1a2e2a"/>, title: "Pulseiras Criativas", desc: "Oficina onde cada participante cria uma pulseira personalizada para recordar a festa.", color: "#7BC67E", img: IMG_FACEPAINT2 },
+  { icon: <IconBracelet size={28} color="#1a2e2a"/>, title: "Pulseiras Criativas", desc: "Oficina onde cada participante cria uma pulseira personalizada para recordar a festa.", color: "#7BC67E", img: IMG_DSC07153 },
   { icon: <IconRun size={28} color="#FAF0DC"/>, title: "Jogos e Desafios", desc: "Estafetas, jogos em equipa, desafios e muita energia para toda a turma.", color: "#E8845A", img: IMG_GAMES },
 ];
 
@@ -628,6 +639,131 @@ function ComoFuncionaSection() {
           <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn-whatsapp">
             <IconWhatsApp size={22}/> Começar agora no WhatsApp
           </a>
+        </div>
+      </div>
+
+      <div className="wave-divider absolute bottom-0 left-0 right-0">
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style={{ height: "60px" }}>
+          <path fill="#FAF0DC" d="M0,20 C480,60 960,0 1440,40 L1440,60 L0,60 Z"/>
+        </svg>
+      </div>
+    </section>
+  );
+}
+
+// ── CARROSSEL ROTATIVO ──────────────────────────────────────
+function CarrosselSection() {
+  const { ref, visible } = useReveal();
+  const [current, setCurrent] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  const slides = [
+    { src: IMG_DSC07148, alt: "Ted com crianças sentadas em roda — animação interativa" },
+    { src: IMG_DSC07095, alt: "Ted sentado com crianças — momento de proximidade" },
+    { src: IMG_DSC07078, alt: "Ted a preparar atividade criativa" },
+    { src: IMG_DSC07229, alt: "Ted e família — atividade conjunta" },
+    { src: IMG_DSC07215, alt: "Ted sorridente à mesa de atividades" },
+    { src: IMG_DSC07153, alt: "Ted com caixa de contas coloridas" },
+    { src: IMG_DSC07155, alt: "Mãos a escolher contas coloridas para pulseiras" },
+    { src: IMG_DSC07157, alt: "Ted a fazer pulseiras com crianças" },
+    { src: IMG_DSC07164, alt: "Crianças a escolher contas com balão cor-de-rosa" },
+  ];
+
+  const goTo = (idx: number) => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setCurrent(idx);
+    setTimeout(() => setIsAnimating(false), 500);
+  };
+
+  const prev = () => goTo((current - 1 + slides.length) % slides.length);
+  const next = () => goTo((current + 1) % slides.length);
+
+  // Auto-advance
+  useEffect(() => {
+    const t = setInterval(() => {
+      setCurrent(c => (c + 1) % slides.length);
+    }, 3500);
+    return () => clearInterval(t);
+  }, [slides.length]);
+
+  return (
+    <section style={{ background: "#F0E4C4", paddingTop: "5rem", paddingBottom: "5rem", position: "relative", overflow: "hidden" }}>
+      <WiggleLine color="#2D7A6E" className="organic-deco animate-float-slow" style={{ width: "200px", top: "5%", left: "2%", opacity: 0.35 }}/>
+      <Circle color="#F5C842" size={70} className="organic-deco animate-float-med" style={{ bottom: "8%", right: "4%", opacity: 0.5 }}/>
+
+      <div className="container">
+        <div ref={ref} className="text-center mb-12" style={{ opacity: visible ? 1 : 0, transform: visible ? "none" : "translateY(24px)", transition: "all 0.7s ease-out" }}>
+          <div style={{ display: "inline-block", background: "#2D7A6E", color: "#FAF0DC", borderRadius: "9999px", padding: "0.35rem 1.1rem", fontFamily: "'Baloo 2',cursive", fontWeight: 700, fontSize: "0.85rem", marginBottom: "1rem" }}>
+            Momentos das festas
+          </div>
+          <h2 style={{ fontFamily: "'Baloo 2',cursive", fontWeight: 800, fontSize: "clamp(2rem,4vw,3rem)", color: "#1a2e2a", lineHeight: 1.15 }}>
+            Cada festa, uma <span style={{ color: "#2D7A6E" }}>memória</span>
+          </h2>
+        </div>
+
+        {/* Carrossel principal */}
+        <div style={{ position: "relative", maxWidth: "900px", margin: "0 auto" }}>
+          {/* Imagem principal */}
+          <div style={{ borderRadius: "2.5rem", overflow: "hidden", aspectRatio: "16/9", boxShadow: "0 24px 64px rgba(45,122,110,0.22)", border: "5px solid #F5C842" }}>
+            <img
+              key={current}
+              src={slides[current].src}
+              alt={slides[current].alt}
+              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", animation: "fade-up 0.5s ease-out forwards" }}
+            />
+          </div>
+
+          {/* Setas */}
+          <button
+            onClick={prev}
+            aria-label="Anterior"
+            style={{ position: "absolute", left: "-1.5rem", top: "50%", transform: "translateY(-50%)", width: "3rem", height: "3rem", borderRadius: "50%", background: "#FAF0DC", border: "2.5px solid #2D7A6E", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", boxShadow: "0 4px 16px rgba(45,122,110,0.18)", zIndex: 10, transition: "background 0.2s" }}
+            onMouseEnter={e => (e.currentTarget.style.background = "#2D7A6E")}
+            onMouseLeave={e => (e.currentTarget.style.background = "#FAF0DC")}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2D7A6E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button
+            onClick={next}
+            aria-label="Próximo"
+            style={{ position: "absolute", right: "-1.5rem", top: "50%", transform: "translateY(-50%)", width: "3rem", height: "3rem", borderRadius: "50%", background: "#FAF0DC", border: "2.5px solid #2D7A6E", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", boxShadow: "0 4px 16px rgba(45,122,110,0.18)", zIndex: 10, transition: "background 0.2s" }}
+            onMouseEnter={e => (e.currentTarget.style.background = "#2D7A6E")}
+            onMouseLeave={e => (e.currentTarget.style.background = "#FAF0DC")}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2D7A6E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+
+        {/* Thumbnails — pop-it style */}
+        <div className="flex flex-wrap justify-center gap-3 mt-8">
+          {slides.map((slide, i) => (
+            <button
+              key={i}
+              onClick={() => goTo(i)}
+              aria-label={`Ver foto ${i + 1}`}
+              style={{
+                width: "72px",
+                height: "72px",
+                borderRadius: "1.2rem",
+                overflow: "hidden",
+                border: i === current ? "3.5px solid #2D7A6E" : "3px solid transparent",
+                boxShadow: i === current ? "0 0 0 3px #F5C842" : "0 2px 8px rgba(0,0,0,0.12)",
+                cursor: "pointer",
+                padding: 0,
+                transition: "all 0.25s ease",
+                transform: i === current ? "scale(1.12)" : "scale(1)",
+                flexShrink: 0,
+              }}
+            >
+              <img src={slide.src} alt={slide.alt} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}/>
+            </button>
+          ))}
+        </div>
+
+        {/* Contador */}
+        <div className="text-center mt-5" style={{ fontFamily: "'Nunito',sans-serif", fontWeight: 700, fontSize: "0.9rem", color: "#3a5a54" }}>
+          {current + 1} / {slides.length}
         </div>
       </div>
 
@@ -920,6 +1056,7 @@ export default function Home() {
       <SobreSection/>
       <AtividadesSection/>
       <ComoFuncionaSection/>
+      <CarrosselSection/>
       <GaleriaSection/>
       <PorqueEscolherSection/>
       <CTASection/>
