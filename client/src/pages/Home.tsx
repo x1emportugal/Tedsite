@@ -375,7 +375,7 @@ function Navbar() {
 // ── HERO ─────────────────────────────────────────────────────
 function HeroSection() {
   return (
-    <section id="inicio" className="relative min-h-screen flex items-center overflow-hidden" style={{ background: "#FAF0DC", paddingTop: "6rem" }}>
+    <section id="inicio" className="relative min-h-screen flex items-center" style={{ background: "#FAF0DC", paddingTop: "6rem", overflowX: "hidden", overflowY: "visible" }}>
       <WiggleLine color="#2D7A6E" className="organic-deco animate-float-slow" style={{ width: "380px", top: "8%", right: "-60px", opacity: 0.7 }}/>
       <Circle color="#F5C842" size={90} className="organic-deco animate-float-med" style={{ top: "15%", right: "12%", opacity: 0.9 }}/>
       <Circle color="#2D7A6E" size={28} className="organic-deco animate-float-slow" style={{ bottom: "28%", left: "8%", opacity: 0.6 }}/>
@@ -419,17 +419,17 @@ function HeroSection() {
             </div>
           </div>
 
-          <div className="relative" style={{ animation: "scale-in 0.9s ease-out forwards" }}>
-            <div style={{ borderRadius: "40% 60% 55% 45% / 45% 40% 60% 55%", overflow: "hidden", aspectRatio: "4/3", boxShadow: "0 20px 60px rgba(45,122,110,0.25)", border: "6px solid #F5C842" }}>
-              <img src={IMG_HERO} alt="Festa de aniversário com animação infantil no Algarve" style={{ width: "100%", height: "100%", objectFit: "cover" }}/>
+          <div className="relative px-6 lg:px-0" style={{ animation: "scale-in 0.9s ease-out forwards" }}>
+            <div style={{ borderRadius: "40% 60% 55% 45% / 45% 40% 60% 55%", overflow: "hidden", aspectRatio: "4/3", boxShadow: "0 20px 60px rgba(45,122,110,0.25)", border: "6px solid #F5C842", maxWidth: "100%" }}>
+              <img src={IMG_HERO} alt="Festa de aniversário com animação infantil no Algarve" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}/>
             </div>
-            <div style={{ position: "absolute", bottom: "-1.5rem", left: "-1rem", background: "#2D7A6E", color: "#FAF0DC", borderRadius: "1.5rem", padding: "1rem 1.5rem", fontFamily: "'Baloo 2',cursive", fontWeight: 800, boxShadow: "0 8px 24px rgba(45,122,110,0.35)", animation: "float-med 4s ease-in-out infinite" }}>
-              <IconCake size={28} color="#F5C842"/>
-              <div style={{ fontSize: "0.85rem", marginTop: "0.3rem" }}>Festa personalizada</div>
+            <div style={{ position: "absolute", bottom: "-1rem", left: "1.5rem", background: "#2D7A6E", color: "#FAF0DC", borderRadius: "1.5rem", padding: "0.8rem 1.2rem", fontFamily: "'Baloo 2',cursive", fontWeight: 800, boxShadow: "0 8px 24px rgba(45,122,110,0.35)", animation: "float-med 4s ease-in-out infinite", zIndex: 10 }}>
+              <IconCake size={24} color="#F5C842"/>
+              <div style={{ fontSize: "0.8rem", marginTop: "0.3rem" }}>Festa personalizada</div>
             </div>
-            <div style={{ position: "absolute", top: "-1rem", right: "-1rem", background: "#F5C842", color: "#1a2e2a", borderRadius: "1.5rem", padding: "0.8rem 1.2rem", fontFamily: "'Baloo 2',cursive", fontWeight: 800, boxShadow: "0 8px 24px rgba(245,200,66,0.4)", animation: "float-slow 5s ease-in-out infinite", textAlign: "center" }}>
-              <IconSmile size={26} color="#1a2e2a"/>
-              <div style={{ fontSize: "0.8rem", marginTop: "0.3rem" }}>1 a 99 anos</div>
+            <div style={{ position: "absolute", top: "-0.5rem", right: "1.5rem", background: "#F5C842", color: "#1a2e2a", borderRadius: "1.5rem", padding: "0.7rem 1rem", fontFamily: "'Baloo 2',cursive", fontWeight: 800, boxShadow: "0 8px 24px rgba(245,200,66,0.4)", animation: "float-slow 5s ease-in-out infinite", textAlign: "center", zIndex: 10 }}>
+              <IconSmile size={22} color="#1a2e2a"/>
+              <div style={{ fontSize: "0.75rem", marginTop: "0.3rem" }}>1 a 99 anos</div>
             </div>
           </div>
         </div>
