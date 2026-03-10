@@ -4,35 +4,62 @@
  * Fundo creme #FAF0DC | Teal #2D7A6E | Amarelo #F5C842
  * Fontes: Baloo 2 (títulos) + Nunito (corpo)
  * Sem emojis — ícones SVG inline
+ * Fotos carregadas da base de dados com fallback para URLs estáticas
  */
 
 import { useEffect, useRef, useState } from "react";
+import { trpc } from "@/lib/trpc";
 
 const WHATSAPP_URL =
   "https://wa.me/351936331843?text=Olá%20Ted!%20Gostaria%20de%20pedir%20um%20orçamento%20para%20uma%20festa%20de%20aniversário.";
 
-// Fotos reais do Ted — carregadas pelo cliente
-const IMG_HERO     = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/cc0492e2-b3e8-4726-b1c4-f155cb09206e_60b5132a.JPG"; // animação exterior — crianças no sofá
-const IMG_SLIME    = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/1ab7aa02-d676-4c09-9d4f-3aed1c051b09_46966b5c.JPG"; // pintura facial — menina
-const IMG_TREASURE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/fce2c001-9eda-4fca-ad6a-7e130124e161_6f93023a.JPG"; // Ted pirata com balão
-const IMG_PORTRAIT = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/IMG_7700_581ac365.JPG"; // Ted com criança — balão
-const IMG_GAMES    = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/IMG_7702_76980a0f.JPG"; // Ted a contar história às crianças
-const IMG_FACEPAINT2 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/2f32c304-accd-4a76-9a82-47a2a52d8400_10c766dd.JPG"; // grupo pintura facial
-const IMG_PIRATE2    = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/IMG_1467_49a8efcb.jpg"; // festa exterior
-const IMG_EXTRA1     = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/IMG_4726_2809ca19.jpg"; // atividade
-const IMG_EXTRA2     = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/IMG_5591_aac38b02.jpg"; // atividade
-const IMG_EXTRA3     = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/IMG_5639_b4ccc02a.jpg"; // atividade
+// Fotos estáticas de fallback (usadas quando a BD ainda não tem fotos)
+const STATIC = {
+  hero:     "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/cc0492e2-b3e8-4726-b1c4-f155cb09206e_60b5132a.JPG",
+  slime:    "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/1ab7aa02-d676-4c09-9d4f-3aed1c051b09_46966b5c.JPG",
+  treasure: "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/fce2c001-9eda-4fca-ad6a-7e130124e161_6f93023a.JPG",
+  portrait: "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/IMG_7700_581ac365.JPG",
+  games:    "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/IMG_7702_76980a0f.JPG",
+  facepaint2: "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/2f32c304-accd-4a76-9a82-47a2a52d8400_10c766dd.JPG",
+  pirate2:  "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/IMG_1467_49a8efcb.jpg",
+  extra1:   "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/IMG_4726_2809ca19.jpg",
+  extra2:   "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/IMG_5591_aac38b02.jpg",
+  extra3:   "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/IMG_5639_b4ccc02a.jpg",
+  dsc07078: "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/DSC07078_3d9e520c.jpg",
+  dsc07148: "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/DSC07148_b7487a59.jpg",
+  dsc07095: "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/DSC07095_e858ec2f.jpg",
+  dsc07229: "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/DSC07229_b33b644e.jpg",
+  dsc07215: "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/DSC07215_ff5ca155.jpg",
+  dsc07153: "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/DSC07153_6c351d92.jpg",
+  dsc07155: "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/DSC07155_ff6be72e.jpg",
+  dsc07157: "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/DSC07157_296eefae.jpg",
+  dsc07164: "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/DSC07164_03d4efb0.jpg",
+};
 
-// Novas fotos reais — sessão profissional
-const IMG_DSC07078 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/DSC07078_3d9e520c.jpg"; // Ted a cortar
-const IMG_DSC07148 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/DSC07148_b7487a59.jpg"; // Ted com crianças em roda
-const IMG_DSC07095 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/DSC07095_e858ec2f.jpg"; // Ted sentado com crianças
-const IMG_DSC07229 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/DSC07229_b33b644e.jpg"; // Ted e mãe com criança
-const IMG_DSC07215 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/DSC07215_ff5ca155.jpg"; // Ted sorridente
-const IMG_DSC07153 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/DSC07153_6c351d92.jpg"; // Ted com caixa de contas
-const IMG_DSC07155 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/DSC07155_ff6be72e.jpg"; // mãos a escolher contas
-const IMG_DSC07157 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/DSC07157_296eefae.jpg"; // Ted a fazer pulseiras
-const IMG_DSC07164 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663246028015/cEcMzfjKA6ntjeRSGovnMS/DSC07164_03d4efb0.jpg"; // crianças a escolher contas
+const STATIC_CAROUSEL = [
+  { src: STATIC.dsc07148, alt: "Ted com crianças sentadas em roda — animação interativa" },
+  { src: STATIC.dsc07095, alt: "Ted sentado com crianças — momento de proximidade" },
+  { src: STATIC.dsc07078, alt: "Ted a preparar atividade criativa" },
+  { src: STATIC.dsc07229, alt: "Ted e família — atividade conjunta" },
+  { src: STATIC.dsc07215, alt: "Ted sorridente à mesa de atividades" },
+  { src: STATIC.dsc07153, alt: "Ted com caixa de contas coloridas" },
+  { src: STATIC.dsc07155, alt: "Mãos a escolher contas coloridas para pulseiras" },
+  { src: STATIC.dsc07157, alt: "Ted a fazer pulseiras com crianças" },
+  { src: STATIC.dsc07164, alt: "Crianças a escolher contas com balão cor-de-rosa" },
+];
+
+const STATIC_GALLERY = [
+  { src: STATIC.hero,       alt: "Animação infantil no Algarve — crianças e animador" },
+  { src: STATIC.slime,      alt: "Pintura facial — menina com decoração artística" },
+  { src: STATIC.facepaint2, alt: "Grupo com pintura facial divertida" },
+  { src: STATIC.treasure,   alt: "Ted animador pirata com balão" },
+  { src: STATIC.portrait,   alt: "Ted com criança pequena" },
+  { src: STATIC.games,      alt: "Ted a contar história às crianças" },
+  { src: STATIC.pirate2,    alt: "Festa de aniversário no exterior" },
+  { src: STATIC.extra1,     alt: "Atividade de animação infantil" },
+  { src: STATIC.extra2,     alt: "Atividade criativa na festa" },
+  { src: STATIC.extra3,     alt: "Animação infantil no Algarve" },
+];
 
 // ── Scroll-reveal hook ───────────────────────────────────────
 function useReveal() {
@@ -432,7 +459,7 @@ function HeroSection() {
 
           <div className="relative px-6 lg:px-0" style={{ animation: "scale-in 0.9s ease-out forwards" }}>
             <div style={{ borderRadius: "40% 60% 55% 45% / 45% 40% 60% 55%", overflow: "hidden", aspectRatio: "4/3", boxShadow: "0 20px 60px rgba(45,122,110,0.25)", border: "6px solid #F5C842", maxWidth: "100%" }}>
-              <img src={IMG_HERO} alt="Festa de aniversário com animação infantil no Algarve" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}/>
+              <img src={STATIC.hero} alt="Festa de aniversário com animação infantil no Algarve" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}/>
             </div>
             <div style={{ position: "absolute", bottom: "-1rem", left: "1.5rem", background: "#2D7A6E", color: "#FAF0DC", borderRadius: "1.5rem", padding: "0.8rem 1.2rem", fontFamily: "'Baloo 2',cursive", fontWeight: 800, boxShadow: "0 8px 24px rgba(45,122,110,0.35)", animation: "float-med 4s ease-in-out infinite", zIndex: 10 }}>
               <IconCake size={24} color="#F5C842"/>
@@ -468,7 +495,7 @@ function SobreSection() {
         <div ref={ref} className="grid lg:grid-cols-2 gap-16 items-center" style={{ opacity: visible ? 1 : 0, transform: visible ? "none" : "translateY(32px)", transition: "all 0.8s ease-out" }}>
           <div className="relative order-2 lg:order-1">
             <div style={{ borderRadius: "50% 50% 40% 60% / 40% 50% 50% 60%", overflow: "hidden", aspectRatio: "3/4", maxWidth: "420px", margin: "0 auto", boxShadow: "0 20px 60px rgba(45,122,110,0.2)", border: "5px solid #2D7A6E" }}>
-              <img src={IMG_PORTRAIT} alt="Ted — animador infantil no Algarve" style={{ width: "100%", height: "100%", objectFit: "cover" }}/>
+              <img src={STATIC.portrait} alt="Ted — animador infantil no Algarve" style={{ width: "100%", height: "100%", objectFit: "cover" }}/>
             </div>
             <div style={{ position: "absolute", bottom: "2rem", right: "0", background: "#F5C842", borderRadius: "1.5rem", padding: "1rem 1.5rem", fontFamily: "'Baloo 2',cursive", fontWeight: 800, color: "#1a2e2a", boxShadow: "0 8px 24px rgba(245,200,66,0.4)" }}>
               <IconHotel size={26} color="#1a2e2a"/>
@@ -510,10 +537,10 @@ function SobreSection() {
 
 // ── ATIVIDADES ───────────────────────────────────────────────
 const ACTIVITIES = [
-  { icon: <IconMap size={28} color="#FAF0DC"/>, title: "Caça ao Tesouro", desc: "Uma aventura cheia de pistas, desafios e mistérios escondidos pelo espaço da festa.", color: "#2D7A6E", img: IMG_TREASURE },
-  { icon: <IconPalette size={28} color="#1a2e2a"/>, title: "Pintura Facial", desc: "Arte na cara com designs personalizados — de animais a super-heróis, cada criança escolhe o seu.", color: "#F5C842", img: IMG_SLIME },
-  { icon: <IconBracelet size={28} color="#1a2e2a"/>, title: "Pulseiras Criativas", desc: "Oficina onde cada participante cria uma pulseira personalizada para recordar a festa.", color: "#7BC67E", img: IMG_DSC07153 },
-  { icon: <IconRun size={28} color="#FAF0DC"/>, title: "Jogos e Desafios", desc: "Estafetas, jogos em equipa, desafios e muita energia para toda a turma.", color: "#E8845A", img: IMG_GAMES },
+  { icon: <IconMap size={28} color="#FAF0DC"/>, title: "Caça ao Tesouro", desc: "Uma aventura cheia de pistas, desafios e mistérios escondidos pelo espaço da festa.", color: "#2D7A6E", img: STATIC.treasure },
+  { icon: <IconPalette size={28} color="#1a2e2a"/>, title: "Pintura Facial", desc: "Arte na cara com designs personalizados — de animais a super-heróis, cada criança escolhe o seu.", color: "#F5C842", img: STATIC.slime },
+  { icon: <IconBracelet size={28} color="#1a2e2a"/>, title: "Pulseiras Criativas", desc: "Oficina onde cada participante cria uma pulseira personalizada para recordar a festa.", color: "#7BC67E", img: STATIC.dsc07153 },
+  { icon: <IconRun size={28} color="#FAF0DC"/>, title: "Jogos e Desafios", desc: "Estafetas, jogos em equipa, desafios e muita energia para toda a turma.", color: "#E8845A", img: STATIC.games },
 ];
 
 const EXTRAS = [
@@ -657,17 +684,11 @@ function CarrosselSection() {
   const [current, setCurrent] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
-  const slides = [
-    { src: IMG_DSC07148, alt: "Ted com crianças sentadas em roda — animação interativa" },
-    { src: IMG_DSC07095, alt: "Ted sentado com crianças — momento de proximidade" },
-    { src: IMG_DSC07078, alt: "Ted a preparar atividade criativa" },
-    { src: IMG_DSC07229, alt: "Ted e família — atividade conjunta" },
-    { src: IMG_DSC07215, alt: "Ted sorridente à mesa de atividades" },
-    { src: IMG_DSC07153, alt: "Ted com caixa de contas coloridas" },
-    { src: IMG_DSC07155, alt: "Mãos a escolher contas coloridas para pulseiras" },
-    { src: IMG_DSC07157, alt: "Ted a fazer pulseiras com crianças" },
-    { src: IMG_DSC07164, alt: "Crianças a escolher contas com balão cor-de-rosa" },
-  ];
+  // Tentar carregar fotos da BD; fallback para estáticas
+  const { data: dbPhotos } = trpc.photos.listBySection.useQuery({ section: "carrossel" });
+  const slides = (dbPhotos && dbPhotos.length > 0)
+    ? dbPhotos.map(p => ({ src: p.url, alt: p.caption ?? "Foto Ted Animações" }))
+    : STATIC_CAROUSEL;
 
   const goTo = (idx: number) => {
     if (isAnimating) return;
@@ -779,18 +800,12 @@ function CarrosselSection() {
 // ── GALERIA ──────────────────────────────────────────────────
 function GaleriaSection() {
   const { ref, visible } = useReveal();
-  const photos = [
-    { src: IMG_HERO,       alt: "Animação infantil no Algarve — crianças e animador" },
-    { src: IMG_SLIME,      alt: "Pintura facial — menina com decoração artística" },
-    { src: IMG_FACEPAINT2, alt: "Grupo com pintura facial divertida" },
-    { src: IMG_TREASURE,   alt: "Ted animador pirata com balão" },
-    { src: IMG_PORTRAIT,   alt: "Ted com criança pequena" },
-    { src: IMG_GAMES,      alt: "Ted a contar história às crianças" },
-    { src: IMG_PIRATE2,    alt: "Festa de aniversário no exterior" },
-    { src: IMG_EXTRA1,     alt: "Atividade de animação infantil" },
-    { src: IMG_EXTRA2,     alt: "Atividade criativa na festa" },
-    { src: IMG_EXTRA3,     alt: "Animação infantil no Algarve" },
-  ];
+
+  // Tentar carregar fotos da BD; fallback para estáticas
+  const { data: dbPhotos } = trpc.photos.listBySection.useQuery({ section: "galeria" });
+  const photos = (dbPhotos && dbPhotos.length > 0)
+    ? dbPhotos.map(p => ({ src: p.url, alt: p.caption ?? "Foto Ted Animações" }))
+    : STATIC_GALLERY;
 
   return (
     <section id="galeria" style={{ background: "#FAF0DC", paddingTop: "5rem", paddingBottom: "5rem", position: "relative", overflow: "hidden" }}>
@@ -807,38 +822,38 @@ function GaleriaSection() {
           </h2>
         </div>
 
-        {/* Desktop mosaic — 10 fotos reais */}
+        {/* Desktop mosaic */}
         <div className="hidden md:grid" style={{ gridTemplateColumns: "repeat(12, 1fr)", gap: "1rem", opacity: visible ? 1 : 0, transition: "all 0.8s ease-out 0.2s" }}>
           {/* Row 1 */}
-          <div style={{ gridColumn: "1 / 6", borderRadius: "2rem", overflow: "hidden", aspectRatio: "4/3" }}>
+          {photos[0] && <div style={{ gridColumn: "1 / 6", borderRadius: "2rem", overflow: "hidden", aspectRatio: "4/3" }}>
             <img src={photos[0].src} alt={photos[0].alt} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.4s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}/>
-          </div>
-          <div style={{ gridColumn: "6 / 10", borderRadius: "2rem", overflow: "hidden", aspectRatio: "4/3" }}>
+          </div>}
+          {photos[1] && <div style={{ gridColumn: "6 / 10", borderRadius: "2rem", overflow: "hidden", aspectRatio: "4/3" }}>
             <img src={photos[1].src} alt={photos[1].alt} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.4s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}/>
-          </div>
-          <div style={{ gridColumn: "10 / 13", borderRadius: "2rem", overflow: "hidden", aspectRatio: "3/4" }}>
+          </div>}
+          {photos[2] && <div style={{ gridColumn: "10 / 13", borderRadius: "2rem", overflow: "hidden", aspectRatio: "3/4" }}>
             <img src={photos[2].src} alt={photos[2].alt} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.4s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}/>
-          </div>
+          </div>}
           {/* Row 2 */}
-          <div style={{ gridColumn: "1 / 4", borderRadius: "2rem", overflow: "hidden", aspectRatio: "3/4" }}>
+          {photos[3] && <div style={{ gridColumn: "1 / 4", borderRadius: "2rem", overflow: "hidden", aspectRatio: "3/4" }}>
             <img src={photos[3].src} alt={photos[3].alt} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.4s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}/>
-          </div>
-          <div style={{ gridColumn: "4 / 8", borderRadius: "2rem", overflow: "hidden", aspectRatio: "4/3" }}>
+          </div>}
+          {photos[4] && <div style={{ gridColumn: "4 / 8", borderRadius: "2rem", overflow: "hidden", aspectRatio: "4/3" }}>
             <img src={photos[4].src} alt={photos[4].alt} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.4s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}/>
-          </div>
-          <div style={{ gridColumn: "8 / 13", borderRadius: "2rem", overflow: "hidden", aspectRatio: "16/9" }}>
+          </div>}
+          {photos[5] && <div style={{ gridColumn: "8 / 13", borderRadius: "2rem", overflow: "hidden", aspectRatio: "16/9" }}>
             <img src={photos[5].src} alt={photos[5].alt} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.4s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}/>
-          </div>
+          </div>}
           {/* Row 3 */}
-          <div style={{ gridColumn: "1 / 5", borderRadius: "2rem", overflow: "hidden", aspectRatio: "4/3" }}>
+          {photos[6] && <div style={{ gridColumn: "1 / 5", borderRadius: "2rem", overflow: "hidden", aspectRatio: "4/3" }}>
             <img src={photos[6].src} alt={photos[6].alt} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.4s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}/>
-          </div>
-          <div style={{ gridColumn: "5 / 9", borderRadius: "2rem", overflow: "hidden", aspectRatio: "4/3" }}>
+          </div>}
+          {photos[7] && <div style={{ gridColumn: "5 / 9", borderRadius: "2rem", overflow: "hidden", aspectRatio: "4/3" }}>
             <img src={photos[7].src} alt={photos[7].alt} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.4s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}/>
-          </div>
-          <div style={{ gridColumn: "9 / 13", borderRadius: "2rem", overflow: "hidden", aspectRatio: "4/3" }}>
+          </div>}
+          {photos[8] && <div style={{ gridColumn: "9 / 13", borderRadius: "2rem", overflow: "hidden", aspectRatio: "4/3" }}>
             <img src={photos[8].src} alt={photos[8].alt} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.4s ease" }} onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")} onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}/>
-          </div>
+          </div>}
         </div>
 
         {/* Mobile grid */}
