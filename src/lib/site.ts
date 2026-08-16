@@ -13,9 +13,17 @@ export const SITE = {
   url: "https://tedinportugal.pt",
   name: "Ted Animações",
   alternateName: "Ted in Portugal",
-  legalName: "TODO_NOME_LEGAL", // TODO: nome em nome individual / empresa
-  vatID: "TODO_NIF", // TODO: NIF, alimenta o JSON-LD e a página /sobre-o-ted
-  founded: "2022", // TODO: confirmar ano de início
+  // Trabalhador independente (recibos verdes). Não há sociedade, e não é
+  // preciso haver: nada no site depende disso.
+  //
+  // O NIF fica VAZIO de propósito. Publicar um NIF pessoal numa página
+  // aberta é expor um dado pessoal sem retorno nenhum. O JSON-LD funciona
+  // perfeitamente sem ele, e o RGPD só exige identificar quem responde
+  // pelos dados, o que o nome e o email já fazem.
+  //
+  // Preencher apenas se algum dia houver sociedade constituída.
+  vatID: "",
+  founded: "", // opcional: ano de início, usado só em texto
 
   phone: "+351936331843",
   phoneDisplay: "+351 936 331 843",
@@ -29,18 +37,19 @@ export const SITE = {
 
   // Base de operações. Necessária para o JSON-LD de negócio local.
   address: {
-    locality: "Faro", // TODO: confirmar concelho da base
+    locality: "Faro", // concelho da base; confirmar se não for Faro
     region: "Algarve",
-    postalCode: "TODO_CP", // TODO: código postal
+    postalCode: "", // opcional: só o concelho já chega para o Google
     country: "PT",
   },
-  geo: { lat: 37.0194, lng: -7.9304 }, // TODO: confirmar coordenadas da base
+  geo: { lat: 37.0194, lng: -7.9304 }, // centro de Faro; afinar se a base for outra
 
-  // Métricas verificáveis. Substituir os superlativos vagos do site antigo
-  // ("Centenas de festas") por números que se possam defender.
+  // Números verificáveis, para usar em texto no lugar de superlativos vagos.
+  // Deixar vazio enquanto não houver contagem real: melhor não dizer nada do
+  // que dizer "centenas de festas" sem o poder defender.
   stats: {
-    parties: "TODO_N", // TODO: nº real de festas realizadas
-    hotels: "TODO_N", // TODO: nº de hotéis/resorts com quem trabalhou
+    parties: "",
+    hotels: "",
   },
 } as const;
 
