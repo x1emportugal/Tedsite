@@ -87,7 +87,9 @@ export function whatsappUrl(context?: string, lang: Lang = "pt"): string {
  */
 export function absoluteUrl(path: string): string {
   const clean = path.startsWith("/") ? path : `/${path}`;
-  const withSlash = clean.endsWith("/") ? clean : `${clean}/`;
+  // Ficheiros não levam barra final: /og/imagem.jpg/ não existe.
+  const isFile = /\.[a-z0-9]{2,5}$/i.test(clean);
+  const withSlash = isFile || clean.endsWith("/") ? clean : `${clean}/`;
   return new URL(withSlash, SITE.url).href;
 }
 
