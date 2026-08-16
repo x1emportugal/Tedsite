@@ -42,6 +42,10 @@ const alt = altLanguageUrls(path);
 const og = ogImage ?? absoluteUrl("/og/ted-animacoes.jpg");
 const t = T[lang];
 
+// Analytics por variável de ambiente: sem elas, nenhum script é incluído.
+const analyticsSrc = import.meta.env.PUBLIC_ANALYTICS_SRC;
+const analyticsId = import.meta.env.PUBLIC_ANALYTICS_ID;
+
 // Blocos de dados estruturados: o negócio vai em todas as páginas,
 // mais a página em si, as migalhas e o que a página acrescentar.
 const jsonLd = [
@@ -100,6 +104,25 @@ const jsonLd = [
     {jsonLd.map((s) => (
       <script type="application/ld+json" set:html={JSON.stringify(s)} is:inline />
     ))}
+
+    {/*
+      Analytics. Só é incluído se as duas variáveis estiverem definidas, o
+      que evita um <script> partido em desenvolvimento. O Umami não usa
+      cookies, por isso não é preciso banner de consentimento.
+
+      No Vercel, em Settings → Environment Variables:
+        PUBLIC_ANALYTICS_SRC  = https://<o-seu-umami>/script.js
+        PUBLIC_ANALYTICS_ID   = 029f71b8-a41a-4282-9708-2b9014148ac4
+    */}
+    {analyticsSrc && analyticsId && (
+      <script
+        is:inline
+        defer
+        src={analyticsSrc}
+        data-website-id={analyticsId}
+        data-domains="tedinportugal.pt"
+      />
+    )}
 
     <script is:inline>
       // Ativa o estado escondido das revelações ANTES da primeira pintura, e
