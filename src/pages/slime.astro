@@ -1,0 +1,90 @@
+---
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import SectionHead from "../components/SectionHead.astro";
+import CtaBand from "../components/CtaBand.astro";
+import Wave from "../components/Wave.astro";
+
+const lang = "pt" as const;
+const trail = [
+  { name: "Início", href: "/" },
+  { name: "Atividades", href: "/atividades" },
+  { name: "Slime", href: "/slime" },
+];
+const videos = [3, 4];
+---
+
+<Base
+  title="Slime com o Ted | Ted Animações"
+  description="Slime com o Ted: cores, texturas e muita diversão numa atividade para festas infantis em Portugal."
+  lang={lang}
+  path="/slime"
+  breadcrumbs={trail}
+>
+  <Breadcrumbs trail={trail} lang={lang} />
+
+  <section class="section slime-section">
+    <div class="container">
+      <SectionHead
+        eyebrow="Mãos na massa"
+        title='Slime com o <span class="text-teal">Ted</span>'
+        lede="Mistura, cores e muita diversão. Veja o slime em ação!"
+        as="h1"
+      />
+
+      <div class="slime-videos mt-lg">
+        {videos.map((video) => (
+          <figure class="slime-video-card">
+            <video muted loop playsinline preload="metadata" data-loop-video aria-label="Atividade de slime com o Ted">
+              <source src={`/videos/slime-${video}.webm`} type="video/webm" />
+              <source src={`/videos/slime-${video}.mp4`} type="video/mp4" />
+            </video>
+          </figure>
+        ))}
+      </div>
+    </div>
+    <Wave fill="#FAF0DC" variant={2} />
+  </section>
+
+  <CtaBand lang={lang} context="uma atividade de slime" />
+
+  <script>
+    const videos = document.querySelectorAll<HTMLVideoElement>("[data-loop-video]");
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        const video = entry.target as HTMLVideoElement;
+        if (entry.isIntersecting) video.play().catch(() => {});
+        else video.pause();
+      }
+    }, { rootMargin: "160px" });
+    videos.forEach((video) => observer.observe(video));
+  </script>
+</Base>
+
+<style>
+  .slime-section {
+    padding-top: 2.5rem;
+    background: linear-gradient(145deg, #FAF0DC 0%, #F5E7FF 48%, #DFF7EC 100%);
+  }
+  .slime-videos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 340px));
+    justify-content: center;
+    gap: 1.25rem;
+  }
+  .slime-video-card {
+    margin: 0;
+    aspect-ratio: 9 / 16;
+    overflow: hidden;
+    border: 5px solid #fff;
+    border-radius: var(--r-lg);
+    background: #2D7A6E;
+    box-shadow: var(--shadow-md);
+  }
+  .slime-video-card video {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+</style>

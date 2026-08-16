@@ -121,6 +121,7 @@ export const ROUTE_MAP: Record<string, string> = {
   "/atividades/pintura-facial": "/en/activities/face-painting",
   "/atividades/pulseiras-criativas": "/en/activities/bracelet-workshop",
   "/atividades/jogos-e-desafios": "/en/activities/games-and-challenges",
+  "/slime": "/en/slime",
   "/precos": "/en/prices",
   "/animacao-para-hoteis": "/en/hotel-entertainment",
   "/avaliacoes": "/en/reviews",
