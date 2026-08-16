@@ -1,1 +1,31 @@
-[]
+[
+  {
+    "id": "patricia-mae-miguel-alameda",
+    "author": "Patrícia, mãe do Miguel",
+    "rating": 5,
+    "body": "Adorei a festa, Ted! Ficámos a conversar e não precisámos de nos preocupar com os miúdos. Eles divertiram-se imenso no Jardim da Alameda.",
+    "location": "Faro",
+    "context": "Festa no Jardim da Alameda",
+    "lang": "pt",
+    "featured": true
+  },
+  {
+    "id": "virginia-festa-montenegro",
+    "author": "Virgínia, presidente da Junta de Freguesia de Montenegro",
+    "rating": 5,
+    "body": "Estiveste incrível com mais de 40 miúdos para cima e para baixo. Correu tudo muito bem. Parabéns, Ted!",
+    "location": "Montenegro",
+    "context": "Festa de Montenegro",
+    "lang": "pt",
+    "featured": true
+  },
+  {
+    "id": "louise-harry-potter-party",
+    "author": "Louise",
+    "rating": 5,
+    "body": "We loved the Harry Potter party. Everything was amazing. Thank you so much, Ted!",
+    "context": "Harry Potter party",
+    "lang": "en",
+    "featured": true
+  }
+]
