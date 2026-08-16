@@ -7,8 +7,8 @@ description: Jogos e desafios de equipa para festas de aniversário no Algarve. 
 summary: Estafetas, jogos em equipa, desafios e muita energia para toda a turma.
 icon: run
 color: "#E8845A"
-image: jogos-e-desafios.jpg
-imageAlt: Ted a animar um grupo de crianças sentadas em roda numa festa
+image: brincadeiras-ted.jpg
+imageAlt: Ted a conduzir brincadeiras com um grupo de crianças
 ages: 4 aos 12 anos
 duration: 45 a 90 minutos
 order: 4

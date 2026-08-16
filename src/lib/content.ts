@@ -72,6 +72,9 @@ const reviewSchema = z.object({
  * que avaliações inventadas. A validação de forma mantém-se.
  */
 export function getReviews(lang: Lang, onlyFeatured = false) {
+  // Avaliações são prova social e aparecem nas duas versões do site.
+  // O idioma guardado identifica o texto original, não limita a sua visibilidade.
+  void lang;
   const source = DEMO_REVIEWS ? demoReviewsData : reviewsData;
   const file = DEMO_REVIEWS ? "reviews.demo.json" : "reviews.json";
 
@@ -83,9 +86,7 @@ export function getReviews(lang: Lang, onlyFeatured = false) {
         .join("; ")}`,
     );
   }
-  return parsed.data
-    .filter((r) => r.lang === lang)
-    .filter((r) => !onlyFeatured || r.featured);
+  return parsed.data.filter((r) => !onlyFeatured || r.featured);
 }
 
 /**

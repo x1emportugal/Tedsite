@@ -7,8 +7,8 @@ description: Craft bracelet workshop for children's parties in the Algarve. Ever
 summary: A workshop where every child makes a bracelet to take home from the party.
 icon: bracelet
 color: "#7BC67E"
-image: pulseiras-contas.jpg
-imageAlt: Box of colourful beads for the bracelet workshop at a children's party
+image: pulseira-te-amo.jpg
+imageAlt: Handmade bracelet with purple and white beads spelling Te Amo
 ages: 4 to 12 years
 duration: 30 to 45 minutes
 order: 3

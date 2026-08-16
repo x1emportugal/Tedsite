@@ -99,6 +99,17 @@ const trail = [
   <section class="section bg-cream-deep">
     <div class="container-narrow">
       <article class="prose reveal"><Content /></article>
+      {a.slug === "treasure-hunt" && (
+        <div class="detail-photo reveal mt-lg">
+          <Image
+            src={photo("ted-pirata-brincadeira.jpg")}
+            alt="Ted dressed as a pirate during a treasure hunt game"
+            widths={[480, 760, 1000]}
+            sizes="(min-width: 900px) 760px, 92vw"
+            loading="lazy"
+          />
+        </div>
+      )}
     </div>
     <Wave fill="#FAF0DC" variant={2} />
   </section>
@@ -124,3 +135,8 @@ const trail = [
 
   <CtaBand lang={lang} context={`a party with ${a.title.toLowerCase()}`} />
 </Base>
+
+<style>
+  .detail-photo { max-width:760px; margin-inline:auto; overflow:hidden; border-radius:var(--r-lg); box-shadow:var(--shadow-sm); }
+  .detail-photo :global(img) { display:block; width:100%; max-height:620px; object-fit:cover; }
+</style>

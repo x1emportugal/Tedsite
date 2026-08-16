@@ -7,8 +7,8 @@ description: Treasure hunts for children's birthday parties across the Algarve. 
 summary: An adventure of clues, riddles and hidden mysteries mapped across your party space.
 icon: map
 color: "#2D7A6E"
-image: caca-ao-tesouro.jpg
-imageAlt: Ted dressed as a pirate with a balloon, running a treasure hunt at a birthday party
+image: caca-tesouro-bau.jpeg
+imageAlt: Ted dressed as a pirate with a child beside an open treasure chest
 ages: 5 to 12 years
 duration: 45 to 60 minutes
 order: 1

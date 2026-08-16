@@ -7,8 +7,8 @@ description: Oficina de pulseiras para festas infantis no Algarve. Cada criança
 summary: Oficina onde cada participante cria uma pulseira personalizada para recordar a festa.
 icon: bracelet
 color: "#7BC67E"
-image: pulseiras-contas.jpg
-imageAlt: Caixa com contas coloridas para a oficina de pulseiras numa festa infantil
+image: pulseira-te-amo.jpg
+imageAlt: Pulseira artesanal com contas roxas e brancas e a mensagem Te Amo
 ages: 4 aos 12 anos
 duration: 30 a 45 minutos
 order: 3

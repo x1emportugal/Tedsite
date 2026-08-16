@@ -9,6 +9,9 @@ interface Pkg {
   price: number | null;
   priceNote: string;
   duration: string;
+  entertainers: number;
+  workshops: number;
+  activities: number;
   includes: string[];
   featured: boolean;
 }
@@ -36,8 +39,14 @@ const en = lang === "en";
       */}
       <p class="price-value" style="font-size:1.35rem">{p.duration}</p>
       <p class="price-unit">
-        {en ? "all materials included" : "material todo incluído"}
+        {en ? "all materials included" : "todo o material incluído"}
       </p>
+
+      <div class="package-facts" aria-label={en ? "Package summary" : "Resumo do pacote"}>
+        <span><strong>{p.entertainers}</strong> {en ? "entertainers" : "animadores"}</span>
+        <span><strong>{p.workshops}</strong> {p.workshops === 1 ? "workshop" : "workshops"}</span>
+        <span><strong>{p.activities}</strong> {en ? (p.activities === 1 ? "activity" : "activities") : (p.activities === 1 ? "atividade" : "atividades")}</span>
+      </div>
 
       <ul class="price-list">
         {p.includes.map((item) => (
@@ -64,3 +73,22 @@ const en = lang === "en";
     </article>
   ))}
 </div>
+
+<style>
+  .package-facts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: .45rem;
+    margin: 1rem 0 1.25rem;
+  }
+  .package-facts span {
+    padding: .65rem .35rem;
+    border-radius: .8rem;
+    background: var(--cream-deep);
+    color: var(--ink-soft);
+    font-size: .76rem;
+    line-height: 1.2;
+    text-align: center;
+  }
+  .package-facts strong { display: block; color: var(--ink); font-size: 1.05rem; }
+</style>

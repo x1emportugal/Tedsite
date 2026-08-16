@@ -7,8 +7,8 @@ description: Team games and challenges for children's parties in the Algarve. Re
 summary: Relays, team games and challenges with the energy to carry the whole party.
 icon: run
 color: "#E8845A"
-image: jogos-e-desafios.jpg
-imageAlt: Ted entertaining a group of children sitting in a circle at a party
+image: brincadeiras-ted.jpg
+imageAlt: Ted leading games with a group of children
 ages: 4 to 12 years
 duration: 45 to 90 minutes
 order: 4

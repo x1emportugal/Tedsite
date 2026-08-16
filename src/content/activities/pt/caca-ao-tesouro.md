@@ -7,8 +7,8 @@ description: Caça ao tesouro para festas de aniversário no Algarve. Pistas, en
 summary: Uma aventura cheia de pistas, desafios e mistérios escondidos pelo espaço da festa.
 icon: map
 color: "#2D7A6E"
-image: caca-ao-tesouro.jpg
-imageAlt: Ted vestido de pirata com balão, a orientar uma caça ao tesouro numa festa de aniversário
+image: caca-tesouro-bau.jpeg
+imageAlt: Ted vestido de pirata com uma criança junto a uma arca do tesouro
 ages: 5 aos 12 anos
 duration: 45 a 60 minutos
 order: 1
