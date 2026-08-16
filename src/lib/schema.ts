@@ -38,7 +38,7 @@ export function businessSchema(rating?: { value: number; count: number }) {
     url: SITE.url,
     telephone: SITE.phone,
     email: SITE.email,
-    image: absoluteUrl("/og/ted-animacoes.jpg"),
+    image: absoluteUrl("/ted-felt-logo.png"),
     logo: absoluteUrl("/ted-logo.png"),
     vatID: SITE.vatID,
     priceRange: "€€",
