@@ -29,7 +29,7 @@ export function photo(filename: string): ImageMetadata {
 }
 
 /** Galeria, por ordem de apresentação, com texto alternativo descritivo. */
-export const GALLERY: { file: string; alt: string; altEn: string }[] = [
+export const GALLERY: { file: string; alt: string; altEn: string; portrait?: boolean }[] = [
   { file: "hero-festa-aniversario.jpg", alt: "Festa de aniversário com animação infantil no Algarve", altEn: "Birthday party with children's entertainment in the Algarve" },
   { file: "criancas-em-roda.jpg", alt: "Ted com crianças sentadas em roda numa animação interativa", altEn: "Ted with children sitting in a circle during an interactive session" },
   { file: "pintura-facial.jpg", alt: "Menina com pintura facial artística numa festa infantil", altEn: "Girl with artistic face painting at a children's party" },
@@ -40,6 +40,7 @@ export const GALLERY: { file: string; alt: string; altEn: string }[] = [
   { file: "ted-mesa-atividades.jpg", alt: "Ted sorridente na mesa de atividades criativas", altEn: "Ted smiling at the craft activities table" },
   { file: "contas-e-balao.jpg", alt: "Crianças a escolher contas coloridas junto a um balão cor-de-rosa", altEn: "Children choosing colourful beads next to a pink balloon" },
   { file: "familia-atividade.jpg", alt: "Ted e uma família numa atividade conjunta", altEn: "Ted and a family taking part in an activity together" },
+  { file: "momento-carinho-ted.png", alt: "Momento de carinho com um urso de peluche do Ted", altEn: "A warm moment with a Ted teddy bear", portrait: true },
   { file: "jogos-e-desafios.jpg", alt: "Ted a contar uma história a um grupo de crianças", altEn: "Ted telling a story to a group of children" },
   { file: "maos-contas-coloridas.jpg", alt: "Mãos de criança a escolher contas coloridas para uma pulseira", altEn: "Child's hands choosing colourful beads for a bracelet" },
   { file: "oficina-preparacao.jpg", alt: "Ted a preparar uma atividade criativa antes da festa", altEn: "Ted preparing a craft activity before the party" },
