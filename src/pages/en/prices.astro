@@ -9,14 +9,15 @@ import CtaBand from "../../components/CtaBand.astro";
 import Icon from "../../components/Icon.astro";
 import Deco from "../../components/Deco.astro";
 import Wave from "../../components/Wave.astro";
-import { getPackages, getFaqs, getReviews, ratingFrom } from "../../lib/content";
+import { whatsappUrl } from "../../lib/site";
+import { getPackages, getFaqs, getReviews, ratingForSchema, DEMO_REVIEWS } from "../../lib/content";
 import { faqSchema } from "../../lib/schema";
 
 const lang = "en" as const;
 const packages = await getPackages(lang);
 const faqs = await getFaqs(lang, "precos");
 const reviews = await getReviews(lang, true);
-const rating = ratingFrom(reviews);
+const rating = ratingForSchema(reviews);
 
 const trail = [
   { name: "Home", href: "/en/" },
@@ -29,11 +30,24 @@ const included = [
   "A programme planned in advance around your group",
   "Set-up and clear-up, nothing left for you to do",
 ];
+
+const factors = [
+  { icon: "clock", title: "How long it runs", desc: "An hour and a half and three hours are not the same job, nor the same amount of material." },
+  { icon: "users", title: "Number of children", desc: "Above 20 a second entertainer joins, so activities keep running without queues." },
+  { icon: "palette", title: "Activities chosen", desc: "Face painting and the bracelet workshop use materials per child. Group games do not." },
+  { icon: "location", title: "Where the party is", desc: "No travel cost within the usual areas. Beyond them it depends on distance and date." },
+];
+
+const steps = [
+  { n: "1", title: "Send me the basics", desc: "Date, area, how many children and what ages. A WhatsApp message is enough." },
+  { n: "2", title: "I work it out", desc: "With that I calculate the figure and tell you what I would recommend for that group." },
+  { n: "3", title: "It's fixed", desc: "The figure we agree is the final one. No extras appear after the party." },
+];
 ---
 
 <Base
-  title="Children's Entertainer Prices in the Algarve | Ted Animações"
-  description="Party packages for children's entertainment in the Algarve. See what each format includes, how long it runs and what changes with group size. Fixed quote before the party."
+  title="How Much Does a Children's Entertainer Cost in the Algarve | Ted Animações"
+  description="What a children's party entertainer costs in the Algarve. There is no fixed price list: here is what changes the figure, what is always included, and how to get a quote. Same-day reply."
   lang={lang}
   path="/en/prices"
   breadcrumbs={trail}
@@ -47,44 +61,111 @@ const included = [
 
     <div class="container">
       <SectionHead
-        eyebrow="Prices and packages"
-        title='What a party with an <span class="text-teal">entertainer</span> costs'
-        lede="Three formats, all with materials included and a fixed quote agreed before the party. No extras appear at the end."
+        eyebrow="Quotes"
+        title={`How much does a party with an <span class="text-teal">entertainer</span> cost?`}
         as="h1"
       />
 
-      <div style="margin-top:3rem"><Packages packages={packages} lang={lang} /></div>
-
-      <div class="card reveal" style="padding:2rem;max-width:760px;margin-inline:auto;margin-top:3rem">
-        <h2 class="h3 mb-md">Included in every package</h2>
-        <ul class="price-list">
-          {included.map((i) => (
-            <li><Icon name="check" size={16} color="#2D7A6E" /><span>{i}</span></li>
-          ))}
-        </ul>
-        <p style="font-size:.9rem;color:var(--ink-muted);margin-top:1.2rem">
-          The final figure depends on duration, number of children and distance.
-          Groups over 20 children include a second entertainer, so activities keep
-          running without queues.
+      <div class="answer-box reveal">
+        <p>
+          <strong>There is no fixed price list.</strong> What each party costs
+          depends on how long it runs, how many children there are, which
+          activities you choose and the distance, and those four things vary a
+          great deal from party to party.
         </p>
+        <p>
+          What I do guarantee is the method: send me the date, the area and the
+          number of children, and I come back with a
+          <strong> fixed quote the same day</strong>. The figure we agree is the
+          final one, with no extras appearing afterwards.
+        </p>
+        <a href={whatsappUrl("a quote for my party", lang)} class="btn btn-whatsapp mt-md" target="_blank" rel="noopener" data-cta="prices-answer-en">
+          <Icon name="whatsapp" size={20} />
+          Ask for a quote
+        </a>
       </div>
     </div>
     <Wave fill="#F0E4C4" variant={2} />
   </section>
 
-  {reviews.length > 0 && (
+  <section class="section bg-cream-deep">
+    <div class="container">
+      <SectionHead
+        eyebrow="Transparency"
+        title="What changes the figure"
+        lede="So you know what to expect before you even get in touch."
+        eyebrowTeal
+      />
+      <div class="grid grid-2 mt-lg">
+        {factors.map((f, i) => (
+          <div class="why-badge reveal" style={`transition-delay:${i * 80}ms`}>
+            <span class="why-badge-icon"><Icon name={f.icon} size={22} color="#1A2E2A" /></span>
+            <div><h3>{f.title}</h3><p>{f.desc}</p></div>
+          </div>
+        ))}
+      </div>
+    </div>
+    <Wave fill="#FAF0DC" variant={1} />
+  </section>
+
+  <section class="section bg-cream">
+    <div class="container">
+      <SectionHead
+        eyebrow="Formats"
+        title={`Three starting <span class="text-teal">points</span>`}
+        lede="Not closed packages. They are where the conversation starts and they adjust to your party."
+      />
+      <div style="margin-top:3rem">
+        <Packages packages={packages} lang={lang} />
+      </div>
+
+      <div class="card reveal" style="padding:2rem;max-width:760px;margin-inline:auto;margin-top:3rem">
+        <h2 class="h3 mb-md">Included in every format</h2>
+        <ul class="price-list">
+          {included.map((i) => (
+            <li><Icon name="check" size={16} color="#2D7A6E" /><span>{i}</span></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+    <Wave fill="#2D7A6E" variant={3} />
+  </section>
+
+  <section class="section bg-teal">
+    <div class="container">
+      <SectionHead eyebrow="Straightforward" title="How to get a quote" dark />
+      <div class="grid grid-3 mt-lg">
+        {steps.map((s, i) => (
+          <div class="card reveal center" style={`padding:2.2rem 1.8rem;transition-delay:${i * 110}ms`}>
+            <div class="step-circle mx-auto mb-md">{s.n}</div>
+            <h3 class="h3 mb-sm">{s.title}</h3>
+            <p style="font-size:.95rem;color:var(--ink-soft)">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+      <p class="center mt-lg">
+        <a href={whatsappUrl("a quote for my party", lang)} class="btn btn-yellow btn-lg" target="_blank" rel="noopener" data-cta="prices-steps-en">
+          <Icon name="whatsapp" size={22} color="#1A2E2A" />
+          Start on WhatsApp
+        </a>
+      </p>
+    </div>
+    <Wave fill="#F0E4C4" variant={1} />
+  </section>
+
+  {(reviews.length > 0 || DEMO_REVIEWS) && (
     <section class="section bg-cream-deep">
       <div class="container">
-        <SectionHead eyebrow="Families who booked" title="What they said about value" eyebrowTeal />
+        <SectionHead eyebrow="Families who booked" title="What they said about the service" />
         <div class="mt-lg"><Reviews reviews={reviews} lang={lang} showEmptyNotice={false} /></div>
       </div>
-      <Wave fill="#FAF0DC" variant={1} />
+      <Wave fill="#FAF0DC" variant={2} />
     </section>
   )}
 
   <section class="section bg-cream">
     <div class="container-narrow">
-      <SectionHead eyebrow="Before you decide" title="Questions about prices and booking" />
+      <SectionHead eyebrow="Before you decide" title="Questions about quotes and booking" eyebrowTeal />
       <div class="mt-lg"><FaqList items={faqs} /></div>
     </div>
     <Wave fill="#F0E4C4" variant={3} />
@@ -92,3 +173,21 @@ const included = [
 
   <CtaBand lang={lang} context="a quote for my party" />
 </Base>
+
+<style>
+  .answer-box {
+    max-width: 720px;
+    margin: 2.5rem auto 0;
+    background: var(--white);
+    border-left: 5px solid var(--teal);
+    border-radius: var(--r-md);
+    padding: 2rem 2.2rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .answer-box p {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--ink-soft);
+  }
+  .answer-box p + p { margin-top: 1rem; }
+</style>

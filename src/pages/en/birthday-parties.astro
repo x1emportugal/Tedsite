@@ -13,14 +13,14 @@ import Deco from "../../components/Deco.astro";
 import Wave from "../../components/Wave.astro";
 import { photo } from "../../lib/images";
 import { whatsappUrl, SERVICE_AREAS } from "../../lib/site";
-import { getActivities, getFaqs, getReviews, ratingFrom } from "../../lib/content";
+import { getActivities, getFaqs, getReviews, ratingForSchema, DEMO_REVIEWS } from "../../lib/content";
 import { serviceSchema, faqSchema } from "../../lib/schema";
 
 const lang = "en" as const;
 const activities = await getActivities(lang);
 const faqs = await getFaqs(lang, "home");
 const reviews = await getReviews(lang, true);
-const rating = ratingFrom(reviews);
+const rating = ratingForSchema(reviews);
 
 const path = "/en/birthday-parties";
 const trail = [

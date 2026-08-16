@@ -1,0 +1,90 @@
+[
+  {
+    "id": "demo-1",
+    "author": "Sofia Cavaco",
+    "rating": 5,
+    "body": "Contratámos para os 7 anos da nossa filha e foi a melhor decisão da festa. Eram 18 crianças com idades muito diferentes e não houve um único momento de confusão. A caça ao tesouro prendeu-os quase uma hora.",
+    "location": "Albufeira",
+    "context": "Festa de 7 anos",
+    "date": "2026-05-18",
+    "lang": "pt",
+    "featured": true
+  },
+  {
+    "id": "demo-2",
+    "author": "Rui Vilhena",
+    "rating": 5,
+    "body": "O que mais me surpreendeu foi conseguirmos estar à mesa com os adultos sem estar sempre a olhar para trás. Chegou antes da hora, montou tudo sozinho e no fim arrumou.",
+    "location": "Faro",
+    "context": "Aniversário de 6 anos",
+    "date": "2026-04-02",
+    "lang": "pt",
+    "featured": true
+  },
+  {
+    "id": "demo-3",
+    "author": "Inês Bracourt",
+    "rating": 5,
+    "body": "Tínhamos meninos portugueses e ingleses e ele alternava entre as duas línguas sem nunca parar a atividade. As pulseiras foram um sucesso, a minha filha ainda usa a dela.",
+    "location": "Vilamoura",
+    "context": "Festa numa villa",
+    "date": "2026-07-11",
+    "lang": "pt",
+    "featured": true
+  },
+  {
+    "id": "demo-4",
+    "author": "Helena Sequeira",
+    "rating": 5,
+    "body": "Choveu e mudámos tudo para dentro em cima da hora. Nem pestanejou, trocou os jogos e correu na mesma. É esse tipo de coisa que se paga.",
+    "location": "Lagos",
+    "context": "Aniversário de 9 anos",
+    "date": "2026-02-21",
+    "lang": "pt",
+    "featured": false
+  },
+  {
+    "id": "demo-5",
+    "author": "Nuno Estrela",
+    "rating": 5,
+    "body": "Trabalhamos com ele em duas épocas no clube infantil. Pontual, com material próprio e documentação toda em ordem, o que nem sempre acontece neste setor.",
+    "location": "Quarteira",
+    "context": "Animação de hotel",
+    "date": "2026-06-30",
+    "lang": "pt",
+    "featured": false
+  },
+  {
+    "id": "demo-6",
+    "author": "Charlotte Wexley",
+    "rating": 5,
+    "body": "We booked Ted for our daughter's birthday while on holiday and he ran the whole thing in English without us having to ask twice. Fourteen children, not one of them bored.",
+    "location": "Albufeira",
+    "context": "6th birthday at a villa",
+    "date": "2026-08-03",
+    "lang": "en",
+    "featured": true
+  },
+  {
+    "id": "demo-7",
+    "author": "Marijke Aaldering",
+    "rating": 5,
+    "body": "Our group was half Dutch, half Portuguese and aged four to eleven. He adjusted the games so the older ones helped the little ones, which worked far better than I expected.",
+    "location": "Vilamoura",
+    "context": "Family party",
+    "date": "2026-07-19",
+    "lang": "en",
+    "featured": true
+  },
+  {
+    "id": "demo-8",
+    "author": "Daniel Okonjo",
+    "rating": 5,
+    "body": "Arrived early, brought everything, and cleared up afterwards. The face painting queue never got long because he paired it with games. Genuinely worth it.",
+    "location": "Lagos",
+    "context": "8th birthday",
+    "date": "2026-05-09",
+    "lang": "en",
+    "featured": true
+  }
+]

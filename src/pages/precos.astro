@@ -9,14 +9,15 @@ import CtaBand from "../components/CtaBand.astro";
 import Icon from "../components/Icon.astro";
 import Deco from "../components/Deco.astro";
 import Wave from "../components/Wave.astro";
-import { getPackages, getFaqs, getReviews, ratingFrom } from "../lib/content";
+import { whatsappUrl } from "../lib/site";
+import { getPackages, getFaqs, getReviews, ratingForSchema, DEMO_REVIEWS } from "../lib/content";
 import { faqSchema } from "../lib/schema";
 
 const lang = "pt" as const;
 const packages = await getPackages(lang);
 const faqs = await getFaqs(lang, "precos");
 const reviews = await getReviews(lang, true);
-const rating = ratingFrom(reviews);
+const rating = ratingForSchema(reviews);
 
 const trail = [
   { name: "Início", href: "/" },
@@ -29,11 +30,25 @@ const included = [
   "Programa preparado antes da festa, à medida do grupo",
   "Montagem e arrumação, não fica trabalho para si",
 ];
+
+/** O que faz o valor variar. É a resposta honesta a "quanto custa". */
+const factors = [
+  { icon: "clock", title: "Duração", desc: "Uma animação de hora e meia e uma de três horas não são o mesmo trabalho, nem o mesmo material." },
+  { icon: "users", title: "Número de crianças", desc: "Acima de 20 entra uma segunda pessoa na equipa, para as atividades continuarem a funcionar sem filas." },
+  { icon: "palette", title: "Atividades escolhidas", desc: "A pintura facial e a oficina de pulseiras consomem material por criança. Os jogos de grupo não." },
+  { icon: "location", title: "Onde é a festa", desc: "Dentro das zonas habituais não há custo de deslocação. Fora delas depende da distância e da data." },
+];
+
+const steps = [
+  { n: "1", title: "Diga-me o essencial", desc: "Data, zona, quantas crianças e que idades. Uma mensagem de WhatsApp chega." },
+  { n: "2", title: "Faço as contas", desc: "Com esses dados calculo o valor e digo-lhe o que recomendo para aquele grupo." },
+  { n: "3", title: "Fica fechado", desc: "O valor combinado é o valor final. Nunca aparecem extras depois da festa." },
+];
 ---
 
 <Base
-  title="Preços de Animação Infantil no Algarve | Ted Animações"
-  description="Pacotes de animação para festas de aniversário no Algarve. Veja o que está incluído em cada formato, quanto tempo dura e o que muda conforme o número de crianças. Orçamento fechado antes da festa."
+  title="Quanto Custa um Animador Infantil no Algarve | Ted Animações"
+  description="Quanto custa uma festa de aniversário com animação no Algarve. Não há tabela fixa: explico o que faz variar o valor, o que está sempre incluído e como pedir orçamento. Resposta no próprio dia."
   lang={lang}
   path="/precos"
   breadcrumbs={trail}
@@ -48,46 +63,114 @@ const included = [
 
     <div class="container">
       <SectionHead
-        eyebrow="Preços e pacotes"
-        title='Quanto custa uma festa com <span class="text-teal">animação</span>'
-        lede="Três formatos, todos com material incluído e orçamento fechado antes da festa. Nunca aparecem extras no fim."
+        eyebrow="Orçamentos"
+        title='Quanto custa uma festa com <span class="text-teal">animação</span>?'
         as="h1"
       />
 
-      <div class="mt-lg" style="margin-top:3rem">
-        <Packages packages={packages} lang={lang} />
-      </div>
-
-      <div class="card reveal mt-lg" style="padding:2rem;max-width:760px;margin-inline:auto;margin-top:3rem">
-        <h2 class="h3 mb-md">Incluído em todos os pacotes</h2>
-        <ul class="price-list">
-          {included.map((i) => (
-            <li><Icon name="check" size={16} color="#2D7A6E" /><span>{i}</span></li>
-          ))}
-        </ul>
-        <p style="font-size:.9rem;color:var(--ink-muted);margin-top:1.2rem">
-          O valor final depende da duração, do número de crianças e da distância.
-          Grupos acima de 20 crianças levam uma segunda pessoa na equipa, para as
-          atividades continuarem a funcionar sem filas.
+      {/*
+        Resposta direta logo a seguir ao título. É este bloco que os motores
+        de pesquisa e os modelos de IA citam quando alguém pergunta "quanto
+        custa um animador infantil no Algarve".
+      */}
+      <div class="answer-box reveal">
+        <p>
+          <strong>Não trabalho com tabela fixa.</strong> O valor de cada festa
+          depende da duração, do número de crianças, das atividades escolhidas e
+          da distância, e essas quatro coisas mudam muito de festa para festa.
         </p>
+        <p>
+          O que garanto é o método: diga-me a data, a zona e quantas crianças
+          espera, e devolvo um <strong>orçamento fechado no próprio dia</strong>.
+          O valor combinado é o valor final, sem extras a aparecer depois.
+        </p>
+        <a href={whatsappUrl("um orçamento para a minha festa")} class="btn btn-whatsapp mt-md" target="_blank" rel="noopener" data-cta="precos-resposta">
+          <Icon name="whatsapp" size={20} />
+          Pedir orçamento agora
+        </a>
       </div>
     </div>
     <Wave fill="#F0E4C4" variant={2} />
   </section>
 
-  {reviews.length > 0 && (
+  <section class="section bg-cream-deep">
+    <div class="container">
+      <SectionHead
+        eyebrow="Transparência"
+        title="O que faz o valor variar"
+        lede="Para saber o que esperar antes sequer de me contactar."
+        eyebrowTeal
+      />
+      <div class="grid grid-2 mt-lg">
+        {factors.map((f, i) => (
+          <div class="why-badge reveal" style={`transition-delay:${i * 80}ms`}>
+            <span class="why-badge-icon"><Icon name={f.icon} size={22} color="#1A2E2A" /></span>
+            <div><h3>{f.title}</h3><p>{f.desc}</p></div>
+          </div>
+        ))}
+      </div>
+    </div>
+    <Wave fill="#FAF0DC" variant={1} />
+  </section>
+
+  <section class="section bg-cream">
+    <div class="container">
+      <SectionHead
+        eyebrow="Formatos"
+        title='Três pontos de <span class="text-teal">partida</span>'
+        lede="Não são pacotes fechados. São o ponto de partida da conversa e ajustam-se à sua festa."
+      />
+      <div style="margin-top:3rem">
+        <Packages packages={packages} lang={lang} />
+      </div>
+
+      <div class="card reveal" style="padding:2rem;max-width:760px;margin-inline:auto;margin-top:3rem">
+        <h2 class="h3 mb-md">Incluído em qualquer formato</h2>
+        <ul class="price-list">
+          {included.map((i) => (
+            <li><Icon name="check" size={16} color="#2D7A6E" /><span>{i}</span></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+    <Wave fill="#2D7A6E" variant={3} />
+  </section>
+
+  <section class="section bg-teal">
+    <div class="container">
+      <SectionHead eyebrow="Sem complicações" title="Como pedir o orçamento" dark />
+      <div class="grid grid-3 mt-lg">
+        {steps.map((s, i) => (
+          <div class="card reveal center" style={`padding:2.2rem 1.8rem;transition-delay:${i * 110}ms`}>
+            <div class="step-circle mx-auto mb-md">{s.n}</div>
+            <h3 class="h3 mb-sm">{s.title}</h3>
+            <p style="font-size:.95rem;color:var(--ink-soft)">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+      <p class="center mt-lg">
+        <a href={whatsappUrl("um orçamento para a minha festa")} class="btn btn-yellow btn-lg" target="_blank" rel="noopener" data-cta="precos-passos">
+          <Icon name="whatsapp" size={22} color="#1A2E2A" />
+          Começar no WhatsApp
+        </a>
+      </p>
+    </div>
+    <Wave fill="#F0E4C4" variant={1} />
+  </section>
+
+  {(reviews.length > 0 || DEMO_REVIEWS) && (
     <section class="section bg-cream-deep">
       <div class="container">
-        <SectionHead eyebrow="Quem já contratou" title="O que dizem sobre o valor" eyebrowTeal />
+        <SectionHead eyebrow="Quem já contratou" title="O que dizem sobre o serviço" />
         <div class="mt-lg"><Reviews reviews={reviews} lang={lang} showEmptyNotice={false} /></div>
       </div>
-      <Wave fill="#FAF0DC" variant={1} />
+      <Wave fill="#FAF0DC" variant={2} />
     </section>
   )}
 
   <section class="section bg-cream">
     <div class="container-narrow">
-      <SectionHead eyebrow="Antes de decidir" title="Perguntas sobre preços e reservas" />
+      <SectionHead eyebrow="Antes de decidir" title="Perguntas sobre orçamentos e reservas" eyebrowTeal />
       <div class="mt-lg"><FaqList items={faqs} /></div>
     </div>
     <Wave fill="#F0E4C4" variant={3} />
@@ -95,3 +178,22 @@ const included = [
 
   <CtaBand lang={lang} context="um orçamento para a minha festa" />
 </Base>
+
+<style>
+  /* Bloco de resposta direta: é o que é citado em pesquisa e por modelos de IA. */
+  .answer-box {
+    max-width: 720px;
+    margin: 2.5rem auto 0;
+    background: var(--white);
+    border-left: 5px solid var(--teal);
+    border-radius: var(--r-md);
+    padding: 2rem 2.2rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .answer-box p {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--ink-soft);
+  }
+  .answer-box p + p { margin-top: 1rem; }
+</style>

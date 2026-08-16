@@ -13,7 +13,7 @@ import Gallery from "../components/Gallery.astro";
 import CtaBand from "../components/CtaBand.astro";
 import { photo } from "../lib/images";
 import { whatsappUrl, SERVICE_AREAS, T } from "../lib/site";
-import { getActivities, getFaqs, getReviews, ratingFrom } from "../lib/content";
+import { getActivities, getFaqs, getReviews, ratingForSchema, DEMO_REVIEWS } from "../lib/content";
 import { faqSchema, reviewSchema } from "../lib/schema";
 
 const lang = "pt" as const;
@@ -21,7 +21,7 @@ const t = T[lang];
 const activities = await getActivities(lang);
 const faqs = await getFaqs(lang, "home");
 const reviews = await getReviews(lang, true);
-const rating = ratingFrom(reviews);
+const rating = ratingForSchema(reviews);
 
 const steps = [
   { n: "1", icon: "chat", title: "Fale comigo no WhatsApp", desc: "Diga-me a data, o local e quantas crianças espera. Respondo no próprio dia." },
@@ -45,7 +45,7 @@ const why = [
   lang={lang}
   path="/"
   rating={rating}
-  schemas={[faqSchema(faqs), reviewSchema(reviews)]}
+  schemas={[faqSchema(faqs), DEMO_REVIEWS ? null : reviewSchema(reviews)]}
 >
   {/* ── HERO ── */}
   <section class="section bg-cream" style="padding-top:8rem;display:flex;align-items:center">
