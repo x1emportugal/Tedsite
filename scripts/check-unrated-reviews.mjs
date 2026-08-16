@@ -15,6 +15,7 @@ const expected = [
   "aquashow-luis-p",
   "aquashow-freedom30528419692",
   "aquashow-goncalo-s",
+  "aquashow-sharon-o",
 ];
 
 for (const id of expected) {
