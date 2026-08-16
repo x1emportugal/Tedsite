@@ -1,32 +1,23 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
 
-  "//": [
-    "trailingSlash tem de ser true: o Astro gera rotas em pasta e os",
-    "canónicos e o sitemap usam barra final. Se o Vercel redirecionasse",
-    "para a versão sem barra, cada página teria duas URLs e o Google",
-    "trataria isso como conteúdo duplicado."
-  ],
   "trailingSlash": true,
   "cleanUrls": false,
 
   "headers": [
     {
-      "//": "Ficheiros com hash no nome nunca mudam: cache agressiva.",
       "source": "/_astro/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
     },
     {
-      "//": "Imagem de partilha e logótipo mudam raramente.",
       "source": "/(og/.*|ted-logo.png|favicon.ico)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=604800" }
       ]
     },
     {
-      "//": "HTML sempre revalidado, para correções entrarem de imediato.",
       "source": "/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" },
@@ -36,7 +27,6 @@
       ]
     },
     {
-      "//": "Crawlers de IA leem estes dois como texto simples.",
       "source": "/(llms.txt|robots.txt)",
       "headers": [
         { "key": "Content-Type", "value": "text/plain; charset=utf-8" }
@@ -46,7 +36,6 @@
 
   "redirects": [
     {
-      "//": "Rotas do site antigo, para não perder o que já esteja indexado.",
       "source": "/admin",
       "destination": "/",
       "permanent": false
