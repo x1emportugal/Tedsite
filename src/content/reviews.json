@@ -134,5 +134,79 @@
     "date": "2025-06",
     "lang": "pt",
     "featured": false
+  },
+  {
+    "id": "aquashow-jose-antonio-h",
+    "author": "José Antonio H",
+    "rating": 5,
+    "body": "Especial referência para Deborah na recepção, e para Ted e Carol, do kids club. ¡¡¡¡Son unos cracks!!!!!",
+    "location": "Bormujos, Espanha",
+    "context": "Aquashow Park Hotel · TripAdvisor",
+    "date": "2025-02",
+    "lang": "pt",
+    "featured": false
+  },
+  {
+    "id": "aquashow-carlos-s",
+    "author": "Carlos S",
+    "rating": 5,
+    "body": "The animators Ted and Carol are tireless",
+    "context": "Aquashow Park Hotel · TripAdvisor",
+    "date": "2025-02",
+    "lang": "pt",
+    "featured": false
+  },
+  {
+    "id": "aquashow-stevem987654321",
+    "author": "SteveM987654321",
+    "rating": 5,
+    "body": "Teddy the animations guy ... do a fabulous job.",
+    "location": "Marbella, Espanha",
+    "context": "Aquashow Park Hotel · TripAdvisor",
+    "date": "2025-03",
+    "lang": "pt",
+    "featured": false
+  },
+  {
+    "id": "aquashow-yelhernandez",
+    "author": "yelhernandez",
+    "rating": 5,
+    "body": "Our little girl had a great time with animators Tede and Johanna.",
+    "location": "Caracas, Venezuela",
+    "context": "Aquashow Park Hotel · TripAdvisor",
+    "date": "2025-04",
+    "lang": "pt",
+    "featured": false
+  },
+  {
+    "id": "aquashow-luis-p",
+    "author": "Luís P",
+    "rating": 5,
+    "body": "Thank you very much for your good disposition and contagious joy to the animation team Ted and Joana.",
+    "context": "Aquashow Park Hotel · TripAdvisor",
+    "date": "2025-04",
+    "lang": "pt",
+    "featured": false
+  },
+  {
+    "id": "aquashow-freedom30528419692",
+    "author": "Freedom30528419692",
+    "rating": 5,
+    "body": "The animators Ted and Joana are super friendly and fun",
+    "context": "Aquashow Park Hotel · TripAdvisor",
+    "date": "2025-04",
+    "lang": "pt",
+    "featured": false
+  },
+  {
+    "id": "aquashow-goncalo-s",
+    "author": "Gonçalo S",
+    "rating": 5,
+    "body": "Very friendly TED team animation",
+    "location": "Odivelas, Portugal",
+    "context": "Aquashow Park Hotel · TripAdvisor",
+    "date": "2025-05",
+    "lang": "pt",
+    "featured": false
   }
 ]

@@ -8,6 +8,13 @@ const expected = [
   "aquashow-scenic67313094783",
   "aquashow-catarina-sousa",
   "aquashow-grandtour32286900320",
+  "aquashow-jose-antonio-h",
+  "aquashow-carlos-s",
+  "aquashow-stevem987654321",
+  "aquashow-yelhernandez",
+  "aquashow-luis-p",
+  "aquashow-freedom30528419692",
+  "aquashow-goncalo-s",
 ];
 
 for (const id of expected) {
@@ -21,4 +28,4 @@ const component = readFileSync(new URL("../src/components/Reviews.astro", import
 assert.match(content, /rating: z\.number\(\)\.min\(1\)\.max\(5\)\.optional\(\)/);
 assert.match(component, /typeof r\.rating === "number"/);
 
-console.log("Avaliações sem nota validadas.");
+console.log("Avaliações reais e estrelas validadas.");
