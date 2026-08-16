@@ -25,10 +25,10 @@ Games are the backbone of the party. They set the rhythm: energetic at the start
 
 ## How I choose them
 
-I do not arrive with a fixed script. Before the party I ask three things: how many children, what ages, and where. From that I build a sequence that fits the space and the group — relays make no sense in an apartment, and circle games do not work for thirty children in a large garden.
+I do not arrive with a fixed script. Before the party I ask three things: how many children, what ages, and where. From that I build a sequence that fits the space and the group, relays make no sense in an apartment, and circle games do not work for thirty children in a large garden.
 
 During the party I read the group. If a game is not landing, I change it. If one is going particularly well, I stretch it. That is the difference between prepared entertainment and a checklist executed regardless.
 
 ## Format
 
-Relays, cooperative games, dexterity challenges, team problems and circle games for the youngest. I bring all the equipment — hoops, cones, balls, scarves and whatever the programme calls for.
+Relays, cooperative games, dexterity challenges, team problems and circle games for the youngest. I bring all the equipment, hoops, cones, balls, scarves and whatever the programme calls for.

@@ -5,12 +5,12 @@ import { SERVICE_AREAS, type Lang } from "../lib/site";
 /**
  * Pedido de orçamento.
  *
- * Existe para captar quem NÃO quer falar no WhatsApp agora — o site antigo
+ * Existe para captar quem NÃO quer falar no WhatsApp agora, o site antigo
  * só tinha esse caminho e por isso não construía lista de contactos nenhuma.
  *
  * Envia para o endpoint em PUBLIC_FORM_ENDPOINT (Formspree, Web3Forms,
  * Netlify Forms, o que preferir). Sem endpoint configurado, o botão compõe
- * a mensagem e abre o WhatsApp — nunca fica um formulário morto na página.
+ * a mensagem e abre o WhatsApp, nunca fica um formulário morto na página.
  */
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -171,8 +171,8 @@ const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? "";
       } catch {
         status.style.color = "var(--coral)";
         status.textContent = en
-          ? "That did not go through. Please message on WhatsApp instead — it is the fastest way."
-          : "O envio falhou. Escreva antes pelo WhatsApp — é o caminho mais rápido.";
+          ? "That did not go through. Please message on WhatsApp instead, it is the fastest way."
+          : "O envio falhou. Escreva antes pelo WhatsApp. É o caminho mais rápido.";
       } finally {
         btn.disabled = false;
       }

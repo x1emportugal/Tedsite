@@ -14,18 +14,18 @@ duration: 45 to 60 minutes
 order: 1
 faqs:
   - question: Does the treasure hunt work indoors?
-    answer: Yes. The trail is built around your space — I have run treasure hunts in apartments, back gardens, hotel grounds and on the beach. I ask where the party is beforehand and adjust the number of clues and the play area.
+    answer: Yes. The trail is built around your space, I have run treasure hunts in apartments, back gardens, hotel grounds and on the beach. I ask where the party is beforehand and adjust the number of clues and the play area.
   - question: Can you run it in English?
-    answer: Yes. The whole party can run in English, Portuguese, or both at once — which is what usually happens at mixed parties here in the Algarve. Children switch languages faster than the adults do.
+    answer: Yes. The whole party can run in English, Portuguese, or both at once, which is what usually happens at mixed parties here in the Algarve. Children switch languages faster than the adults do.
   - question: How many children can take part?
     answer: It works well between 6 and 25 children. Above 12 I split them into teams with parallel clue trails so nobody stands waiting. Below 6 it becomes an individual trail with more riddles.
 ---
 
-The treasure hunt turns your party space into a map. Before I arrive I build a trail suited to the venue — a house, a garden, a hotel function room or the beach — with hidden clues, riddles to solve as a team, and real treasure at the end.
+The treasure hunt turns your party space into a map. Before I arrive I build a trail suited to the venue, whether that is a house, a garden, a hotel function room or the beach. It comes with hidden clues, riddles to solve as a team, and real treasure at the end.
 
 ## How it runs
 
-We start with the story: there is treasure hidden somewhere, and the map is incomplete. From there, each solved clue leads to the next. The riddles are pitched to the age of the group — visual and matching puzzles for younger children, codes and team challenges for older ones.
+We start with the story: there is treasure hidden somewhere, and the map is incomplete. From there, each solved clue leads to the next. The riddles are pitched to the age of the group, visual and matching puzzles for younger children, codes and team challenges for older ones.
 
 The pace is designed so nobody stands around. Fast solvers get a bonus challenge rather than a wait, and no child is ever knocked out halfway through.
 

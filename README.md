@@ -1,4 +1,4 @@
-# Ted Animações — site
+# Ted Animações
 
 Site de animação infantil no Algarve, reconstruído em **Astro** a partir da
 auditoria de agosto de 2026.
@@ -27,7 +27,7 @@ npm run dev
 > ⚠️ **Não guardar este projeto no Desktop nem em Documentos.**
 > Essas pastas estão sincronizadas com o iCloud e, com o disco quase cheio, o
 > macOS despeja ficheiros para a nuvem (`dataless`). O build fica pendurado
-> indefinidamente à espera que o iCloud os devolva — foi exatamente isso que
+> indefinidamente à espera que o iCloud os devolva. Foi exatamente isso que
 > aconteceu durante o desenvolvimento. Manter em `~/Projects/`.
 
 ---
@@ -37,12 +37,14 @@ npm run dev
 Corra `npm run check` a qualquer momento para ver a lista atualizada.
 Por ordem de impacto:
 
-### 1. Preços — `src/content/packages.json`
+### 1. Preços
+`src/content/packages.json`
 Trocar `"price": null` pelo valor real de cada pacote. Enquanto for `null`, a
-página mostra «Sob consulta» — funciona, mas perde as pesquisas de preço, que
+página mostra «Sob consulta». Funciona, mas perde as pesquisas de preço, que
 são a segunda intenção mais comum neste setor.
 
-### 2. Avaliações — `src/content/reviews.json`
+### 2. Avaliações
+`src/content/reviews.json`
 Está vazio de propósito: **nunca inventar avaliações**. O formato está em
 `reviews.example.json`. Assim que houver entradas, ligam-se sozinhos:
 
@@ -54,17 +56,20 @@ Está vazio de propósito: **nunca inventar avaliações**. O formato está em
 Copiar o texto tal como o cliente escreveu. Testemunhos polidos soam a falso e
 convertem pior.
 
-### 3. Dados do negócio — `src/lib/site.ts`
+### 3. Dados do negócio
+`src/lib/site.ts`
 NIF, morada, código postal, coordenadas, ano de início e o URL do Perfil de
 Empresa do Google. Alimentam o JSON-LD. Campos que comecem por `TODO_` são
 **automaticamente omitidos** do JSON-LD, portanto nada inválido chega ao HTML.
 
-### 4. Seguro e documentação — `src/components/TrustStrip.astro`
+### 4. Seguro e documentação
+`src/components/TrustStrip.astro`
 Seguro de responsabilidade civil, registo criminal e situação fiscal. Quase
-nenhum concorrente do Algarve comunica isto — é vantagem real, sobretudo com
+nenhum concorrente do Algarve comunica isto. É vantagem real, sobretudo com
 hotéis.
 
-### 5. Percurso — `src/pages/sobre-o-ted.astro` e `src/pages/en/about.astro`
+### 5. Percurso
+`src/pages/sobre-o-ted.astro` e `src/pages/en/about.astro`
 Quando começou, onde trabalhou, formação, quantas festas fez. É a secção que
 mais pesa na credibilidade e que os motores usam para avaliar experiência real.
 
@@ -95,7 +100,7 @@ sozinhos. Acrescentar o par de rotas em `ROUTE_MAP` (`src/lib/site.ts`) para o
 
 **Acrescentar uma localidade:** criar o markdown em `content/locations/pt/`.
 Enquanto `localProof` estiver vazio, a página é servida com `noindex` e fica
-fora do sitemap — uma página por cidade sem conteúdo próprio é uma
+fora do sitemap. Uma página por cidade sem conteúdo próprio é uma
 *doorway page*, que o Google penaliza. Assim que tiver uma entrada real
 (festas feitas na zona, espaços, testemunhos locais), passa a ser indexada
 automaticamente.
@@ -113,8 +118,8 @@ automaticamente.
 | `robots.txt` e `sitemap.xml` partidos | ✅ ficheiros reais, com crawlers de IA permitidos |
 | 404 devolvia 200 | ✅ página 404 real com `noindex` |
 | Só português | ✅ espelho inglês completo com `hreflang` recíproco |
-| Sem prova social | ✅ estrutura pronta — falta o conteúdo real |
-| Sem preços | ✅ página e pacotes prontos — falta o valor |
+| Sem prova social | ✅ estrutura pronta, falta o conteúdo real |
+| Sem preços | ✅ página e pacotes prontos, falta o valor |
 | Sem captura de contactos | ✅ formulário de orçamento com fallback para WhatsApp |
 | Conversões não medidas | ✅ eventos Umami em cada CTA (`data-cta`) |
 | Fontes bloqueantes do Google | ✅ self-hosted, com preload |
@@ -135,7 +140,7 @@ adequado: **Cloudflare Pages** ou **Netlify**.
 - Node: 22 ou superior
 
 ### Formulário de orçamento
-Sem configuração, o formulário compõe a mensagem e abre o WhatsApp — funciona,
+Sem configuração, o formulário compõe a mensagem e abre o WhatsApp. Funciona,
 mas não constrói lista de contactos. Para receber por email, criar um endpoint
 (Formspree, Web3Forms ou Netlify Forms) e definir a variável de ambiente:
 
@@ -146,7 +151,7 @@ PUBLIC_FORM_ENDPOINT=https://formspree.io/f/xxxxxxx
 ### Analytics
 O layout já dispara eventos Umami (`whatsapp-click`, `form-enviado`,
 `form-para-whatsapp`). Falta apenas acrescentar o script do Umami ao
-`src/layouts/Base.astro` com o ID do site — no site antigo era
+`src/layouts/Base.astro` com o ID do site. No site antigo era
 `029f71b8-a41a-4282-9708-2b9014148ac4`.
 
 ### Depois de publicar

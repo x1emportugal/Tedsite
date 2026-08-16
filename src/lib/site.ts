@@ -14,7 +14,7 @@ export const SITE = {
   name: "Ted Animações",
   alternateName: "Ted in Portugal",
   legalName: "TODO_NOME_LEGAL", // TODO: nome em nome individual / empresa
-  vatID: "TODO_NIF", // TODO: NIF — alimenta o JSON-LD e a página /sobre-o-ted
+  vatID: "TODO_NIF", // TODO: NIF, alimenta o JSON-LD e a página /sobre-o-ted
   founded: "2022", // TODO: confirmar ano de início
 
   phone: "+351936331843",
@@ -44,7 +44,7 @@ export const SITE = {
   },
 } as const;
 
-/** Concelhos servidos — usados no JSON-LD (areaServed) e nas páginas locais. */
+/** Concelhos servidos, usados no JSON-LD (areaServed) e nas páginas locais. */
 export const SERVICE_AREAS = [
   "Faro",
   "Albufeira",
@@ -63,7 +63,7 @@ export type Lang = "pt" | "en";
 /**
  * Link de WhatsApp com mensagem pré-preenchida ao contexto da página.
  * Uma conversa que já começa a dizer o serviço e a localidade é uma
- * conversa qualificada — e poupa uma troca de mensagens ao Ted.
+ * conversa qualificada, e poupa uma troca de mensagens ao Ted.
  */
 export function whatsappUrl(context?: string, lang: Lang = "pt"): string {
   const base =
@@ -83,7 +83,7 @@ export function whatsappUrl(context?: string, lang: Lang = "pt"): string {
  *
  * A barra final é preservada tal como vem, porque o Astro gera rotas em
  * pasta (/precos/index.html). Canónico e sitemap têm de coincidir ao
- * carácter — se divergirem, o Google trata-os como duas páginas.
+ * carácter, se divergirem, o Google trata-os como duas páginas.
  */
 export function absoluteUrl(path: string): string {
   const clean = path.startsWith("/") ? path : `/${path}`;
@@ -99,7 +99,7 @@ export function absoluteUrl(path: string): string {
  * hreflang apontariam para páginas inexistentes e o Google descartaria o
  * par de idiomas por inteiro.
  *
- * Páginas sem equivalente ficam de fora — melhor não declarar alternativa
+ * Páginas sem equivalente ficam de fora, melhor não declarar alternativa
  * do que declarar uma que dá 404.
  */
 export const ROUTE_MAP: Record<string, string> = {

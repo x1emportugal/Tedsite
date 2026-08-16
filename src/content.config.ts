@@ -28,7 +28,7 @@ const activities = defineCollection({
     ages: z.string(),
     duration: z.string(),
     order: z.number().default(0),
-    /** Perguntas específicas desta atividade — alimentam o FAQPage schema. */
+    /** Perguntas específicas desta atividade, alimentam o FAQPage schema. */
     faqs: z
       .array(z.object({ question: z.string(), answer: z.string() }))
       .default([]),
@@ -50,7 +50,7 @@ const locations = defineCollection({
     order: z.number().default(0),
     /**
      * Provas concretas de presença na zona. Sem isto a página é uma
-     * doorway page e o Google penaliza — melhor não publicar.
+     * doorway page e o Google penaliza, melhor não publicar.
      */
     localProof: z.array(z.string()).default([]),
     faqs: z
@@ -61,7 +61,7 @@ const locations = defineCollection({
 
 /**
  * As avaliações vivem em src/content/reviews.json mas são lidas
- * diretamente em src/lib/content.ts, e não como coleção — assim um
+ * diretamente em src/lib/content.ts, e não como coleção, assim um
  * ficheiro vazio não produz avisos a cada build. A validação de forma
  * acontece lá, com o mesmo esquema.
  *

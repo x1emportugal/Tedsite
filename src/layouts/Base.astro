@@ -19,7 +19,7 @@ interface Props {
   schemas?: (object | null)[];
   /** Migalhas de navegação: também geram BreadcrumbList. */
   breadcrumbs?: { name: string; href: string }[];
-  /** Classificação agregada — só passar com avaliações reais publicadas. */
+  /** Classificação agregada, só passar com avaliações reais publicadas. */
   rating?: { value: number; count: number };
   /** Impedir indexação (usado no 404 e na política de privacidade). */
   noindex?: boolean;
@@ -53,7 +53,7 @@ const jsonLd = [
 ---
 
 <!doctype html>
-<html lang={lang === "en" ? "en-GB" : "pt-PT"} class="no-js">
+<html lang={lang === "en" ? "en-GB" : "pt-PT"}>
   <head>
     <meta charset="utf-8" />
     <!-- Sem maximum-scale: bloquear o zoom é uma violação de acessibilidade. -->
@@ -102,8 +102,17 @@ const jsonLd = [
     ))}
 
     <script is:inline>
-      // Marca que há JS antes da pintura, para as revelações não piscarem.
-      document.documentElement.classList.remove("no-js");
+      // Ativa o estado escondido das revelações ANTES da primeira pintura, e
+      // só se o IntersectionObserver existir para as voltar a mostrar. Sem
+      // isto, o conteúdo fica simplesmente visível, que é o comportamento
+      // seguro. Uma rede de segurança revela tudo passado 2,5 s, caso o
+      // observer não chegue a disparar (separador em segundo plano, etc.).
+      if ("IntersectionObserver" in window) {
+        document.documentElement.classList.add("js-reveal");
+        setTimeout(function () {
+          document.documentElement.classList.remove("js-reveal");
+        }, 2500);
+      }
     </script>
   </head>
 
@@ -119,9 +128,9 @@ const jsonLd = [
     <WhatsAppFloat lang={lang} />
 
     <script>
-      // Revelação ao scroll. Progressive enhancement: o conteúdo já está
-      // no HTML e visível sem JS — isto só acrescenta o movimento.
-      const els = document.querySelectorAll(".reveal");
+      // Revelação ao scroll. Melhoria progressiva: o conteúdo já está no
+      // HTML e é visível sem JS. Isto só acrescenta o movimento.
+      const els = document.querySelectorAll<HTMLElement>(".reveal");
       if (els.length && "IntersectionObserver" in window) {
         const obs = new IntersectionObserver(
           (entries) => {
@@ -132,7 +141,9 @@ const jsonLd = [
               }
             }
           },
-          { threshold: 0.1, rootMargin: "0px 0px -40px 0px" },
+          // Sem threshold: basta 1px visível. Secções altas nunca chegam a
+          // 10% do próprio tamanho dentro do ecrã e ficariam escondidas.
+          { rootMargin: "0px 0px -40px 0px" },
         );
         els.forEach((el) => obs.observe(el));
       } else {
@@ -155,13 +166,13 @@ const jsonLd = [
         });
       }
 
-      // Medir conversões. Sem isto não se sabe o que funciona —
-      // a auditoria encontrou o Umami instalado mas sem eventos.
+      // Medir conversões. Sem isto não se sabe o que funciona: a auditoria
+      // encontrou o Umami instalado mas sem um único evento.
       document.addEventListener("click", (ev) => {
         const link = (ev.target as HTMLElement)?.closest?.("a[href*='wa.me']");
         if (!link) return;
         const where = link.getAttribute("data-cta") || "desconhecido";
-        // @ts-ignore — umami é opcional
+        // @ts-ignore, umami é opcional
         window.umami?.track?.("whatsapp-click", { origem: where });
       });
     </script>

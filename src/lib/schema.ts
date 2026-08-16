@@ -10,7 +10,7 @@ import { SITE, SERVICE_AREAS, absoluteUrl } from "./site";
 
 const BUSINESS_ID = `${SITE.url}/#business`;
 
-/** Só emite campos preenchidos — nada de TODO_ a chegar ao HTML. */
+/** Só emite campos preenchidos, nada de TODO_ a chegar ao HTML. */
 function clean<T extends Record<string, unknown>>(obj: T): T {
   const out = {} as T;
   for (const [k, v] of Object.entries(obj)) {
@@ -23,7 +23,7 @@ function clean<T extends Record<string, unknown>>(obj: T): T {
 
 /**
  * O negócio em si. Vai em todas as páginas.
- * @param rating — só passar quando existirem avaliações REAIS visíveis na
+ * @param rating, só passar quando existirem avaliações REAIS visíveis na
  *   página. Classificações inventadas são motivo de penalização manual.
  */
 export function businessSchema(rating?: { value: number; count: number }) {
@@ -122,7 +122,7 @@ export function faqSchema(items: { question: string; answer: string }[]) {
   };
 }
 
-/** Avaliações individuais — só com testemunhos reais. */
+/** Avaliações individuais, só com testemunhos reais. */
 export function reviewSchema(
   reviews: { author: string; rating: number; body: string; date?: string }[],
 ) {
@@ -150,7 +150,7 @@ export function reviewSchema(
   };
 }
 
-/** Migalhas de navegação — ajuda o Google a perceber a hierarquia. */
+/** Migalhas de navegação, ajuda o Google a perceber a hierarquia. */
 export function breadcrumbSchema(trail: { name: string; href: string }[]) {
   if (trail.length < 2) return null;
   return {

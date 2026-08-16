@@ -43,14 +43,14 @@ const trail = [
 
 /**
  * Sem prova local concreta, a página não é indexada.
- * Uma página por cidade sem conteúdo próprio é uma doorway page —
+ * Uma página por cidade sem conteúdo próprio é uma doorway page.
  * o Google penaliza, e mais vale não a expor até estar substanciada.
  */
 const thin = l.localProof.length === 0;
 ---
 
 <Base
-  title={`${l.seoTitle} — Ted Animações`}
+  title={`${l.seoTitle} | Ted Animações`}
   description={l.description}
   lang={lang}
   path={path}
@@ -70,10 +70,10 @@ const thin = l.localProof.length === 0;
   {thin && (
     <div class="container" style="margin-bottom:1rem">
       <p style="background:#F3E7CE;border:2px dashed #A9761A;border-radius:var(--r-sm);padding:1rem 1.25rem;font-size:.9rem;color:#7A5512">
-        <strong>Nota para o Ted (não visível para o Google — esta página está
+        <strong>Nota para o Ted (não visível para o Google, esta página está
         noindex):</strong> preencha <code>localProof</code> em
         <code>src/content/locations/pt/{l.slug}.md</code> com provas reais de
-        trabalho nesta zona — festas feitas, espaços conhecidos, testemunhos
+        trabalho nesta zona, festas feitas, espaços conhecidos, testemunhos
         locais. Assim que houver pelo menos uma, a página passa a ser indexada
         automaticamente. Sem isso seria uma <em>doorway page</em>, que o Google
         penaliza.

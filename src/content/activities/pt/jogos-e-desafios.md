@@ -25,10 +25,10 @@ Os jogos são a espinha dorsal da festa. É a parte que dita o ritmo: começa ma
 
 ## Como escolho os jogos
 
-Não levo um guião fixo. Antes da festa pergunto três coisas: quantas crianças, que idades e onde vai ser. Com isso monto uma sequência de jogos que encaixe no espaço e no grupo — não faz sentido levar estafetas para um apartamento, nem jogos de roda para trinta crianças num jardim grande.
+Não levo um guião fixo. Antes da festa pergunto três coisas: quantas crianças, que idades e onde vai ser. Com isso monto uma sequência de jogos que encaixe no espaço e no grupo. Não faz sentido levar estafetas para um apartamento, nem jogos de roda para trinta crianças num jardim grande.
 
 Durante a festa vou lendo o grupo. Se um jogo não está a resultar, mudo. Se um está a correr especialmente bem, estico. É essa a diferença entre uma animação preparada e uma lista de atividades executada à força.
 
 ## Formato
 
-Estafetas, jogos cooperativos, provas de destreza, desafios em equipa e brincadeiras de roda para os mais pequenos. Levo todo o material necessário — arcos, cones, bolas, lenços e o que o programa pedir.
+Estafetas, jogos cooperativos, provas de destreza, desafios em equipa e brincadeiras de roda para os mais pequenos. Levo todo o material necessário, arcos, cones, bolas, lenços e o que o programa pedir.

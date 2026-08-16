@@ -8,7 +8,7 @@ import sitemap from "@astrojs/sitemap";
  *
  * Estas páginas são servidas com noindex (ver src/pages/onde-atuamos/[slug].astro)
  * porque, sem conteúdo próprio da zona, seriam doorway pages. Aqui são também
- * excluídas do sitemap — anunciar no sitemap uma página marcada noindex é um
+ * excluídas do sitemap. Anunciar no sitemap uma página marcada noindex é um
  * sinal contraditório para o Google.
  *
  * Assim que `localProof` tiver pelo menos uma entrada, a página passa a ser
@@ -44,7 +44,7 @@ export default defineConfig({
   site: "https://tedinportugal.pt",
 
   // Saída estática: cada página vira um ficheiro HTML real.
-  // É isto que resolve o problema nº1 da auditoria — o conteúdo passa a
+  // É isto que resolve o problema nº1 da auditoria: o conteúdo passa a
   // existir no HTML entregue, sem depender de JavaScript.
   output: "static",
 

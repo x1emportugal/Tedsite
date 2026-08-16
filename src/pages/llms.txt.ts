@@ -3,7 +3,7 @@ import { SITE, SERVICE_AREAS } from "../lib/site";
 import { getActivities, getFaqs } from "../lib/content";
 
 /**
- * llms.txt — resumo em markdown para modelos de linguagem.
+ * llms.txt, resumo em markdown para modelos de linguagem.
  *
  * Gerado a partir das mesmas fontes que o site, para nunca ficar
  * desatualizado. Cada vez mais consultado por sistemas de IA que
@@ -28,8 +28,8 @@ export const GET: APIRoute = async () => {
 ${SERVICE_AREAS.join(", ")} e restante Algarve.
 
 ## Serviços
-${activities.map((a) => `- **${a.data.title}** (${a.data.ages}, ${a.data.duration}): ${a.data.summary} — ${SITE.url}/atividades/${a.data.slug}`).join("\n")}
-- **Animação para hotéis, resorts e eventos**: programas de época, kids club pontual, festas de hóspedes, casamentos e eventos de empresa — ${SITE.url}/animacao-para-hoteis
+${activities.map((a) => `- **${a.data.title}** (${a.data.ages}, ${a.data.duration}): ${a.data.summary}, ${SITE.url}/atividades/${a.data.slug}`).join("\n")}
+- **Animação para hotéis, resorts e eventos**: programas de época, kids club pontual, festas de hóspedes, casamentos e eventos de empresa, ${SITE.url}/animacao-para-hoteis
 
 ## Páginas principais
 - [Festas de aniversário](${SITE.url}/festas-de-aniversario): como corre uma festa, hora a hora

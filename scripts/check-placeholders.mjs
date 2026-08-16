@@ -4,7 +4,7 @@
  * visitantes se o site fosse publicado agora.
  *
  * Corre automaticamente antes do build (ver package.json). Não falha o
- * build — avisa. Publicar com marcadores é uma decisão do Ted, não um erro
+ * build: avisa. Publicar com marcadores é uma decisão do Ted, não um erro
  * técnico, mas nunca deve acontecer por distração.
  */
 import { readdirSync, readFileSync, statSync } from "node:fs";
@@ -58,7 +58,7 @@ if (hits.length === 0) {
 }
 
 console.log(
-  `\n\x1b[33m⚠  ${hits.length} marcador(es) por preencher — visíveis no site publicado:\x1b[0m\n`,
+  `\n\x1b[33m⚠  ${hits.length} marcador(es) por preencher, visíveis no site publicado:\x1b[0m\n`,
 );
 for (const h of hits) {
   console.log(`   \x1b[36m${h.file}:${h.line}\x1b[0m`);

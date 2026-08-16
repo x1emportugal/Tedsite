@@ -11,7 +11,7 @@ order: 3
 localProof: []
 faqs:
   - question: Trabalha com resorts e condomínios em Vilamoura?
-    answer: Sim. Em resorts e condomínios fechados há normalmente regras de acesso para prestadores externos — se me disser qual é o espaço, trato disso diretamente com a administração antes do dia da festa.
+    answer: Sim. Em resorts e condomínios fechados há normalmente regras de acesso para prestadores externos, se me disser qual é o espaço, trato disso diretamente com a administração antes do dia da festa.
   - question: Faz animação para eventos e casamentos em Vilamoura?
     answer: Faço. Animação para as crianças durante a cerimónia e o jantar é dos pedidos mais frequentes na zona, e é o que costuma decidir se o evento corre tranquilo para os adultos ou não.
 ---
@@ -24,7 +24,7 @@ A maior parte dos espaços em Vilamoura tem regras próprias para prestadores ex
 
 ## Casamentos e eventos
 
-Animação para crianças durante cerimónias e jantares é um dos pedidos mais frequentes aqui. Funciona como um serviço à parte, com programa próprio, pensado para manter o grupo entretido em paralelo ao evento dos adultos — o que costuma ser a diferença entre um jantar tranquilo e um jantar interrompido.
+Animação para crianças durante cerimónias e jantares é um dos pedidos mais frequentes aqui. Funciona como um serviço à parte, com programa próprio, pensado para manter o grupo entretido em paralelo ao evento dos adultos, o que costuma ser a diferença entre um jantar tranquilo e um jantar interrompido.
 
 ## Deslocação
 

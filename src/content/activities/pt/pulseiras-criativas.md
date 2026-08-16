@@ -14,11 +14,11 @@ duration: 30 a 45 minutos
 order: 3
 faqs:
   - question: As crianças levam a pulseira para casa?
-    answer: Levam. É essa a ideia — cada criança sai da festa com uma coisa que fez com as próprias mãos, e que continua a usar depois. Funciona melhor do que a lembrança comprada, e não custa mais.
+    answer: "Levam. É essa a ideia: cada criança sai da festa com uma coisa que fez com as próprias mãos, e que continua a usar depois. Funciona melhor do que a lembrança comprada, e não custa mais."
   - question: As contas pequenas são seguras para crianças de 3 ou 4 anos?
     answer: Para os mais pequenos uso contas grandes e fio mais grosso, que não representam risco de engasgamento e são mais fáceis de enfiar. Se houver crianças abaixo dos 4 anos no grupo, diga-me para eu levar o material adequado.
   - question: Os adultos podem participar?
-    answer: Podem, e costumam. A oficina de pulseiras é das atividades que melhor funciona com pais e avós à mesa, e é a altura mais calma da festa — ideal logo a seguir aos jogos mais agitados.
+    answer: Podem, e costumam. A oficina de pulseiras é das atividades que melhor funciona com pais e avós à mesa, e é a altura mais calma da festa, ideal logo a seguir aos jogos mais agitados.
 ---
 
 A oficina de pulseiras é a atividade mais tranquila do repertório, e por isso mesmo uma das mais úteis: entra bem depois dos jogos, quando o grupo precisa de baixar o ritmo antes do bolo.
@@ -27,7 +27,7 @@ A oficina de pulseiras é a atividade mais tranquila do repertório, e por isso 
 
 Monto uma mesa com contas de várias cores, formas e tamanhos, fios elásticos e fechos. Cada criança escolhe as suas e monta a pulseira à sua maneira. Ajudo quem precisa, sobretudo os mais pequenos a dar o nó final.
 
-Não há modelo a copiar nem certo e errado — e é isso que faz a atividade funcionar. Cada pulseira sai diferente e cada criança leva a sua para casa.
+Não há modelo a copiar nem certo e errado, e é isso que faz a atividade funcionar. Cada pulseira sai diferente e cada criança leva a sua para casa.
 
 ## Para grupos mistos
 

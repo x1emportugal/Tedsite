@@ -22,7 +22,7 @@ export async function getPackages(lang: Lang) {
 
 /**
  * Perguntas frequentes de um idioma, opcionalmente filtradas por tópico.
- * Respostas ainda por preencher (PREENCHER/TO FILL IN) são omitidas — não
+ * Respostas ainda por preencher (PREENCHER/TO FILL IN) são omitidas, não
  * vale a pena publicar uma pergunta sem resposta.
  */
 export async function getFaqs(lang: Lang, topic?: string) {
@@ -50,7 +50,7 @@ const reviewSchema = z.object({
  * Avaliações reais.
  *
  * Lidas diretamente do JSON (e não via getCollection) para que um ficheiro
- * vazio seja um estado silencioso e legítimo — melhor nenhuma avaliação do
+ * vazio seja um estado silencioso e legítimo, melhor nenhuma avaliação do
  * que avaliações inventadas. A validação de forma mantém-se.
  */
 export function getReviews(lang: Lang, onlyFeatured = false) {
@@ -58,7 +58,7 @@ export function getReviews(lang: Lang, onlyFeatured = false) {
   if (!parsed.success) {
     throw new Error(
       `reviews.json tem entradas inválidas: ${parsed.error.issues
-        .map((i) => `${i.path.join(".")} — ${i.message}`)
+        .map((i) => `${i.path.join(".")}, ${i.message}`)
         .join("; ")}`,
     );
   }
@@ -67,7 +67,7 @@ export function getReviews(lang: Lang, onlyFeatured = false) {
     .filter((r) => !onlyFeatured || r.featured);
 }
 
-/** Média e contagem — só para o aggregateRating quando existirem dados. */
+/** Média e contagem, só para o aggregateRating quando existirem dados. */
 export function ratingFrom(reviews: { rating: number }[]) {
   if (!reviews.length) return undefined;
   const value = reviews.reduce((s, r) => s + r.rating, 0) / reviews.length;

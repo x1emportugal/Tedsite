@@ -1,5 +1,5 @@
 /* ============================================================
-   TED ANIMAÇÕES — Design System
+   TED ANIMAÇÕES, Design System
    Marca portada do site original: creme, teal, amarelo, verde-lima.
    Tipografia: Baloo 2 (títulos) + Nunito (corpo), self-hosted
    via a API de fontes do Astro (ver astro.config.mjs).
@@ -98,7 +98,7 @@ select:not(:disabled) { cursor: pointer; }
   border-radius: 4px;
 }
 
-/* Salto para o conteúdo — acessibilidade de teclado */
+/* Salto para o conteúdo, acessibilidade de teclado */
 .skip-link {
   position: absolute;
   left: -9999px;
@@ -733,10 +733,22 @@ select:not(:disabled) { cursor: pointer; }
 .animate-float-med  { animation: float-med 4s ease-in-out infinite; }
 .animate-spin-slow  { animation: spin-slow 18s linear infinite; }
 
-/* Revelação ao scroll — o conteúdo está sempre no HTML;
-   a animação é puramente decorativa e degrada para visível. */
-.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
-.reveal.is-visible { opacity: 1; transform: none; }
+/* Revelação ao scroll.
+
+   O conteúdo é VISÍVEL por omissão. O estado escondido só é aplicado
+   depois de o JavaScript confirmar que consegue revelá-lo, a classe
+   `js-reveal` na raiz. Assim, se o script falhar, se o IntersectionObserver
+   não disparar (separador em segundo plano, renderização suspensa) ou se
+   houver bloqueio de JS, o visitante vê o conteúdo todo em vez de secções
+   em branco.
+
+   Uma animação decorativa nunca deve poder esconder o conteúdo. */
+.reveal { transition: opacity 0.7s ease, transform 0.7s ease; }
+
+:root.js-reveal .reveal:not(.is-visible) {
+  opacity: 0;
+  transform: translateY(28px);
+}
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -745,11 +757,9 @@ select:not(:disabled) { cursor: pointer; }
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  .reveal { opacity: 1; transform: none; }
+  /* Quem pediu menos movimento vê tudo de imediato. */
+  :root.js-reveal .reveal:not(.is-visible) { opacity: 1; transform: none; }
 }
-
-/* Sem JavaScript, nada de conteúdo escondido. */
-.no-js .reveal { opacity: 1; transform: none; }
 
 /* ── Utilitários ── */
 .visually-hidden {
