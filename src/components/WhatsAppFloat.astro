@@ -1,0 +1,18 @@
+---
+import Icon from "./Icon.astro";
+import { whatsappUrl, T, type Lang } from "../lib/site";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+---
+
+<a
+  href={whatsappUrl(undefined, lang)}
+  class="whatsapp-float"
+  target="_blank"
+  rel="noopener"
+  aria-label={T[lang].quote}
+  data-cta="flutuante"
+>
+  <Icon name="whatsapp" size={26} color="#fff" />
+</a>

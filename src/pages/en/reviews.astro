@@ -1,0 +1,75 @@
+---
+import Base from "../../layouts/Base.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import SectionHead from "../../components/SectionHead.astro";
+import Reviews from "../../components/Reviews.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import Icon from "../../components/Icon.astro";
+import Deco from "../../components/Deco.astro";
+import Wave from "../../components/Wave.astro";
+import { SITE } from "../../lib/site";
+import { getReviews, ratingFrom } from "../../lib/content";
+import { reviewSchema } from "../../lib/schema";
+
+const lang = "en" as const;
+const reviews = await getReviews(lang);
+const rating = ratingFrom(reviews);
+const trail = [
+  { name: "Home", href: "/en/" },
+  { name: "Reviews", href: "/en/reviews" },
+];
+---
+
+<Base
+  title="Client Reviews — Ted Animações, Algarve"
+  description="What families say about booking Ted for children's entertainment in the Algarve. Reviews from birthday parties in Albufeira, Vilamoura, Lagos and Faro."
+  lang={lang}
+  path="/en/reviews"
+  breadcrumbs={trail}
+  rating={rating}
+  schemas={[reviewSchema(reviews)]}
+>
+  <Breadcrumbs trail={trail} lang={lang} />
+
+  <section class="section bg-cream" style="padding-top:2.5rem">
+    <Deco shape="star" color="#F5C842" class="animate-spin-slow" style="width:55px;top:12%;right:7%;opacity:.5" />
+
+    <div class="container">
+      <SectionHead
+        eyebrow="Reviews"
+        title='What <span class="text-teal">families say</span>'
+        lede="You book a children's entertainer on trust. These are the words of people who already did."
+        as="h1"
+      />
+
+      {rating && (
+        <div class="center mt-lg reveal">
+          <div class="row gap-xs" style="justify-content:center;margin-bottom:.4rem">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Icon name="star" size={24} color={i < Math.round(rating.value) ? "#F5C842" : "#E0D4B0"} />
+            ))}
+          </div>
+          <p style="font-family:var(--font-display);font-weight:800;font-size:1.3rem">
+            {rating.value.toFixed(1)} out of 5
+            <span style="font-weight:400;font-size:.95rem;color:var(--ink-muted)">
+              {" "}· {rating.count} {rating.count === 1 ? "review" : "reviews"}
+            </span>
+          </p>
+        </div>
+      )}
+
+      <div style="margin-top:3rem"><Reviews reviews={reviews} lang={lang} /></div>
+
+      {SITE.googleBusinessUrl && (
+        <p class="center mt-lg">
+          <a href={SITE.googleBusinessUrl} class="btn btn-outline" target="_blank" rel="noopener">
+            See reviews on Google <Icon name="arrow-right" size={16} color="#2D7A6E" />
+          </a>
+        </p>
+      )}
+    </div>
+    <Wave fill="#F0E4C4" variant={2} />
+  </section>
+
+  <CtaBand lang={lang} context="a birthday party" />
+</Base>

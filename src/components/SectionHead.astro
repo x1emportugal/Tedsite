@@ -1,0 +1,42 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  lede?: string;
+  align?: "center" | "left";
+  dark?: boolean;
+  eyebrowTeal?: boolean;
+  /** Nível do título: h1 na página principal, h2 nas secções. */
+  as?: "h1" | "h2";
+}
+const {
+  eyebrow,
+  title,
+  lede,
+  align = "center",
+  dark = false,
+  eyebrowTeal = false,
+  as: Tag = "h2",
+} = Astro.props;
+---
+
+<div
+  class:list={["reveal", align === "center" && "center", dark && "on-dark"]}
+  style={align === "center" ? "max-width:660px;margin-inline:auto" : ""}
+>
+  {eyebrow && (
+    <p
+      class:list={["eyebrow", eyebrowTeal && "eyebrow-teal", "mb-sm"]}
+      style={align === "center" ? "margin-inline:auto" : ""}
+    >{eyebrow}</p>
+  )}
+  <Tag class="h2" style={dark ? "color:var(--on-dark)" : ""}>
+    <Fragment set:html={title} />
+  </Tag>
+  {lede && (
+    <p
+      class="lede mt-md"
+      style={`${align === "center" ? "margin-inline:auto;" : ""}${dark ? "color:var(--on-dark-soft)" : ""}`}
+    >{lede}</p>
+  )}
+</div>

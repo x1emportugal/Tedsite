@@ -1,0 +1,345 @@
+---
+import { Image } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import Deco from "../components/Deco.astro";
+import Wave from "../components/Wave.astro";
+import SectionHead from "../components/SectionHead.astro";
+import ActivityCard from "../components/ActivityCard.astro";
+import Reviews from "../components/Reviews.astro";
+import FaqList from "../components/FaqList.astro";
+import TrustStrip from "../components/TrustStrip.astro";
+import Gallery from "../components/Gallery.astro";
+import CtaBand from "../components/CtaBand.astro";
+import { photo } from "../lib/images";
+import { whatsappUrl, SERVICE_AREAS, T } from "../lib/site";
+import { getActivities, getFaqs, getReviews, ratingFrom } from "../lib/content";
+import { faqSchema, reviewSchema } from "../lib/schema";
+
+const lang = "pt" as const;
+const t = T[lang];
+const activities = await getActivities(lang);
+const faqs = await getFaqs(lang, "home");
+const reviews = await getReviews(lang, true);
+const rating = ratingFrom(reviews);
+
+const steps = [
+  { n: "1", icon: "chat", title: "Fale comigo no WhatsApp", desc: "Diga-me a data, o local e quantas crianças espera. Respondo no próprio dia." },
+  { n: "2", icon: "cake", title: "Combinamos a festa", desc: "Idades, tipo de espaço e atividades. Fica um orçamento fechado, sem extras no fim." },
+  { n: "3", icon: "party", title: "Apareço e a festa corre", desc: "Chego antes da hora, trago todo o material e os pais ficam livres para aproveitar." },
+];
+
+const why = [
+  { icon: "target", title: "Programa à medida", desc: "Não há guião fixo: o programa é montado depois de saber a idade do grupo e o espaço." },
+  { icon: "shield", title: "Materiais seguros", desc: "Tintas hipoalergénicas certificadas para pele de crianças e material adequado a cada idade." },
+  { icon: "users", title: "Ninguém fica de fora", desc: "Equipas rotativas em vez de eliminação — nenhuma criança passa a festa sentada." },
+  { icon: "sun", title: "Preparado para o Algarve", desc: "Versão de interior para todos os jogos e programa adaptado às horas de mais calor." },
+  { icon: "heart", title: "Os pais descansam", desc: "Enquanto o grupo está entretido, quem organiza a festa consegue finalmente aproveitá-la." },
+  { icon: "chat", title: "Português e inglês", desc: "A animação corre nas duas línguas, que é o mais comum em festas no Algarve." },
+];
+---
+
+<Base
+  title="Ted Animações — Animador Infantil no Algarve | Festas de Aniversário"
+  description="Animação infantil para festas de aniversário no Algarve. Caça ao tesouro, pintura facial, oficinas e jogos, em português e inglês. Faro, Albufeira, Lagos, Portimão e Vilamoura. Peça orçamento."
+  lang={lang}
+  path="/"
+  rating={rating}
+  schemas={[faqSchema(faqs), reviewSchema(reviews)]}
+>
+  {/* ── HERO ── */}
+  <section class="section bg-cream" style="padding-top:8rem;display:flex;align-items:center">
+    <Deco shape="wiggle" color="#2D7A6E" class="animate-float-slow" style="width:380px;top:8%;right:-60px;opacity:.7" />
+    <Deco shape="circle" color="#F5C842" size={90} class="animate-float-med" style="top:15%;right:12%;opacity:.9" />
+    <Deco shape="circle" color="#2D7A6E" size={28} class="animate-float-slow" style="bottom:28%;left:8%;opacity:.6" />
+    <Deco shape="dots" color="#2D7A6E" style="width:100px;top:20%;left:5%;opacity:.4" />
+    <Deco shape="star" color="#F5C842" class="animate-spin-slow" style="width:50px;bottom:20%;right:6%;opacity:.6" />
+
+    <div class="container">
+      <div class="split">
+        <div>
+          <p class="eyebrow mb-md">
+            <Icon name="location" size={14} color="#1A2E2A" />
+            Animação infantil no Algarve
+          </p>
+          <h1 class="h1 mb-md">
+            Festas de aniversário <span class="text-teal">inesquecíveis</span>
+          </h1>
+          <p class="lede mb-lg">
+            Jogos, oficinas criativas e aventuras que fazem os miúdos esquecerem o
+            telemóvel e viverem momentos reais — enquanto os pais finalmente
+            aproveitam a festa.
+          </p>
+
+          <div class="row gap-md">
+            <a href={whatsappUrl("uma festa de aniversário")} class="btn btn-whatsapp btn-lg" target="_blank" rel="noopener" data-cta="hero">
+              <Icon name="whatsapp" size={22} />
+              {t.quote}
+            </a>
+            <a href="/precos" class="btn btn-outline">
+              {t.seePrices}
+              <Icon name="arrow-right" size={16} color="#2D7A6E" />
+            </a>
+          </div>
+
+          <div class="row gap-lg mt-lg">
+            {[
+              { icon: "location", text: "Algarve · Faro a Lagos" },
+              { icon: "shield", text: "Materiais seguros" },
+              { icon: "chat", text: "PT & EN" },
+            ].map((b) => (
+              <span class="row gap-xs" style="font-weight:700;font-size:.9rem;color:var(--ink-soft)">
+                <Icon name={b.icon} size={18} color="#2D7A6E" />
+                {b.text}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div style="position:relative">
+          <div class="blob-frame" style="aspect-ratio:4/3">
+            <Image
+              src={photo("hero-festa-aniversario.jpg")}
+              alt="Festa de aniversário com animação infantil no Algarve — Ted a brincar com um grupo de crianças"
+              widths={[480, 760, 1100]}
+              sizes="(min-width: 900px) 46vw, 92vw"
+              loading="eager"
+              fetchpriority="high"
+            />
+          </div>
+          <div class="float-tag animate-float-med" style="bottom:-1rem;left:1.5rem;background:var(--teal);color:var(--on-dark);box-shadow:0 8px 24px rgba(45,122,110,.35)">
+            <Icon name="cake" size={24} color="#F5C842" />
+            <div style="margin-top:.3rem">Festa personalizada</div>
+          </div>
+          <div class="float-tag animate-float-slow" style="top:-.5rem;right:1.5rem;background:var(--yellow);color:var(--ink);box-shadow:0 8px 24px rgba(245,200,66,.4)">
+            <Icon name="smile" size={22} color="#1A2E2A" />
+            <div style="margin-top:.3rem">Dos 3 aos 12 anos</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <Wave fill="#F0E4C4" variant={1} />
+  </section>
+
+  {/* ── AVALIAÇÕES — o mais alto possível na página ── */}
+  <section class="section bg-cream-deep">
+    <Deco shape="blob" color="#2D7A6E" style="width:280px;top:-70px;left:-70px;opacity:.07" />
+    <div class="container">
+      <SectionHead
+        eyebrow="O que dizem os pais"
+        title='Quem já contratou o <span class="text-teal">Ted</span>'
+        lede={reviews.length > 0 ? "Testemunhos reais de famílias do Algarve." : undefined}
+      />
+      <div class="mt-lg">
+        <Reviews reviews={reviews} lang={lang} />
+      </div>
+      {reviews.length > 0 && (
+        <p class="center mt-lg">
+          <a href="/avaliacoes" class="btn btn-outline">
+            Ver todas as avaliações
+            <Icon name="arrow-right" size={16} color="#2D7A6E" />
+          </a>
+        </p>
+      )}
+    </div>
+    <Wave fill="#FAF0DC" variant={2} />
+  </section>
+
+  {/* ── SOBRE ── */}
+  <section class="section bg-cream" id="sobre">
+    <Deco shape="circle" color="#F5C842" size={70} class="animate-float-slow" style="bottom:10%;left:3%;opacity:.6" />
+    <Deco shape="dots" color="#2D7A6E" style="width:80px;top:20%;right:5%;opacity:.3" />
+
+    <div class="container">
+      <div class="split">
+        <div style="position:relative;order:2">
+          <div class="blob-frame-alt" style="aspect-ratio:3/4;max-width:400px;margin-inline:auto">
+            <Image
+              src={photo("ted-retrato.jpg")}
+              alt="Ted, animador infantil no Algarve, com uma criança ao colo"
+              widths={[360, 560, 800]}
+              sizes="(min-width: 900px) 40vw, 90vw"
+              loading="lazy"
+            />
+          </div>
+          <div class="float-tag" style="bottom:2rem;right:0;background:var(--yellow);color:var(--ink);box-shadow:0 8px 24px rgba(245,200,66,.4)">
+            <Icon name="hotel" size={26} color="#1A2E2A" />
+            <div style="margin-top:.3rem">Hotéis e eventos</div>
+          </div>
+        </div>
+
+        <div class="reveal" style="order:1">
+          <p class="eyebrow eyebrow-teal mb-sm">Quem está por trás da diversão</p>
+          <h2 class="h2 mb-md">Olá, eu sou o <span class="text-teal">Ted</span></h2>
+          <div class="prose">
+            <p>
+              Sou animador infantil no Algarve e faço festas de aniversário,
+              animação em hotéis e eventos de família. A parte de que gosto mais
+              é a mesma há anos: o momento em que um grupo de crianças que não se
+              conhecia está a jogar em equipa como se fossem amigos de sempre.
+            </p>
+            <p>
+              Não trabalho com um guião fixo. Antes de cada festa pergunto as
+              idades, o número de crianças e como é o espaço — e monto o programa
+              a partir daí. Durante a festa vou lendo o grupo: se um jogo não está
+              a resultar, mudo; se está a correr bem, estico.
+            </p>
+            <p>
+              Enquanto as crianças estão entretidas, <strong>os pais podem
+              finalmente aproveitar a festa</strong> — que costuma ser a parte que
+              falta em festas organizadas sem animação.
+            </p>
+          </div>
+          <a href="/sobre-o-ted" class="btn btn-teal mt-md">
+            Conhecer melhor o meu trabalho
+            <Icon name="arrow-right" size={16} color="#FAF0DC" />
+          </a>
+        </div>
+      </div>
+    </div>
+    <Wave fill="#F0E4C4" variant={3} />
+  </section>
+
+  {/* ── ATIVIDADES ── */}
+  <section class="section bg-cream-deep" id="atividades">
+    <Deco shape="wiggle" color="#F5C842" class="animate-float-slow" style="width:280px;top:5%;left:-40px;opacity:.5" />
+    <Deco shape="star" color="#F5C842" class="animate-spin-slow" style="width:45px;bottom:15%;left:5%;opacity:.5" />
+
+    <div class="container">
+      <SectionHead
+        eyebrow="O que fazemos nas festas"
+        title='Atividades que toda a gente <span class="text-teal">adora</span>'
+        lede="Cada atividade é pensada para o tipo de festa, o espaço e as idades do grupo."
+      />
+      <div class="grid grid-4 mt-lg">
+        {activities.map((a, i) => (
+          <ActivityCard activity={a.data} lang={lang} delay={i * 90} />
+        ))}
+      </div>
+      <p class="center mt-lg">
+        <a href="/atividades" class="btn btn-outline">
+          {t.seeActivities}
+          <Icon name="arrow-right" size={16} color="#2D7A6E" />
+        </a>
+      </p>
+    </div>
+    <Wave fill="#FAF0DC" variant={2} />
+  </section>
+
+  {/* ── COMO FUNCIONA ── */}
+  <section class="section bg-cream">
+    <Deco shape="blob" color="#F5C842" style="width:250px;bottom:-60px;right:-60px;opacity:.15" />
+
+    <div class="container">
+      <SectionHead
+        eyebrow="Do primeiro contacto à festa"
+        title="Como <span class='text-teal'>funciona</span>?"
+        lede="Simples e rápido. A maior parte das festas fica fechada em duas mensagens."
+        eyebrowTeal
+      />
+      <div class="grid grid-3 mt-lg">
+        {steps.map((s, i) => (
+          <div class="card reveal center" style={`padding:2.5rem 2rem;transition-delay:${i * 120}ms`}>
+            <div class="step-circle mx-auto mb-md">{s.n}</div>
+            <div style="display:flex;justify-content:center;margin-bottom:1rem">
+              <Icon name={s.icon} size={30} color="#2D7A6E" />
+            </div>
+            <h3 class="h3 mb-sm">{s.title}</h3>
+            <p style="font-size:.95rem;color:var(--ink-soft)">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+      <p class="center mt-lg">
+        <a href={whatsappUrl("uma festa de aniversário")} class="btn btn-whatsapp btn-lg" target="_blank" rel="noopener" data-cta="como-funciona">
+          <Icon name="whatsapp" size={22} />
+          Começar agora no WhatsApp
+        </a>
+      </p>
+    </div>
+    <Wave fill="#2D7A6E" variant={1} />
+  </section>
+
+  {/* ── PORQUÊ ESCOLHER + CONFIANÇA ── */}
+  <section class="section bg-teal">
+    <Deco shape="blob" color="#FAF0DC" style="width:350px;top:-100px;left:-100px;opacity:.05" />
+    <Deco shape="circle" color="#F5C842" size={80} class="animate-float-slow" style="top:10%;right:5%;opacity:.3" />
+
+    <div class="container">
+      <SectionHead eyebrow="Porquê o Ted" title="O que faz a diferença numa festa" dark />
+      <div class="grid grid-3 mt-lg">
+        {why.map((w, i) => (
+          <div class="why-badge reveal" style={`transition-delay:${i * 80}ms`}>
+            <span class="why-badge-icon"><Icon name={w.icon} size={22} color="#1A2E2A" /></span>
+            <div>
+              <h3>{w.title}</h3>
+              <p>{w.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div style="margin-top:3rem">
+        <p class="center mb-md" style="font-family:var(--font-display);font-weight:800;color:var(--on-dark);font-size:1.05rem">
+          O que os pais perguntam antes de contratar
+        </p>
+        <TrustStrip lang={lang} />
+      </div>
+    </div>
+    <Wave fill="#FAF0DC" variant={3} />
+  </section>
+
+  {/* ── GALERIA ── */}
+  <section class="section bg-cream">
+    <div class="container">
+      <SectionHead
+        eyebrow="Momentos reais"
+        title='Fotografias de <span class="text-teal">festas a sério</span>'
+        lede="Sem imagens de banco. Todas as fotografias são de festas que fiz no Algarve."
+      />
+      <div class="mt-lg">
+        <Gallery lang={lang} limit={8} />
+      </div>
+      <p class="center mt-lg">
+        <a href="/galeria" class="btn btn-outline">
+          Ver a galeria completa
+          <Icon name="arrow-right" size={16} color="#2D7A6E" />
+        </a>
+      </p>
+    </div>
+    <Wave fill="#F0E4C4" variant={1} />
+  </section>
+
+  {/* ── PERGUNTAS FREQUENTES ── */}
+  <section class="section bg-cream-deep">
+    <div class="container-narrow">
+      <SectionHead eyebrow="Perguntas frequentes" title="O que as famílias perguntam" eyebrowTeal />
+      <div class="mt-lg">
+        <FaqList items={faqs} />
+      </div>
+      <p class="center mt-lg" style="color:var(--ink-muted);font-size:.95rem">
+        Ficou alguma dúvida de fora?{" "}
+        <a href={whatsappUrl()} target="_blank" rel="noopener" style="color:var(--teal);font-weight:700" data-cta="faq">
+          Pergunte no WhatsApp
+        </a>.
+      </p>
+    </div>
+  </section>
+
+  {/* ── ÁREAS ── */}
+  <section class="section bg-cream" style="padding-block:3.5rem">
+    <div class="container center">
+      <p class="eyebrow eyebrow-teal mx-auto mb-md">
+        <Icon name="location" size={14} color="#FAF0DC" />
+        Onde atuo
+      </p>
+      <p class="lede mx-auto">
+        Faço festas em {SERVICE_AREAS.slice(0, -1).join(", ")} e {SERVICE_AREAS.at(-1)}.
+        Fora destas zonas normalmente também vou — depende da data e da distância,
+        por isso pergunte antes de assumir que não dá.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand lang={lang} context="uma festa de aniversário" />
+</Base>

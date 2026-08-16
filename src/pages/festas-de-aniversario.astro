@@ -1,0 +1,199 @@
+---
+import { Image } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import SectionHead from "../components/SectionHead.astro";
+import ActivityCard from "../components/ActivityCard.astro";
+import Reviews from "../components/Reviews.astro";
+import FaqList from "../components/FaqList.astro";
+import TrustStrip from "../components/TrustStrip.astro";
+import CtaBand from "../components/CtaBand.astro";
+import Icon from "../components/Icon.astro";
+import Deco from "../components/Deco.astro";
+import Wave from "../components/Wave.astro";
+import { photo } from "../lib/images";
+import { whatsappUrl, SERVICE_AREAS } from "../lib/site";
+import { getActivities, getFaqs, getReviews, ratingFrom } from "../lib/content";
+import { serviceSchema, faqSchema } from "../lib/schema";
+
+const lang = "pt" as const;
+const activities = await getActivities(lang);
+const faqs = await getFaqs(lang, "home");
+const reviews = await getReviews(lang, true);
+const rating = ratingFrom(reviews);
+
+const path = "/festas-de-aniversario";
+const trail = [
+  { name: "Início", href: "/" },
+  { name: "Festas de aniversário", href: path },
+];
+
+const timeline = [
+  { time: "Antes", title: "Falamos sobre a festa", desc: "Idades, número de crianças, espaço e hora. Com isso preparo o programa e envio o orçamento fechado." },
+  { time: "-30 min", title: "Chego e monto", desc: "Apareço antes da hora combinada para montar o material sem atrapalhar a receção dos convidados." },
+  { time: "1ª hora", title: "Quebra-gelo e jogos", desc: "Começamos com a energia alta: jogos de grupo que põem as crianças a falar umas com as outras." },
+  { time: "2ª hora", title: "Atividade principal", desc: "Caça ao tesouro ou oficina criativa, conforme o que combinámos. É a parte que fica na memória." },
+  { time: "Fim", title: "Calmaria e bolo", desc: "Baixo o ritmo com uma atividade tranquila, para o grupo estar sentado e calmo quando chega o bolo." },
+];
+---
+
+<Base
+  title="Festas de Aniversário Infantis no Algarve — Animação com o Ted"
+  description="Animação completa para festas de aniversário infantis no Algarve. Programa à medida das idades e do espaço, material incluído, em português e inglês. Faro, Albufeira, Lagos, Portimão e Vilamoura."
+  lang={lang}
+  path={path}
+  breadcrumbs={trail}
+  rating={rating}
+  schemas={[
+    serviceSchema({
+      name: "Animação de festas de aniversário infantis",
+      description:
+        "Animação completa para festas de aniversário no Algarve: jogos de grupo, caça ao tesouro, pintura facial e oficinas criativas, com programa adaptado às idades e ao espaço.",
+      url: path,
+    }),
+    faqSchema(faqs),
+  ]}
+>
+  <Breadcrumbs trail={trail} lang={lang} />
+
+  <section class="section bg-cream" style="padding-top:2rem">
+    <Deco shape="wiggle" color="#2D7A6E" class="animate-float-slow" style="width:300px;top:6%;right:-40px;opacity:.5" />
+    <Deco shape="circle" color="#F5C842" size={70} class="animate-float-med" style="bottom:18%;left:4%;opacity:.5" />
+
+    <div class="container">
+      <div class="split">
+        <div>
+          <p class="eyebrow mb-md">
+            <Icon name="cake" size={14} color="#1A2E2A" />
+            Festas de aniversário
+          </p>
+          <h1 class="h1 mb-md">
+            Uma festa que as crianças <span class="text-teal">não esquecem</span>
+          </h1>
+          <p class="lede mb-lg">
+            Chego com o programa preparado, o material todo e a energia para
+            manter um grupo inteiro entretido do princípio ao fim. Os pais só
+            precisam de tratar do bolo.
+          </p>
+          <div class="row gap-md">
+            <a href={whatsappUrl("uma festa de aniversário")} class="btn btn-whatsapp btn-lg" target="_blank" rel="noopener" data-cta="festas-hero">
+              <Icon name="whatsapp" size={22} />
+              Ver disponibilidade para a minha data
+            </a>
+            <a href="/precos" class="btn btn-outline">Ver preços</a>
+          </div>
+        </div>
+
+        <div class="blob-frame" style="aspect-ratio:4/3">
+          <Image
+            src={photo("criancas-em-roda.jpg")}
+            alt="Grupo de crianças sentadas em roda numa festa de aniversário com animação no Algarve"
+            widths={[480, 760, 1100]}
+            sizes="(min-width: 900px) 46vw, 92vw"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+    </div>
+    <Wave fill="#F0E4C4" variant={1} />
+  </section>
+
+  {/* ── COMO CORRE UMA FESTA ── */}
+  <section class="section bg-cream-deep">
+    <div class="container">
+      <SectionHead
+        eyebrow="Do início ao fim"
+        title="Como corre uma festa, hora a hora"
+        lede="O ritmo é a parte mais importante e a que mais se nota quando falha: começa alto e vai baixando até ao bolo."
+        eyebrowTeal
+      />
+      <div class="timeline mt-lg">
+        {timeline.map((s, i) => (
+          <div class="timeline-row reveal" style={`transition-delay:${i * 80}ms`}>
+            <div class="timeline-time">{s.time}</div>
+            <div class="timeline-body">
+              <h3 class="h3 mb-sm">{s.title}</h3>
+              <p style="color:var(--ink-soft);font-size:.96rem">{s.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+    <Wave fill="#FAF0DC" variant={2} />
+  </section>
+
+  {/* ── ATIVIDADES ── */}
+  <section class="section bg-cream">
+    <div class="container">
+      <SectionHead
+        eyebrow="O que entra na festa"
+        title='Atividades à escolha'
+        lede="Combinamos as que fazem sentido para as idades do grupo e para o espaço."
+      />
+      <div class="grid grid-4 mt-lg">
+        {activities.map((a, i) => <ActivityCard activity={a.data} lang={lang} delay={i * 90} />)}
+      </div>
+    </div>
+    <Wave fill="#2D7A6E" variant={3} />
+  </section>
+
+  {/* ── CONFIANÇA ── */}
+  <section class="section bg-teal">
+    <div class="container">
+      <SectionHead eyebrow="Antes de contratar" title="O que os pais querem saber" dark />
+      <div class="mt-lg"><TrustStrip lang={lang} /></div>
+    </div>
+    <Wave fill="#F0E4C4" variant={1} />
+  </section>
+
+  {reviews.length > 0 && (
+    <section class="section bg-cream-deep">
+      <div class="container">
+        <SectionHead eyebrow="Famílias do Algarve" title="O que dizem os pais" />
+        <div class="mt-lg"><Reviews reviews={reviews} lang={lang} showEmptyNotice={false} /></div>
+      </div>
+      <Wave fill="#FAF0DC" variant={2} />
+    </section>
+  )}
+
+  <section class="section bg-cream">
+    <div class="container-narrow">
+      <SectionHead eyebrow="Perguntas frequentes" title="Dúvidas sobre a festa" eyebrowTeal />
+      <div class="mt-lg"><FaqList items={faqs} /></div>
+      <p class="center mt-lg" style="color:var(--ink-muted);font-size:.95rem">
+        Faço festas em {SERVICE_AREAS.join(", ")} e arredores.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand lang={lang} context="uma festa de aniversário" />
+</Base>
+
+<style>
+  .timeline { display: grid; gap: 1rem; max-width: 780px; margin-inline: auto; }
+  .timeline-row {
+    display: grid;
+    grid-template-columns: 88px 1fr;
+    gap: 1.5rem;
+    background: var(--white);
+    border-radius: var(--r-md);
+    padding: 1.4rem 1.6rem;
+    box-shadow: var(--shadow-sm);
+    align-items: start;
+  }
+  .timeline-time {
+    font-family: var(--font-display), sans-serif;
+    font-weight: 800;
+    font-size: .88rem;
+    color: var(--teal);
+    background: var(--cream-deep);
+    border-radius: 9999px;
+    padding: .3rem .6rem;
+    text-align: center;
+  }
+  @media (max-width: 600px) {
+    .timeline-row { grid-template-columns: 1fr; gap: .7rem; }
+    .timeline-time { justify-self: start; }
+  }
+</style>

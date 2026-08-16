@@ -1,0 +1,78 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/ted-logo.png";
+import Icon from "./Icon.astro";
+import { NAV, T, whatsappUrl, altLanguageUrls, type Lang } from "../lib/site";
+
+interface Props {
+  lang: Lang;
+  path: string;
+}
+const { lang, path } = Astro.props;
+const t = T[lang];
+const links = NAV[lang];
+const home = lang === "en" ? "/en/" : "/";
+const alt = altLanguageUrls(path);
+// O botão de idioma leva à página equivalente. Quando não existe
+// equivalente (ex.: /onde-atuamos), cai na home do outro idioma em vez
+// de apontar para uma URL que dá 404.
+const switchHref = lang === "en" ? (alt.pt ?? "/") : (alt.en ?? "/en/");
+---
+
+<nav class="nav" data-scrolled="false" data-open="false" aria-label={lang === "en" ? "Main" : "Principal"}>
+  <div class="container nav-inner">
+    <a href={home} class="nav-brand" aria-label="Ted Animações">
+      <Image src={logo} alt="" width={52} height={74} loading="eager" style="width:3rem;height:auto" />
+      <span>
+        <span class="name">Ted Animações</span><br />
+        <span class="tag">{t.tagline}</span>
+      </span>
+    </a>
+
+    <div class="nav-links">
+      {links.map((l) => (
+        <a
+          href={l.href}
+          class="nav-link"
+          aria-current={path === l.href ? "page" : undefined}
+        >{l.label}</a>
+      ))}
+      <a href={switchHref} class="lang-switch" hreflang={lang === "en" ? "pt-PT" : "en-GB"}>
+        {t.langSwitch}
+      </a>
+      <a
+        href={whatsappUrl(undefined, lang)}
+        class="btn btn-whatsapp btn-sm"
+        target="_blank"
+        rel="noopener"
+        data-cta="nav"
+      >
+        <Icon name="whatsapp" size={16} />
+        {t.quoteShort}
+      </a>
+    </div>
+
+    <button class="nav-toggle" aria-label={t.menu} aria-expanded="false" aria-controls="nav-drawer">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div class="nav-drawer" id="nav-drawer">
+    {links.map((l) => (
+      <a href={l.href} class="nav-link" aria-current={path === l.href ? "page" : undefined}>{l.label}</a>
+    ))}
+    <a href={switchHref} class="nav-link" hreflang={lang === "en" ? "pt-PT" : "en-GB"}>
+      {lang === "en" ? "Ver em português" : "Read in English"}
+    </a>
+    <a
+      href={whatsappUrl(undefined, lang)}
+      class="btn btn-whatsapp btn-block mt-md"
+      target="_blank"
+      rel="noopener"
+      data-cta="nav-mobile"
+    >
+      <Icon name="whatsapp" size={20} />
+      {t.quote}
+    </a>
+  </div>
+</nav>

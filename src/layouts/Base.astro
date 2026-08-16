@@ -1,0 +1,169 @@
+---
+import { Font } from "astro:assets";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import WhatsAppFloat from "../components/WhatsAppFloat.astro";
+import { SITE, absoluteUrl, altLanguageUrls, T, type Lang } from "../lib/site";
+import { businessSchema, webPageSchema, breadcrumbSchema } from "../lib/schema";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  lang?: Lang;
+  /** Caminho canónico desta página, começado por "/". */
+  path: string;
+  /** Imagem para partilha social (caminho absoluto ou URL). */
+  ogImage?: string;
+  /** Blocos JSON-LD adicionais desta página. */
+  schemas?: (object | null)[];
+  /** Migalhas de navegação: também geram BreadcrumbList. */
+  breadcrumbs?: { name: string; href: string }[];
+  /** Classificação agregada — só passar com avaliações reais publicadas. */
+  rating?: { value: number; count: number };
+  /** Impedir indexação (usado no 404 e na política de privacidade). */
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  lang = "pt",
+  path,
+  ogImage,
+  schemas = [],
+  breadcrumbs,
+  rating,
+  noindex = false,
+} = Astro.props;
+
+const canonical = absoluteUrl(path);
+const alt = altLanguageUrls(path);
+const og = ogImage ?? absoluteUrl("/og/ted-animacoes.jpg");
+const t = T[lang];
+
+// Blocos de dados estruturados: o negócio vai em todas as páginas,
+// mais a página em si, as migalhas e o que a página acrescentar.
+const jsonLd = [
+  businessSchema(rating),
+  webPageSchema({ title, description, url: path, lang }),
+  breadcrumbs ? breadcrumbSchema(breadcrumbs) : null,
+  ...schemas,
+].filter(Boolean);
+---
+
+<!doctype html>
+<html lang={lang === "en" ? "en-GB" : "pt-PT"} class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <!-- Sem maximum-scale: bloquear o zoom é uma violação de acessibilidade. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+
+    <!--
+      Alternativas de idioma. Só declaradas quando a página equivalente
+      existe mesmo: um hreflang a apontar para uma URL inexistente faz o
+      Google descartar o par de idiomas por inteiro.
+    -->
+    {alt.pt && <link rel="alternate" hreflang="pt-PT" href={alt.pt} />}
+    {alt.en && <link rel="alternate" hreflang="en-GB" href={alt.en} />}
+    {alt.pt && <link rel="alternate" hreflang="x-default" href={alt.pt} />}
+
+    <!-- Open Graph / partilhas -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={og} />
+    <meta property="og:locale" content={lang === "en" ? "en_GB" : "pt_PT"} />
+    <meta property="og:locale:alternate" content={lang === "en" ? "pt_PT" : "en_GB"} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={og} />
+
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/ted-logo.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/ted-logo.png" />
+    <meta name="theme-color" content="#2D7A6E" />
+
+    <!-- Fontes self-hosted: sem pedido bloqueante a fonts.googleapis.com -->
+    <Font cssVariable="--font-display" preload />
+    <Font cssVariable="--font-body" preload />
+
+    {jsonLd.map((s) => (
+      <script type="application/ld+json" set:html={JSON.stringify(s)} is:inline />
+    ))}
+
+    <script is:inline>
+      // Marca que há JS antes da pintura, para as revelações não piscarem.
+      document.documentElement.classList.remove("no-js");
+    </script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#conteudo">{t.skip}</a>
+    <Nav lang={lang} path={path} />
+
+    <main id="conteudo">
+      <slot />
+    </main>
+
+    <Footer lang={lang} />
+    <WhatsAppFloat lang={lang} />
+
+    <script>
+      // Revelação ao scroll. Progressive enhancement: o conteúdo já está
+      // no HTML e visível sem JS — isto só acrescenta o movimento.
+      const els = document.querySelectorAll(".reveal");
+      if (els.length && "IntersectionObserver" in window) {
+        const obs = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                e.target.classList.add("is-visible");
+                obs.unobserve(e.target);
+              }
+            }
+          },
+          { threshold: 0.1, rootMargin: "0px 0px -40px 0px" },
+        );
+        els.forEach((el) => obs.observe(el));
+      } else {
+        els.forEach((el) => el.classList.add("is-visible"));
+      }
+
+      // Barra de navegação: fundo sólido depois do scroll.
+      const nav = document.querySelector(".nav");
+      if (nav) {
+        const onScroll = () =>
+          nav.setAttribute("data-scrolled", String(window.scrollY > 40));
+        onScroll();
+        window.addEventListener("scroll", onScroll, { passive: true });
+
+        const toggle = nav.querySelector(".nav-toggle");
+        toggle?.addEventListener("click", () => {
+          const open = nav.getAttribute("data-open") === "true";
+          nav.setAttribute("data-open", String(!open));
+          toggle.setAttribute("aria-expanded", String(!open));
+        });
+      }
+
+      // Medir conversões. Sem isto não se sabe o que funciona —
+      // a auditoria encontrou o Umami instalado mas sem eventos.
+      document.addEventListener("click", (ev) => {
+        const link = (ev.target as HTMLElement)?.closest?.("a[href*='wa.me']");
+        if (!link) return;
+        const where = link.getAttribute("data-cta") || "desconhecido";
+        // @ts-ignore — umami é opcional
+        window.umami?.track?.("whatsapp-click", { origem: where });
+      });
+    </script>
+  </body>
+</html>

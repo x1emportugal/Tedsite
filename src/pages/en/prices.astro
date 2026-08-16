@@ -1,0 +1,94 @@
+---
+import Base from "../../layouts/Base.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import SectionHead from "../../components/SectionHead.astro";
+import Packages from "../../components/Packages.astro";
+import FaqList from "../../components/FaqList.astro";
+import Reviews from "../../components/Reviews.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import Icon from "../../components/Icon.astro";
+import Deco from "../../components/Deco.astro";
+import Wave from "../../components/Wave.astro";
+import { getPackages, getFaqs, getReviews, ratingFrom } from "../../lib/content";
+import { faqSchema } from "../../lib/schema";
+
+const lang = "en" as const;
+const packages = await getPackages(lang);
+const faqs = await getFaqs(lang, "precos");
+const reviews = await getReviews(lang, true);
+const rating = ratingFrom(reviews);
+
+const trail = [
+  { name: "Home", href: "/en/" },
+  { name: "Prices", href: "/en/prices" },
+];
+
+const included = [
+  "All activity materials",
+  "Travel within the listed Algarve areas",
+  "A programme planned in advance around your group",
+  "Set-up and clear-up — nothing left for you to do",
+];
+---
+
+<Base
+  title="Children's Entertainer Prices in the Algarve — Ted Animações"
+  description="Party packages for children's entertainment in the Algarve. See what each format includes, how long it runs and what changes with group size. Fixed quote before the party."
+  lang={lang}
+  path="/en/prices"
+  breadcrumbs={trail}
+  rating={rating}
+  schemas={[faqSchema(faqs)]}
+>
+  <Breadcrumbs trail={trail} lang={lang} />
+
+  <section class="section bg-cream" style="padding-top:2.5rem">
+    <Deco shape="circle" color="#F5C842" size={80} class="animate-float-slow" style="top:10%;left:3%;opacity:.4" />
+
+    <div class="container">
+      <SectionHead
+        eyebrow="Prices and packages"
+        title='What a party with an <span class="text-teal">entertainer</span> costs'
+        lede="Three formats, all with materials included and a fixed quote agreed before the party. No extras appear at the end."
+        as="h1"
+      />
+
+      <div style="margin-top:3rem"><Packages packages={packages} lang={lang} /></div>
+
+      <div class="card reveal" style="padding:2rem;max-width:760px;margin-inline:auto;margin-top:3rem">
+        <h2 class="h3 mb-md">Included in every package</h2>
+        <ul class="price-list">
+          {included.map((i) => (
+            <li><Icon name="check" size={16} color="#2D7A6E" /><span>{i}</span></li>
+          ))}
+        </ul>
+        <p style="font-size:.9rem;color:var(--ink-muted);margin-top:1.2rem">
+          The final figure depends on duration, number of children and distance.
+          Groups over 20 children include a second entertainer, so activities keep
+          running without queues.
+        </p>
+      </div>
+    </div>
+    <Wave fill="#F0E4C4" variant={2} />
+  </section>
+
+  {reviews.length > 0 && (
+    <section class="section bg-cream-deep">
+      <div class="container">
+        <SectionHead eyebrow="Families who booked" title="What they said about value" eyebrowTeal />
+        <div class="mt-lg"><Reviews reviews={reviews} lang={lang} showEmptyNotice={false} /></div>
+      </div>
+      <Wave fill="#FAF0DC" variant={1} />
+    </section>
+  )}
+
+  <section class="section bg-cream">
+    <div class="container-narrow">
+      <SectionHead eyebrow="Before you decide" title="Questions about prices and booking" />
+      <div class="mt-lg"><FaqList items={faqs} /></div>
+    </div>
+    <Wave fill="#F0E4C4" variant={3} />
+  </section>
+
+  <CtaBand lang={lang} context="a quote for my party" />
+</Base>

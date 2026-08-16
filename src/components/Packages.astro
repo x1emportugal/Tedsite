@@ -1,0 +1,77 @@
+---
+import Icon from "./Icon.astro";
+import { whatsappUrl, type Lang } from "../lib/site";
+
+interface Pkg {
+  id: string;
+  name: string;
+  forWho: string;
+  price: number | null;
+  priceNote: string;
+  duration: string;
+  includes: string[];
+  featured: boolean;
+}
+interface Props {
+  packages: Pkg[];
+  lang: Lang;
+}
+const { packages, lang } = Astro.props;
+const en = lang === "en";
+const needsPrice = (p: Pkg) => p.price === null;
+---
+
+<div class="price-grid">
+  {packages.map((p) => (
+    <article class:list={["price-card", "reveal", p.featured && "featured"]}>
+      {p.featured && (
+        <span class="price-flag">{en ? "Most requested" : "O mais pedido"}</span>
+      )}
+      <h3 class="price-name">{p.name}</h3>
+      <p class="price-for">{p.forWho}</p>
+
+      {needsPrice(p) ? (
+        <>
+          <p class="price-value" style="font-size:1.55rem">
+            {en ? "On request" : "Sob consulta"}
+          </p>
+          <p class="price-unit">
+            {en ? "Fixed quote before the party" : "Orçamento fechado antes da festa"}
+          </p>
+        </>
+      ) : (
+        <>
+          <p class="price-value">
+            <small>{en ? "from" : "desde"} </small>{p.price}€
+          </p>
+          <p class="price-unit">
+            {p.duration} · {en ? "all materials included" : "material todo incluído"}
+          </p>
+        </>
+      )}
+
+      <ul class="price-list">
+        {p.includes.map((item) => (
+          <li>
+            <Icon name="check" size={16} color="#2D7A6E" />
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+
+      <a
+        href={whatsappUrl(
+          en ? `the ${p.name} package` : `o pacote ${p.name}`,
+          lang,
+        )}
+        class:list={["btn", p.featured ? "btn-whatsapp" : "btn-outline", "btn-block"]}
+        target="_blank"
+        rel="noopener"
+        data-cta={`pacote-${p.id}`}
+      >
+        {p.featured && <Icon name="whatsapp" size={18} />}
+        {en ? "Check availability" : "Ver disponibilidade"}
+      </a>
+    </article>
+  ))}
+</div>

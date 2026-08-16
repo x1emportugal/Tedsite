@@ -1,0 +1,38 @@
+User-agent: *
+Allow: /
+
+# ── Crawlers de IA ──────────────────────────────────────────────
+# Permitidos de propósito. Ser citado pelo ChatGPT, pelo Perplexity
+# ou nas respostas de IA do Google vale muito mais para um negócio
+# local do que qualquer receio de "roubo" de conteúdo.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+# ── Não indexar ─────────────────────────────────────────────────
+Disallow: /politica-de-privacidade
+
+Sitemap: https://tedinportugal.pt/sitemap-index.xml

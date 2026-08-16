@@ -1,0 +1,128 @@
+---
+import { Image } from "astro:assets";
+import { render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import Icon from "../../components/Icon.astro";
+import Deco from "../../components/Deco.astro";
+import Wave from "../../components/Wave.astro";
+import SectionHead from "../../components/SectionHead.astro";
+import ActivityCard from "../../components/ActivityCard.astro";
+import FaqList from "../../components/FaqList.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { photo } from "../../lib/images";
+import { whatsappUrl } from "../../lib/site";
+import { getActivities } from "../../lib/content";
+import { serviceSchema, faqSchema } from "../../lib/schema";
+
+export async function getStaticPaths() {
+  const activities = await getActivities("pt");
+  return activities.map((entry) => ({
+    params: { slug: entry.data.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const a = entry.data;
+const lang = "pt" as const;
+const { Content } = await render(entry);
+
+const others = (await getActivities(lang)).filter((o) => o.data.slug !== a.slug);
+const path = `/atividades/${a.slug}`;
+const trail = [
+  { name: "Início", href: "/" },
+  { name: "Atividades", href: "/atividades" },
+  { name: a.title, href: path },
+];
+---
+
+<Base
+  title={`${a.seoTitle} — Ted Animações`}
+  description={a.description}
+  lang={lang}
+  path={path}
+  breadcrumbs={trail}
+  schemas={[
+    serviceSchema({ name: a.title, description: a.description, url: path }),
+    faqSchema(a.faqs),
+  ]}
+>
+  <Breadcrumbs trail={trail} lang={lang} />
+
+  <section class="section bg-cream" style="padding-top:2rem">
+    <Deco shape="circle" color="#F5C842" size={60} class="animate-float-med" style="top:8%;right:5%;opacity:.5" />
+
+    <div class="container">
+      <div class="split">
+        <div>
+          <p class="eyebrow eyebrow-teal mb-sm">Atividade</p>
+          <h1 class="h1 mb-md">{a.title}</h1>
+          <p class="lede mb-lg">{a.summary}</p>
+
+          <div class="row gap-lg mb-lg">
+            <span class="row gap-xs" style="font-weight:700;font-size:.92rem;color:var(--ink-soft)">
+              <Icon name="users" size={18} color="#2D7A6E" /> {a.ages}
+            </span>
+            <span class="row gap-xs" style="font-weight:700;font-size:.92rem;color:var(--ink-soft)">
+              <Icon name="clock" size={18} color="#2D7A6E" /> {a.duration}
+            </span>
+          </div>
+
+          <a
+            href={whatsappUrl(`uma festa com ${a.title.toLowerCase()}`)}
+            class="btn btn-whatsapp btn-lg"
+            target="_blank"
+            rel="noopener"
+            data-cta={`atividade-${a.slug}`}
+          >
+            <Icon name="whatsapp" size={22} />
+            Pedir orçamento no WhatsApp
+          </a>
+        </div>
+
+        <div class="blob-frame" style="aspect-ratio:4/3">
+          <Image
+            src={photo(a.image)}
+            alt={a.imageAlt}
+            widths={[480, 760, 1100]}
+            sizes="(min-width: 900px) 46vw, 92vw"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+    </div>
+    <Wave fill="#F0E4C4" variant={1} />
+  </section>
+
+  <section class="section bg-cream-deep">
+    <div class="container-narrow">
+      <article class="prose reveal"><Content /></article>
+    </div>
+    <Wave fill="#FAF0DC" variant={2} />
+  </section>
+
+  {a.faqs.length > 0 && (
+    <section class="section bg-cream">
+      <div class="container-narrow">
+        <SectionHead eyebrow="Perguntas frequentes" title={`Sobre a ${a.title.toLowerCase()}`} eyebrowTeal />
+        <div class="mt-lg"><FaqList items={a.faqs} /></div>
+      </div>
+      <Wave fill="#F0E4C4" variant={3} />
+    </section>
+  )}
+
+  <section class="section bg-cream-deep">
+    <div class="container">
+      <SectionHead eyebrow="Também nas festas" title="Outras atividades" />
+      <div class="grid grid-3 mt-lg">
+        {others.map((o, i) => (
+          <ActivityCard activity={o.data} lang={lang} delay={i * 90} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand lang={lang} context={`uma festa com ${a.title.toLowerCase()}`} />
+</Base>

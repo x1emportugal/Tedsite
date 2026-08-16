@@ -1,0 +1,60 @@
+---
+import Base from "../../layouts/Base.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import SectionHead from "../../components/SectionHead.astro";
+import ActivityCard from "../../components/ActivityCard.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import Deco from "../../components/Deco.astro";
+import Wave from "../../components/Wave.astro";
+import { getActivities } from "../../lib/content";
+
+const lang = "pt" as const;
+const activities = await getActivities(lang);
+const trail = [
+  { name: "Início", href: "/" },
+  { name: "Atividades", href: "/atividades" },
+];
+---
+
+<Base
+  title="Atividades para Festas Infantis no Algarve — Ted Animações"
+  description="Caça ao tesouro, pintura facial, oficina de pulseiras e jogos de grupo para festas de aniversário no Algarve. Veja como funciona cada atividade, para que idades e quanto tempo demora."
+  lang={lang}
+  path="/atividades"
+  breadcrumbs={trail}
+>
+  <Breadcrumbs trail={trail} lang={lang} />
+
+  <section class="section bg-cream" style="padding-top:2.5rem">
+    <Deco shape="circle" color="#F5C842" size={70} class="animate-float-med" style="top:12%;right:6%;opacity:.5" />
+    <Deco shape="dots" color="#2D7A6E" style="width:90px;bottom:15%;left:4%;opacity:.3" />
+
+    <div class="container">
+      <SectionHead
+        eyebrow="O repertório completo"
+        title='Atividades para festas de <span class="text-teal">aniversário</span>'
+        lede="Cada festa leva uma combinação diferente. Escolhemos juntos depois de saber as idades, quantas crianças são e como é o espaço."
+        as="h1"
+      />
+
+      <div class="grid grid-4 mt-lg">
+        {activities.map((a, i) => (
+          <ActivityCard activity={a.data} lang={lang} delay={i * 90} />
+        ))}
+      </div>
+
+      <div class="card mt-lg reveal" style="padding:2rem;max-width:760px;margin-inline:auto;margin-top:3rem">
+        <h2 class="h3 mb-sm">Extras que se juntam a qualquer pacote</h2>
+        <p style="color:var(--ink-soft);font-size:.96rem">
+          Modelagem de balões, bolhas de sabão gigantes, momento de dança com
+          música e jogos de roda para os mais pequenos. Estes entram como
+          complemento — diga-me o que faz sentido para a sua festa e incluo no
+          programa.
+        </p>
+      </div>
+    </div>
+    <Wave fill="#F0E4C4" variant={2} />
+  </section>
+
+  <CtaBand lang={lang} context="uma festa com estas atividades" />
+</Base>

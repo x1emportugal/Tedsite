@@ -1,0 +1,277 @@
+---
+import { Image } from "astro:assets";
+import Base from "../../layouts/Base.astro";
+import Icon from "../../components/Icon.astro";
+import Deco from "../../components/Deco.astro";
+import Wave from "../../components/Wave.astro";
+import SectionHead from "../../components/SectionHead.astro";
+import ActivityCard from "../../components/ActivityCard.astro";
+import Reviews from "../../components/Reviews.astro";
+import FaqList from "../../components/FaqList.astro";
+import TrustStrip from "../../components/TrustStrip.astro";
+import Gallery from "../../components/Gallery.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { photo } from "../../lib/images";
+import { whatsappUrl, SERVICE_AREAS, T } from "../../lib/site";
+import { getActivities, getFaqs, getReviews, ratingFrom } from "../../lib/content";
+import { faqSchema, reviewSchema } from "../../lib/schema";
+
+const lang = "en" as const;
+const t = T[lang];
+const activities = await getActivities(lang);
+const faqs = await getFaqs(lang, "home");
+const reviews = await getReviews(lang, true);
+const rating = ratingFrom(reviews);
+
+const steps = [
+  { n: "1", icon: "chat", title: "Message me on WhatsApp", desc: "Tell me the date, the place and how many children. I usually reply the same day." },
+  { n: "2", icon: "cake", title: "We plan the party", desc: "Ages, type of space, activities. You get a fixed quote — no extras appear at the end." },
+  { n: "3", icon: "party", title: "I turn up and it runs", desc: "I arrive early, bring every material, and you get to actually enjoy the party." },
+];
+
+const why = [
+  { icon: "chat", title: "Runs in English", desc: "The whole party in English, Portuguese, or both at once — the usual case here in the Algarve." },
+  { icon: "target", title: "Built for your group", desc: "No fixed script. The programme is planned once I know the ages and the space." },
+  { icon: "shield", title: "Skin-safe materials", desc: "Hypoallergenic, water-based paints certified for children's skin." },
+  { icon: "sun", title: "Ready for Algarve weather", desc: "An indoor version of every game, and a programme that avoids the hottest hours." },
+  { icon: "users", title: "Nobody sits out", desc: "Rotating teams instead of elimination — no child spends the party on the sidelines." },
+  { icon: "hotel", title: "Villas, hotels and resorts", desc: "Used to working at rental villas and hotels, including their supplier rules." },
+];
+---
+
+<Base
+  title="Ted Animações — Children's Entertainer in the Algarve | Birthday Parties"
+  description="English-speaking children's entertainer in the Algarve. Birthday parties at villas, hotels and homes: treasure hunts, face painting, craft workshops and games. Albufeira, Vilamoura, Lagos, Faro."
+  lang={lang}
+  path="/en/"
+  rating={rating}
+  schemas={[faqSchema(faqs), reviewSchema(reviews)]}
+>
+  <section class="section bg-cream" style="padding-top:8rem;display:flex;align-items:center">
+    <Deco shape="wiggle" color="#2D7A6E" class="animate-float-slow" style="width:380px;top:8%;right:-60px;opacity:.7" />
+    <Deco shape="circle" color="#F5C842" size={90} class="animate-float-med" style="top:15%;right:12%;opacity:.9" />
+    <Deco shape="dots" color="#2D7A6E" style="width:100px;top:20%;left:5%;opacity:.4" />
+    <Deco shape="star" color="#F5C842" class="animate-spin-slow" style="width:50px;bottom:20%;right:6%;opacity:.6" />
+
+    <div class="container">
+      <div class="split">
+        <div>
+          <p class="eyebrow mb-md">
+            <Icon name="location" size={14} color="#1A2E2A" />
+            English-speaking entertainer · Algarve
+          </p>
+          <h1 class="h1 mb-md">
+            Children's parties they <span class="text-teal">actually remember</span>
+          </h1>
+          <p class="lede mb-lg">
+            Games, treasure hunts and craft workshops that get children off
+            screens and into the room — while the adults finally get to enjoy
+            the party. At your villa, your home or your hotel.
+          </p>
+
+          <div class="row gap-md">
+            <a href={whatsappUrl("a birthday party", lang)} class="btn btn-whatsapp btn-lg" target="_blank" rel="noopener" data-cta="hero-en">
+              <Icon name="whatsapp" size={22} />
+              {t.quote}
+            </a>
+            <a href="/en/prices" class="btn btn-outline">
+              {t.seePrices}
+              <Icon name="arrow-right" size={16} color="#2D7A6E" />
+            </a>
+          </div>
+
+          <div class="row gap-lg mt-lg">
+            {[
+              { icon: "chat", text: "English & Portuguese" },
+              { icon: "hotel", text: "Villas & hotels" },
+              { icon: "shield", text: "Skin-safe materials" },
+            ].map((b) => (
+              <span class="row gap-xs" style="font-weight:700;font-size:.9rem;color:var(--ink-soft)">
+                <Icon name={b.icon} size={18} color="#2D7A6E" />
+                {b.text}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div style="position:relative">
+          <div class="blob-frame" style="aspect-ratio:4/3">
+            <Image
+              src={photo("hero-festa-aniversario.jpg")}
+              alt="Children's birthday party with an entertainer in the Algarve"
+              widths={[480, 760, 1100]}
+              sizes="(min-width: 900px) 46vw, 92vw"
+              loading="eager"
+              fetchpriority="high"
+            />
+          </div>
+          <div class="float-tag animate-float-med" style="bottom:-1rem;left:1.5rem;background:var(--teal);color:var(--on-dark);box-shadow:0 8px 24px rgba(45,122,110,.35)">
+            <Icon name="cake" size={24} color="#F5C842" />
+            <div style="margin-top:.3rem">Tailored to your group</div>
+          </div>
+          <div class="float-tag animate-float-slow" style="top:-.5rem;right:1.5rem;background:var(--yellow);color:var(--ink);box-shadow:0 8px 24px rgba(245,200,66,.4)">
+            <Icon name="smile" size={22} color="#1A2E2A" />
+            <div style="margin-top:.3rem">Ages 3 to 12</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <Wave fill="#F0E4C4" variant={1} />
+  </section>
+
+  <section class="section bg-cream-deep">
+    <div class="container">
+      <SectionHead
+        eyebrow="What parents say"
+        title='Families who booked <span class="text-teal">Ted</span>'
+        lede={reviews.length > 0 ? "Real reviews from families in the Algarve." : undefined}
+      />
+      <div class="mt-lg"><Reviews reviews={reviews} lang={lang} /></div>
+      {reviews.length > 0 && (
+        <p class="center mt-lg">
+          <a href="/en/reviews" class="btn btn-outline">
+            Read all reviews <Icon name="arrow-right" size={16} color="#2D7A6E" />
+          </a>
+        </p>
+      )}
+    </div>
+    <Wave fill="#FAF0DC" variant={2} />
+  </section>
+
+  <section class="section bg-cream">
+    <div class="container">
+      <div class="split">
+        <div style="position:relative;order:2">
+          <div class="blob-frame-alt" style="aspect-ratio:3/4;max-width:400px;margin-inline:auto">
+            <Image
+              src={photo("ted-retrato.jpg")}
+              alt="Ted, children's entertainer in the Algarve"
+              widths={[360, 560, 800]}
+              sizes="(min-width: 900px) 40vw, 90vw"
+              loading="lazy"
+            />
+          </div>
+        </div>
+        <div class="reveal" style="order:1">
+          <p class="eyebrow eyebrow-teal mb-sm">Who you're booking</p>
+          <h2 class="h2 mb-md">Hi, I'm <span class="text-teal">Ted</span></h2>
+          <div class="prose">
+            <p>
+              I run children's entertainment across the Algarve — birthday
+              parties, hotel programmes and family events, in English and
+              Portuguese.
+            </p>
+            <p>
+              I don't work from a fixed script. Before every party I ask the
+              ages, the number of children and what the space is like, and build
+              the programme from there. During the party I read the group: if a
+              game isn't landing, I change it.
+            </p>
+            <p>
+              A lot of my summer work is at rental villas and hotels, with
+              guests from several countries in the same group — so switching
+              between languages mid-game is normal, not an exception.
+            </p>
+          </div>
+          <a href="/en/about" class="btn btn-teal mt-md">
+            More about how I work <Icon name="arrow-right" size={16} color="#FAF0DC" />
+          </a>
+        </div>
+      </div>
+    </div>
+    <Wave fill="#F0E4C4" variant={3} />
+  </section>
+
+  <section class="section bg-cream-deep">
+    <div class="container">
+      <SectionHead
+        eyebrow="What happens at the party"
+        title='Activities everyone <span class="text-teal">joins in</span>'
+        lede="We pick the combination that fits the ages in the group and the space you have."
+      />
+      <div class="grid grid-4 mt-lg">
+        {activities.map((a, i) => <ActivityCard activity={a.data} lang={lang} delay={i * 90} />)}
+      </div>
+      <p class="center mt-lg">
+        <a href="/en/activities" class="btn btn-outline">
+          {t.seeActivities} <Icon name="arrow-right" size={16} color="#2D7A6E" />
+        </a>
+      </p>
+    </div>
+    <Wave fill="#FAF0DC" variant={2} />
+  </section>
+
+  <section class="section bg-cream">
+    <div class="container">
+      <SectionHead
+        eyebrow="From first message to party day"
+        title="How it <span class='text-teal'>works</span>"
+        lede="Most parties are confirmed in two messages."
+        eyebrowTeal
+      />
+      <div class="grid grid-3 mt-lg">
+        {steps.map((s, i) => (
+          <div class="card reveal center" style={`padding:2.5rem 2rem;transition-delay:${i * 120}ms`}>
+            <div class="step-circle mx-auto mb-md">{s.n}</div>
+            <div style="display:flex;justify-content:center;margin-bottom:1rem">
+              <Icon name={s.icon} size={30} color="#2D7A6E" />
+            </div>
+            <h3 class="h3 mb-sm">{s.title}</h3>
+            <p style="font-size:.95rem;color:var(--ink-soft)">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+    <Wave fill="#2D7A6E" variant={1} />
+  </section>
+
+  <section class="section bg-teal">
+    <div class="container">
+      <SectionHead eyebrow="Why Ted" title="What makes the difference" dark />
+      <div class="grid grid-3 mt-lg">
+        {why.map((w, i) => (
+          <div class="why-badge reveal" style={`transition-delay:${i * 80}ms`}>
+            <span class="why-badge-icon"><Icon name={w.icon} size={22} color="#1A2E2A" /></span>
+            <div><h3>{w.title}</h3><p>{w.desc}</p></div>
+          </div>
+        ))}
+      </div>
+      <div style="margin-top:3rem">
+        <p class="center mb-md" style="font-family:var(--font-display);font-weight:800;color:var(--on-dark);font-size:1.05rem">
+          What parents ask before booking
+        </p>
+        <TrustStrip lang={lang} />
+      </div>
+    </div>
+    <Wave fill="#FAF0DC" variant={3} />
+  </section>
+
+  <section class="section bg-cream">
+    <div class="container">
+      <SectionHead
+        eyebrow="Real moments"
+        title='Photos from <span class="text-teal">actual parties</span>'
+        lede="No stock photography. Every picture is from a party I ran in the Algarve."
+      />
+      <div class="mt-lg"><Gallery lang={lang} limit={8} /></div>
+      <p class="center mt-lg">
+        <a href="/en/gallery" class="btn btn-outline">
+          See the full gallery <Icon name="arrow-right" size={16} color="#2D7A6E" />
+        </a>
+      </p>
+    </div>
+    <Wave fill="#F0E4C4" variant={1} />
+  </section>
+
+  <section class="section bg-cream-deep">
+    <div class="container-narrow">
+      <SectionHead eyebrow="Frequently asked" title="What families want to know" eyebrowTeal />
+      <div class="mt-lg"><FaqList items={faqs} /></div>
+      <p class="center mt-lg" style="color:var(--ink-muted);font-size:.95rem">
+        I work in {SERVICE_AREAS.join(", ")} and across the rest of the Algarve.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand lang={lang} context="a birthday party" />
+</Base>

@@ -1,0 +1,189 @@
+---
+import { Image } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import SectionHead from "../components/SectionHead.astro";
+import FaqList from "../components/FaqList.astro";
+import Icon from "../components/Icon.astro";
+import Deco from "../components/Deco.astro";
+import Wave from "../components/Wave.astro";
+import { photo } from "../lib/images";
+import { SITE, whatsappUrl, SERVICE_AREAS } from "../lib/site";
+import { getFaqs } from "../lib/content";
+import { serviceSchema, faqSchema } from "../lib/schema";
+
+const lang = "pt" as const;
+const faqs = await getFaqs(lang, "hoteis");
+const path = "/animacao-para-hoteis";
+const trail = [
+  { name: "Início", href: "/" },
+  { name: "Hotéis e eventos", href: path },
+];
+
+const formats = [
+  {
+    icon: "sun",
+    title: "Animação de época",
+    desc: "Programa regular durante a época alta, com atividades diferentes por dia da semana para hóspedes que ficam uma ou duas semanas.",
+  },
+  {
+    icon: "party",
+    title: "Kids club pontual",
+    desc: "Reforço da equipa de animação em dias de maior ocupação, feriados ou eventos especiais do hotel.",
+  },
+  {
+    icon: "cake",
+    title: "Festas de hóspedes",
+    desc: "Aniversários de crianças alojadas no hotel, organizados em coordenação com a receção e a equipa de F&B.",
+  },
+  {
+    icon: "users",
+    title: "Eventos e casamentos",
+    desc: "Animação para as crianças enquanto os adultos estão na cerimónia ou no jantar — o que faz a diferença entre um evento tranquilo e um evento tenso.",
+  },
+];
+
+const forHotels = [
+  "Disponibilidade confirmada por escrito, com antecedência",
+  "Faturação com NIF e recibo — sem informalidades",
+  "Seguro de responsabilidade civil (PREENCHER: dados concretos)",
+  "Registo criminal disponível para consulta (PREENCHER: confirmar)",
+  "Animação em português e inglês, na mesma sessão",
+  "Material próprio — não usa o stock nem o espaço de armazenamento do hotel",
+];
+---
+
+<Base
+  title="Animação Infantil para Hotéis e Resorts no Algarve — Ted Animações"
+  description="Animação infantil para hotéis, resorts e empresas de eventos no Algarve. Programas de época, kids club pontual, festas de hóspedes e eventos. Faturação, seguro e animação bilingue."
+  lang={lang}
+  path={path}
+  breadcrumbs={trail}
+  schemas={[
+    serviceSchema({
+      name: "Animação infantil para hotéis e eventos",
+      description:
+        "Serviço de animação infantil para hotéis, resorts, casamentos e eventos empresariais no Algarve, em regime pontual ou de época, com animação bilingue português/inglês.",
+      url: path,
+    }),
+    faqSchema(faqs),
+  ]}
+>
+  <Breadcrumbs trail={trail} lang={lang} />
+
+  <section class="section bg-cream" style="padding-top:2rem">
+    <Deco shape="blob" color="#2D7A6E" style="width:300px;top:-60px;right:-80px;opacity:.08" />
+    <Deco shape="circle" color="#F5C842" size={60} class="animate-float-med" style="bottom:14%;left:5%;opacity:.4" />
+
+    <div class="container">
+      <div class="split">
+        <div>
+          <p class="eyebrow eyebrow-teal mb-md">
+            <Icon name="hotel" size={14} color="#FAF0DC" />
+            Para hotéis, resorts e eventos
+          </p>
+          <h1 class="h1 mb-md">
+            Animação infantil que <span class="text-teal">liberta a sua equipa</span>
+          </h1>
+          <p class="lede mb-lg">
+            Trabalho com hotéis e empresas de eventos no Algarve em regime pontual
+            ou de época. Chego com programa, material e seguro próprios — e com
+            animação que corre em português e inglês na mesma sessão.
+          </p>
+          <div class="row gap-md">
+            <a href={`mailto:${SITE.email}?subject=${encodeURIComponent("Animação infantil — pedido de proposta")}`} class="btn btn-teal btn-lg">
+              <Icon name="mail" size={20} color="#FAF0DC" />
+              Pedir proposta por email
+            </a>
+            <a href={whatsappUrl("animação infantil para o nosso hotel")} class="btn btn-outline" target="_blank" rel="noopener" data-cta="hoteis-hero">
+              <Icon name="whatsapp" size={18} color="#2D7A6E" />
+              Falar no WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <div class="blob-frame-alt" style="aspect-ratio:4/3">
+          <Image
+            src={photo("ted-mesa-atividades.jpg")}
+            alt="Ted a preparar a mesa de atividades para animação infantil num hotel do Algarve"
+            widths={[480, 760, 1100]}
+            sizes="(min-width: 900px) 46vw, 92vw"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+    </div>
+    <Wave fill="#F0E4C4" variant={1} />
+  </section>
+
+  <section class="section bg-cream-deep">
+    <div class="container">
+      <SectionHead
+        eyebrow="Formatos de trabalho"
+        title="Como podemos trabalhar juntos"
+        lede="Do reforço pontual num fim de semana cheio ao programa de época completo."
+      />
+      <div class="grid grid-2 mt-lg">
+        {formats.map((f, i) => (
+          <div class="why-badge reveal" style={`transition-delay:${i * 80}ms`}>
+            <span class="why-badge-icon"><Icon name={f.icon} size={22} color="#1A2E2A" /></span>
+            <div>
+              <h3>{f.title}</h3>
+              <p>{f.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+    <Wave fill="#2D7A6E" variant={2} />
+  </section>
+
+  <section class="section bg-teal">
+    <div class="container-narrow">
+      <SectionHead
+        eyebrow="O essencial para contratar"
+        title="O que trato antes de chegar ao hotel"
+        dark
+      />
+      <ul class="price-list mt-lg reveal" style="max-width:620px;margin-inline:auto">
+        {forHotels.map((i) => (
+          <li style="color:var(--on-dark-soft)">
+            <Icon name="check" size={17} color="#F5C842" />
+            <span>{i}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="center mt-lg">
+        <a href={`mailto:${SITE.email}?subject=${encodeURIComponent("Animação infantil — pedido de proposta")}`} class="btn btn-yellow btn-lg">
+          <Icon name="mail" size={20} color="#1A2E2A" />
+          Pedir proposta e disponibilidade
+        </a>
+      </p>
+    </div>
+    <Wave fill="#FAF0DC" variant={3} />
+  </section>
+
+  {faqs.length > 0 && (
+    <section class="section bg-cream">
+      <div class="container-narrow">
+        <SectionHead eyebrow="Perguntas frequentes" title="Dúvidas de quem contrata" eyebrowTeal />
+        <div class="mt-lg"><FaqList items={faqs} /></div>
+      </div>
+      <Wave fill="#F0E4C4" variant={1} />
+    </section>
+  )}
+
+  <section class="section bg-cream-deep">
+    <div class="container center">
+      <h2 class="h2 mb-md">Onde trabalho</h2>
+      <p class="lede mx-auto mb-lg">
+        {SERVICE_AREAS.join(" · ")}
+      </p>
+      <p style="color:var(--ink-muted);font-size:.95rem;max-width:60ch;margin-inline:auto">
+        Para unidades fora destas zonas, ou para programas de época que exijam
+        deslocação diária, fale comigo — normalmente há forma de organizar.
+      </p>
+    </div>
+  </section>
+</Base>

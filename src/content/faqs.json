@@ -1,0 +1,130 @@
+[
+  {
+    "id": "quanto-custa",
+    "lang": "pt",
+    "question": "Quanto custa uma festa de aniversário com animação no Algarve?",
+    "answer": "O valor depende de três coisas: a duração, o número de crianças e as atividades escolhidas. Tenho três pacotes com preço de partida na página de preços, e faço sempre um orçamento fechado antes da festa — nunca há extras a aparecer no fim. Diga-me a data, o local e quantas crianças espera e devolvo um valor no mesmo dia.",
+    "topics": ["home", "precos", "contactos"],
+    "order": 1
+  },
+  {
+    "id": "area-atuacao",
+    "lang": "pt",
+    "question": "Em que zonas do Algarve faz festas?",
+    "answer": "Faro, Albufeira, Loulé, Lagos, Portimão, Vilamoura, Quarteira, Olhão, Tavira e Silves. Fora destas zonas normalmente também vou — depende da data e da distância, por isso pergunte antes de assumir que não dá.",
+    "topics": ["home", "contactos"],
+    "order": 2
+  },
+  {
+    "id": "com-antecedencia",
+    "lang": "pt",
+    "question": "Com quanto tempo devo reservar?",
+    "answer": "Duas a quatro semanas é o ideal. Nos meses de verão e em datas próximas do Natal e do fim do ano letivo os fins de semana esgotam mais cedo, por vezes com mês e meio de antecedência. Se a data já está marcada, vale sempre a pena perguntar mesmo em cima da hora — às vezes há disponibilidade.",
+    "topics": ["home", "precos", "contactos"],
+    "order": 3
+  },
+  {
+    "id": "se-chover",
+    "lang": "pt",
+    "question": "E se chover no dia da festa?",
+    "answer": "A festa acontece na mesma. Todas as atividades têm uma versão de interior preparada e levo material que funciona nos dois cenários. Se o espaço mudar à última hora, avise-me e adapto o programa ao sítio novo.",
+    "topics": ["home", "contactos"],
+    "order": 4
+  },
+  {
+    "id": "quantas-criancas",
+    "lang": "pt",
+    "question": "Qual é o número máximo de crianças?",
+    "answer": "Sozinho trabalho bem até cerca de 20 crianças. Acima disso proponho uma segunda pessoa na equipa, para que as atividades continuem a funcionar sem filas e sem ninguém de fora. Grupos muito pequenos, de 5 ou 6 crianças, também funcionam — o programa é que muda.",
+    "topics": ["precos", "contactos"],
+    "order": 5
+  },
+  {
+    "id": "material",
+    "lang": "pt",
+    "question": "Preciso de preparar ou comprar alguma coisa?",
+    "answer": "Não. Levo todo o material das atividades — tintas, contas, adereços, jogos, prémios e o tesouro. Da sua parte só preciso de saber onde é a festa, a que horas e quantas crianças esperam.",
+    "topics": ["precos", "contactos"],
+    "order": 6
+  },
+  {
+    "id": "idades",
+    "lang": "pt",
+    "question": "Para que idades funciona a animação?",
+    "answer": "O programa completo funciona melhor dos 4 aos 12 anos. Abaixo dessa idade adapto para atividades mais curtas e sensoriais. Em festas de família com idades muito misturadas — incluindo adultos — monto um programa que inclua toda a gente, que é aliás o formato mais frequente em festas de verão.",
+    "topics": ["home", "precos"],
+    "order": 7
+  },
+  {
+    "id": "ingles",
+    "lang": "pt",
+    "question": "A animação pode ser feita em inglês?",
+    "answer": "Pode. Faço festas em português, em inglês, ou nas duas línguas ao mesmo tempo — que é o caso mais comum em festas com famílias portuguesas e estrangeiras juntas. As crianças alternam entre línguas com mais naturalidade do que os adultos.",
+    "topics": ["home", "contactos"],
+    "order": 8
+  },
+  {
+    "id": "seguro",
+    "lang": "pt",
+    "question": "Tem seguro e documentação em dia?",
+    "answer": "PREENCHER: confirmar seguro de responsabilidade civil, registo criminal e situação fiscal, e escrever aqui em concreto. É a pergunta que os pais mais atentos e todos os hotéis fazem — responder com clareza é uma vantagem competitiva real, porque quase nenhum concorrente do Algarve o comunica.",
+    "topics": ["home", "contactos", "hoteis"],
+    "order": 9
+  },
+  {
+    "id": "hoteis-recorrente",
+    "lang": "pt",
+    "question": "Trabalha com hotéis de forma regular?",
+    "answer": "Sim. Além de festas privadas, faço animação infantil para hotéis, resorts e empresas de eventos no Algarve, em formato pontual ou por época. Para esses casos há uma página própria com as condições, e o contacto costuma ser mais direto por email.",
+    "topics": ["hoteis"],
+    "order": 10
+  },
+  {
+    "id": "how-much-en",
+    "lang": "en",
+    "question": "How much does a children's party entertainer cost in the Algarve?",
+    "answer": "It depends on three things: how long the party runs, how many children there are, and which activities you choose. There are three packages with starting prices on the prices page, and I always confirm a fixed quote before the party — no extras appear at the end. Send me the date, the location and the number of children and I will come back to you the same day.",
+    "topics": ["home", "precos", "contactos"],
+    "order": 1
+  },
+  {
+    "id": "areas-en",
+    "lang": "en",
+    "question": "Which areas of the Algarve do you cover?",
+    "answer": "Faro, Albufeira, Loulé, Lagos, Portimão, Vilamoura, Quarteira, Olhão, Tavira and Silves. I usually travel beyond these too — it depends on the date and the distance, so ask rather than assume it is not possible.",
+    "topics": ["home", "contactos"],
+    "order": 2
+  },
+  {
+    "id": "english-en",
+    "lang": "en",
+    "question": "Can the party be run entirely in English?",
+    "answer": "Yes. I run parties in English, in Portuguese, or in both at the same time — which is the most common case here, with Portuguese and international families together. Children switch between languages far more easily than the adults do.",
+    "topics": ["home", "precos", "contactos"],
+    "order": 3
+  },
+  {
+    "id": "holiday-en",
+    "lang": "en",
+    "question": "We are on holiday here — can you come to our villa or hotel?",
+    "answer": "Yes, and it is a large part of what I do in the summer. I work at private villas, rental houses, hotels and resorts across the Algarve. If your accommodation has rules about outside suppliers, tell me and I will coordinate with them directly.",
+    "topics": ["home", "contactos"],
+    "order": 4
+  },
+  {
+    "id": "booking-en",
+    "lang": "en",
+    "question": "How far in advance should we book?",
+    "answer": "Two to four weeks is ideal. Summer weekends and dates around Christmas and the end of the school year book up earlier, sometimes six weeks ahead. If your date is already set it is always worth asking even at short notice — there is often availability.",
+    "topics": ["home", "precos", "contactos"],
+    "order": 5
+  },
+  {
+    "id": "rain-en",
+    "lang": "en",
+    "question": "What happens if it rains?",
+    "answer": "The party goes ahead. Every activity has an indoor version prepared and I bring materials that work either way. If the venue changes at the last minute, let me know and I will adapt the programme to the new space.",
+    "topics": ["home", "contactos"],
+    "order": 6
+  }
+]

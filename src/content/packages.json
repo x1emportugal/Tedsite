@@ -1,0 +1,113 @@
+[
+  {
+    "id": "essencial-pt",
+    "lang": "pt",
+    "name": "Essencial",
+    "forWho": "Festas pequenas, em casa ou no jardim",
+    "price": null,
+    "priceNote": "PREENCHER: valor a partir de",
+    "duration": "1h30",
+    "includes": [
+      "Jogos e desafios de grupo",
+      "Uma atividade criativa à escolha",
+      "Todo o material incluído",
+      "Programa adaptado às idades do grupo"
+    ],
+    "featured": false,
+    "order": 1
+  },
+  {
+    "id": "completo-pt",
+    "lang": "pt",
+    "name": "Completo",
+    "forWho": "O formato mais pedido para aniversários",
+    "price": null,
+    "priceNote": "PREENCHER: valor a partir de",
+    "duration": "2h30",
+    "includes": [
+      "Jogos e desafios de grupo",
+      "Caça ao tesouro à medida do espaço",
+      "Pintura facial para todas as crianças",
+      "Oficina de pulseiras — cada criança leva a sua",
+      "Todo o material incluído",
+      "Programa preparado depois de falarmos sobre a festa"
+    ],
+    "featured": true,
+    "order": 2
+  },
+  {
+    "id": "premium-pt",
+    "lang": "pt",
+    "name": "Premium",
+    "forWho": "Festas grandes e eventos de família",
+    "price": null,
+    "priceNote": "PREENCHER: valor a partir de",
+    "duration": "3h ou mais",
+    "includes": [
+      "Tudo o que está no pacote Completo",
+      "Modelagem de balões e bolhas de sabão",
+      "Animação de dança e momento final com música",
+      "Apoio para grupos acima de 20 crianças",
+      "Coordenação com o espaço ou hotel",
+      "Programa desenhado de raiz para o evento"
+    ],
+    "featured": false,
+    "order": 3
+  },
+  {
+    "id": "essential-en",
+    "lang": "en",
+    "name": "Essential",
+    "forWho": "Smaller parties, at home or in the garden",
+    "price": null,
+    "priceNote": "TO FILL IN: starting price",
+    "duration": "1h30",
+    "includes": [
+      "Group games and challenges",
+      "One creative activity of your choice",
+      "All materials included",
+      "Programme matched to the ages in the group"
+    ],
+    "featured": false,
+    "order": 1
+  },
+  {
+    "id": "complete-en",
+    "lang": "en",
+    "name": "Complete",
+    "forWho": "The most requested birthday format",
+    "price": null,
+    "priceNote": "TO FILL IN: starting price",
+    "duration": "2h30",
+    "includes": [
+      "Group games and challenges",
+      "Treasure hunt built around your venue",
+      "Face painting for every child",
+      "Bracelet workshop — each child takes theirs home",
+      "All materials included",
+      "Programme planned after we talk about the party",
+      "Runs in English, Portuguese or both"
+    ],
+    "featured": true,
+    "order": 2
+  },
+  {
+    "id": "premium-en",
+    "lang": "en",
+    "name": "Premium",
+    "forWho": "Larger parties and family events",
+    "price": null,
+    "priceNote": "TO FILL IN: starting price",
+    "duration": "3h or more",
+    "includes": [
+      "Everything in the Complete package",
+      "Balloon modelling and giant bubbles",
+      "Dance session and a music finale",
+      "Support for groups over 20 children",
+      "Coordination with your venue or hotel",
+      "Programme designed from scratch for the event"
+    ],
+    "featured": false,
+    "order": 3
+  }
+]

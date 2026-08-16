@@ -1,0 +1,107 @@
+---
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import { SITE } from "../lib/site";
+
+const lang = "pt" as const;
+const trail = [
+  { name: "Início", href: "/" },
+  { name: "Política de privacidade", href: "/politica-de-privacidade" },
+];
+const updated = "16 de agosto de 2026";
+---
+
+<Base
+  title="Política de Privacidade — Ted Animações"
+  description="Como o site tedinportugal.pt trata os dados pessoais de quem pede orçamento ou navega nas páginas."
+  lang={lang}
+  path="/politica-de-privacidade"
+  breadcrumbs={trail}
+  noindex
+>
+  <Breadcrumbs trail={trail} lang={lang} />
+
+  <section class="section bg-cream" style="padding-top:2rem">
+    <div class="container-narrow">
+      <h1 class="h1 mb-md">Política de privacidade</h1>
+      <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:2.5rem">
+        Última atualização: {updated}
+      </p>
+
+      <article class="prose">
+        <p>
+          Esta política explica que dados são recolhidos através de
+          tedinportugal.pt, para que servem e que direitos tem sobre eles, nos
+          termos do Regulamento Geral sobre a Proteção de Dados (RGPD).
+        </p>
+
+        <h2>Quem é responsável pelos dados</h2>
+        <p>
+          {SITE.name} ({SITE.alternateName}), com contacto através de{" "}
+          <a href={`mailto:${SITE.email}`}>{SITE.email}</a> e {SITE.phoneDisplay}.
+        </p>
+        <p>
+          PREENCHER: acrescentar aqui o nome legal completo, o NIF e a morada
+          fiscal. É exigido pelo RGPD e é também um sinal de credibilidade.
+        </p>
+
+        <h2>Que dados são recolhidos</h2>
+        <ul>
+          <li>
+            <strong>Dados que nos envia:</strong> nome, telefone ou email, data e
+            local da festa, número e idades das crianças, e qualquer informação
+            que escreva no formulário de orçamento ou nas mensagens de WhatsApp.
+          </li>
+          <li>
+            <strong>Dados de navegação:</strong> estatísticas agregadas de visitas
+            (páginas vistas, origem do tráfego, tipo de dispositivo), recolhidas
+            de forma anónima e sem cookies de rastreio.
+          </li>
+        </ul>
+
+        <h2>Para que são usados</h2>
+        <ul>
+          <li>Responder ao seu pedido de orçamento e organizar a festa contratada.</li>
+          <li>Cumprir obrigações legais e fiscais decorrentes do serviço prestado.</li>
+          <li>Perceber que páginas do site são úteis, em termos estatísticos e anónimos.</li>
+        </ul>
+        <p>
+          Os seus dados <strong>não são vendidos nem partilhados</strong> com
+          terceiros para fins de marketing.
+        </p>
+
+        <h2>Durante quanto tempo são guardados</h2>
+        <p>
+          Os pedidos de orçamento que não resultem em serviço são eliminados no
+          prazo de 12 meses. Os dados relativos a serviços prestados são mantidos
+          pelo período exigido pela legislação fiscal portuguesa.
+        </p>
+
+        <h2>Análise de tráfego</h2>
+        <p>
+          Este site usa uma ferramenta de estatísticas que não utiliza cookies e
+          não recolhe dados que permitam identificá-lo pessoalmente. Por esse
+          motivo não é apresentado um pedido de consentimento de cookies.
+        </p>
+
+        <h2>WhatsApp e redes sociais</h2>
+        <p>
+          Quando fala comigo através do WhatsApp ou do Instagram, essas
+          conversas ficam também sujeitas às políticas de privacidade da Meta
+          Platforms, sobre as quais não tenho controlo.
+        </p>
+
+        <h2>Os seus direitos</h2>
+        <p>
+          Pode pedir a qualquer momento o acesso, a correção, o apagamento ou a
+          portabilidade dos seus dados, bem como opor-se ao respetivo tratamento.
+          Basta escrever para <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+        </p>
+        <p>
+          Tem também o direito de apresentar reclamação junto da Comissão
+          Nacional de Proteção de Dados (CNPD), em <a href="https://www.cnpd.pt" rel="noopener">cnpd.pt</a>.
+        </p>
+      </article>
+    </div>
+  </section>
+</Base>

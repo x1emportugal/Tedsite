@@ -1,0 +1,170 @@
+---
+import { Image } from "astro:assets";
+import { render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import SectionHead from "../../components/SectionHead.astro";
+import ActivityCard from "../../components/ActivityCard.astro";
+import FaqList from "../../components/FaqList.astro";
+import Reviews from "../../components/Reviews.astro";
+import Icon from "../../components/Icon.astro";
+import Deco from "../../components/Deco.astro";
+import Wave from "../../components/Wave.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { photo } from "../../lib/images";
+import { whatsappUrl } from "../../lib/site";
+import { getLocations, getActivities, getReviews } from "../../lib/content";
+import { serviceSchema, faqSchema } from "../../lib/schema";
+
+export async function getStaticPaths() {
+  const locations = await getLocations("pt");
+  return locations.map((entry) => ({
+    params: { slug: entry.data.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const l = entry.data;
+const lang = "pt" as const;
+const { Content } = await render(entry);
+
+const activities = await getActivities(lang);
+const allReviews = await getReviews(lang);
+// Avaliações desta zona, quando existirem.
+const localReviews = allReviews.filter((r) => r.location === l.name);
+
+const path = `/onde-atuamos/${l.slug}`;
+const trail = [
+  { name: "Início", href: "/" },
+  { name: "Onde atuamos", href: "/onde-atuamos" },
+  { name: l.name, href: path },
+];
+
+/**
+ * Sem prova local concreta, a página não é indexada.
+ * Uma página por cidade sem conteúdo próprio é uma doorway page —
+ * o Google penaliza, e mais vale não a expor até estar substanciada.
+ */
+const thin = l.localProof.length === 0;
+---
+
+<Base
+  title={`${l.seoTitle} — Ted Animações`}
+  description={l.description}
+  lang={lang}
+  path={path}
+  breadcrumbs={trail}
+  noindex={thin}
+  schemas={[
+    serviceSchema({
+      name: `Animação infantil em ${l.name}`,
+      description: l.description,
+      url: path,
+    }),
+    faqSchema(l.faqs),
+  ]}
+>
+  <Breadcrumbs trail={trail} lang={lang} />
+
+  {thin && (
+    <div class="container" style="margin-bottom:1rem">
+      <p style="background:#F3E7CE;border:2px dashed #A9761A;border-radius:var(--r-sm);padding:1rem 1.25rem;font-size:.9rem;color:#7A5512">
+        <strong>Nota para o Ted (não visível para o Google — esta página está
+        noindex):</strong> preencha <code>localProof</code> em
+        <code>src/content/locations/pt/{l.slug}.md</code> com provas reais de
+        trabalho nesta zona — festas feitas, espaços conhecidos, testemunhos
+        locais. Assim que houver pelo menos uma, a página passa a ser indexada
+        automaticamente. Sem isso seria uma <em>doorway page</em>, que o Google
+        penaliza.
+      </p>
+    </div>
+  )}
+
+  <section class="section bg-cream" style="padding-top:1.5rem">
+    <Deco shape="circle" color="#F5C842" size={70} class="animate-float-med" style="top:10%;right:5%;opacity:.45" />
+
+    <div class="container">
+      <div class="split">
+        <div>
+          <p class="eyebrow mb-md">
+            <Icon name="location" size={14} color="#1A2E2A" /> {l.name}, Algarve
+          </p>
+          <h1 class="h1 mb-md">Animação infantil em <span class="text-teal">{l.name}</span></h1>
+          <p class="lede mb-lg">{l.intro}</p>
+          <a
+            href={whatsappUrl(`uma festa em ${l.name}`)}
+            class="btn btn-whatsapp btn-lg"
+            target="_blank"
+            rel="noopener"
+            data-cta={`local-${l.slug}`}
+          >
+            <Icon name="whatsapp" size={22} />
+            Ver disponibilidade em {l.name}
+          </a>
+        </div>
+
+        <div class="blob-frame" style="aspect-ratio:4/3">
+          <Image
+            src={photo(l.image)}
+            alt={l.imageAlt}
+            widths={[480, 760, 1100]}
+            sizes="(min-width: 900px) 46vw, 92vw"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+    </div>
+    <Wave fill="#F0E4C4" variant={1} />
+  </section>
+
+  <section class="section bg-cream-deep">
+    <div class="container-narrow">
+      <article class="prose reveal"><Content /></article>
+
+      {l.localProof.length > 0 && (
+        <div class="card reveal mt-lg" style="padding:1.75rem;margin-top:2.5rem">
+          <h2 class="h3 mb-md">Trabalho feito em {l.name}</h2>
+          <ul class="price-list">
+            {l.localProof.map((p) => (
+              <li><Icon name="check" size={16} color="#2D7A6E" /><span>{p}</span></li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+    <Wave fill="#FAF0DC" variant={2} />
+  </section>
+
+  {localReviews.length > 0 && (
+    <section class="section bg-cream">
+      <div class="container">
+        <SectionHead eyebrow={`Clientes em ${l.name}`} title="O que dizem por aqui" />
+        <div class="mt-lg"><Reviews reviews={localReviews} lang={lang} showEmptyNotice={false} /></div>
+      </div>
+      <Wave fill="#F0E4C4" variant={3} />
+    </section>
+  )}
+
+  {l.faqs.length > 0 && (
+    <section class="section bg-cream-deep">
+      <div class="container-narrow">
+        <SectionHead eyebrow="Perguntas frequentes" title={`Festas em ${l.name}`} eyebrowTeal />
+        <div class="mt-lg"><FaqList items={l.faqs} /></div>
+      </div>
+      <Wave fill="#FAF0DC" variant={1} />
+    </section>
+  )}
+
+  <section class="section bg-cream">
+    <div class="container">
+      <SectionHead eyebrow="O que levo" title={`Atividades disponíveis em ${l.name}`} />
+      <div class="grid grid-4 mt-lg">
+        {activities.map((a, i) => <ActivityCard activity={a.data} lang={lang} delay={i * 90} />)}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand lang={lang} context={`uma festa em ${l.name}`} />
+</Base>

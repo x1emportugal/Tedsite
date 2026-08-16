@@ -1,0 +1,62 @@
+---
+import Icon from "./Icon.astro";
+import Deco from "./Deco.astro";
+import Wave from "./Wave.astro";
+import { whatsappUrl, T, type Lang } from "../lib/site";
+
+interface Props {
+  lang: Lang;
+  title?: string;
+  text?: string;
+  context?: string;
+  cta?: string;
+  waveFill?: string;
+}
+const { lang, title, text, context, cta, waveFill = "#1A2E2A" } = Astro.props;
+const en = lang === "en";
+const t = T[lang];
+
+const heading =
+  title ??
+  (en
+    ? "Shall we plan the best party for your family?"
+    : "Vamos criar a melhor festa para a sua família?");
+const body =
+  text ??
+  (en
+    ? "Tell me a little about the party and I will put together a programme that fits — date, place, ages and number of children is all I need to start."
+    : "Conte-me um pouco sobre a festa e preparo um programa à medida — data, local, idades e número de crianças é tudo o que preciso para começar.");
+---
+
+<section class="section bg-cream-deep">
+  <Deco shape="circle" color="#F5C842" size={100} class="animate-float-slow" style="top:-20px;left:-20px;opacity:.4" />
+  <Deco shape="circle" color="#2D7A6E" size={60} class="animate-float-med" style="bottom:10%;right:5%;opacity:.3" />
+  <Deco shape="star" color="#2D7A6E" class="animate-spin-slow" style="width:55px;top:15%;right:12%;opacity:.3" />
+
+  <div class="container center reveal" style="max-width:720px">
+    <div style="display:flex;justify-content:center;margin-bottom:1.5rem">
+      <span style="width:5rem;height:5rem;border-radius:1.5rem;background:var(--teal);display:grid;place-items:center">
+        <Icon name="cake" size={36} color="#F5C842" />
+      </span>
+    </div>
+    <h2 class="h2 mb-md">{heading}</h2>
+    <p class="lede mx-auto mb-lg">{body}</p>
+    <div class="row gap-md" style="justify-content:center">
+      <a
+        href={whatsappUrl(context, lang)}
+        class="btn btn-whatsapp btn-lg"
+        target="_blank"
+        rel="noopener"
+        data-cta="faixa-cta"
+      >
+        <Icon name="whatsapp" size={22} />
+        {t.quote}
+      </a>
+      <a href={en ? "/en/contact" : "/contactos"} class="btn btn-outline">
+        {cta ?? (en ? "Send a request instead" : "Preferir formulário")}
+      </a>
+    </div>
+  </div>
+
+  <Wave fill={waveFill} variant={2} />
+</section>

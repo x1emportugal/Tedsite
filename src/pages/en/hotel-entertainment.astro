@@ -1,0 +1,142 @@
+---
+import { Image } from "astro:assets";
+import Base from "../../layouts/Base.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import SectionHead from "../../components/SectionHead.astro";
+import Icon from "../../components/Icon.astro";
+import Deco from "../../components/Deco.astro";
+import Wave from "../../components/Wave.astro";
+import { photo } from "../../lib/images";
+import { SITE, whatsappUrl, SERVICE_AREAS } from "../../lib/site";
+import { serviceSchema } from "../../lib/schema";
+
+const lang = "en" as const;
+const path = "/en/hotel-entertainment";
+const trail = [
+  { name: "Home", href: "/en/" },
+  { name: "Hotels & events", href: path },
+];
+
+const formats = [
+  { icon: "sun", title: "Seasonal programme", desc: "A regular schedule through high season, with different activities by day so week-long guests never repeat." },
+  { icon: "party", title: "Kids club cover", desc: "Extra hands for your animation team on high-occupancy days, bank holidays and special events." },
+  { icon: "cake", title: "Guest birthday parties", desc: "Parties for children staying at the hotel, coordinated with reception and F&B." },
+  { icon: "users", title: "Events and weddings", desc: "Entertainment for the children while the adults are at the ceremony or dinner — the difference between a calm event and a tense one." },
+];
+
+const forHotels = [
+  "Availability confirmed in writing, in advance",
+  "Proper invoicing with a Portuguese tax number",
+  "Public liability insurance (PLEASE CONFIRM: details)",
+  "Criminal record certificate available on request (PLEASE CONFIRM)",
+  "Entertainment in English and Portuguese in the same session",
+  "Own materials — no draw on your stock or storage",
+];
+---
+
+<Base
+  title="Children's Entertainment for Hotels & Resorts in the Algarve"
+  description="Children's entertainment for hotels, resorts and event companies in the Algarve. Seasonal programmes, kids club cover, guest parties and weddings. Insured, invoiced and bilingual."
+  lang={lang}
+  path={path}
+  breadcrumbs={trail}
+  schemas={[
+    serviceSchema({
+      name: "Children's entertainment for hotels and events",
+      description:
+        "Children's entertainment for hotels, resorts, weddings and corporate events in the Algarve, on a one-off or seasonal basis, delivered in English and Portuguese.",
+      url: path,
+    }),
+  ]}
+>
+  <Breadcrumbs trail={trail} lang={lang} />
+
+  <section class="section bg-cream" style="padding-top:2rem">
+    <Deco shape="blob" color="#2D7A6E" style="width:300px;top:-60px;right:-80px;opacity:.08" />
+
+    <div class="container">
+      <div class="split">
+        <div>
+          <p class="eyebrow eyebrow-teal mb-md">
+            <Icon name="hotel" size={14} color="#FAF0DC" /> For hotels, resorts and events
+          </p>
+          <h1 class="h1 mb-md">Entertainment that <span class="text-teal">frees your team</span></h1>
+          <p class="lede mb-lg">
+            I work with hotels and event companies across the Algarve, on a
+            one-off or seasonal basis. I arrive with my own programme, materials
+            and insurance — and run everything in English and Portuguese.
+          </p>
+          <div class="row gap-md">
+            <a href={`mailto:${SITE.email}?subject=${encodeURIComponent("Children's entertainment — proposal request")}`} class="btn btn-teal btn-lg">
+              <Icon name="mail" size={20} color="#FAF0DC" /> Request a proposal
+            </a>
+            <a href={whatsappUrl("children's entertainment for our hotel", lang)} class="btn btn-outline" target="_blank" rel="noopener" data-cta="hotels-hero-en">
+              <Icon name="whatsapp" size={18} color="#2D7A6E" /> WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <div class="blob-frame-alt" style="aspect-ratio:4/3">
+          <Image
+            src={photo("ted-mesa-atividades.jpg")}
+            alt="Activity table set up for children's entertainment at an Algarve hotel"
+            widths={[480, 760, 1100]}
+            sizes="(min-width: 900px) 46vw, 92vw"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+    </div>
+    <Wave fill="#F0E4C4" variant={1} />
+  </section>
+
+  <section class="section bg-cream-deep">
+    <div class="container">
+      <SectionHead
+        eyebrow="Ways of working"
+        title="How we can work together"
+        lede="From one busy weekend to a full season programme."
+      />
+      <div class="grid grid-2 mt-lg">
+        {formats.map((f, i) => (
+          <div class="why-badge reveal" style={`transition-delay:${i * 80}ms`}>
+            <span class="why-badge-icon"><Icon name={f.icon} size={22} color="#1A2E2A" /></span>
+            <div><h3>{f.title}</h3><p>{f.desc}</p></div>
+          </div>
+        ))}
+      </div>
+    </div>
+    <Wave fill="#2D7A6E" variant={2} />
+  </section>
+
+  <section class="section bg-teal">
+    <div class="container-narrow">
+      <SectionHead eyebrow="The essentials" title="Sorted before I reach your property" dark />
+      <ul class="price-list mt-lg reveal" style="max-width:620px;margin-inline:auto">
+        {forHotels.map((i) => (
+          <li style="color:var(--on-dark-soft)">
+            <Icon name="check" size={17} color="#F5C842" /><span>{i}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="center mt-lg">
+        <a href={`mailto:${SITE.email}?subject=${encodeURIComponent("Children's entertainment — proposal request")}`} class="btn btn-yellow btn-lg">
+          <Icon name="mail" size={20} color="#1A2E2A" /> Request availability
+        </a>
+      </p>
+    </div>
+    <Wave fill="#FAF0DC" variant={3} />
+  </section>
+
+  <section class="section bg-cream">
+    <div class="container center">
+      <h2 class="h2 mb-md">Where I work</h2>
+      <p class="lede mx-auto">{SERVICE_AREAS.join(" · ")}</p>
+      <p style="color:var(--ink-muted);font-size:.95rem;max-width:60ch;margin:1.5rem auto 0">
+        For properties outside these areas, or seasonal programmes requiring daily
+        travel, get in touch — there is usually a way to make it work.
+      </p>
+    </div>
+  </section>
+</Base>

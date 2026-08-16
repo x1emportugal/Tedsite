@@ -1,0 +1,79 @@
+---
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import SectionHead from "../components/SectionHead.astro";
+import Reviews from "../components/Reviews.astro";
+import CtaBand from "../components/CtaBand.astro";
+import Icon from "../components/Icon.astro";
+import Deco from "../components/Deco.astro";
+import Wave from "../components/Wave.astro";
+import { SITE } from "../lib/site";
+import { getReviews, ratingFrom } from "../lib/content";
+import { reviewSchema } from "../lib/schema";
+
+const lang = "pt" as const;
+const reviews = await getReviews(lang);
+const rating = ratingFrom(reviews);
+const trail = [
+  { name: "Início", href: "/" },
+  { name: "Avaliações", href: "/avaliacoes" },
+];
+---
+
+<Base
+  title="Avaliações de Clientes — Ted Animações, Algarve"
+  description="O que dizem as famílias que contrataram animação infantil com o Ted no Algarve. Testemunhos reais de festas de aniversário em Faro, Albufeira, Lagos e Vilamoura."
+  lang={lang}
+  path="/avaliacoes"
+  breadcrumbs={trail}
+  rating={rating}
+  schemas={[reviewSchema(reviews)]}
+>
+  <Breadcrumbs trail={trail} lang={lang} />
+
+  <section class="section bg-cream" style="padding-top:2.5rem">
+    <Deco shape="star" color="#F5C842" class="animate-spin-slow" style="width:55px;top:12%;right:7%;opacity:.5" />
+    <Deco shape="circle" color="#2D7A6E" size={50} class="animate-float-slow" style="bottom:15%;left:5%;opacity:.35" />
+
+    <div class="container">
+      <SectionHead
+        eyebrow="Avaliações"
+        title='O que dizem as <span class="text-teal">famílias</span>'
+        lede="Uma festa infantil contrata-se com base na confiança. Estes são os testemunhos de quem já passou por isso."
+        as="h1"
+      />
+
+      {rating && (
+        <div class="center mt-lg reveal">
+          <div class="row gap-xs" style="justify-content:center;margin-bottom:.4rem">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Icon name="star" size={24} color={i < Math.round(rating.value) ? "#F5C842" : "#E0D4B0"} />
+            ))}
+          </div>
+          <p style="font-family:var(--font-display);font-weight:800;font-size:1.3rem">
+            {rating.value.toFixed(1)} em 5
+            <span style="font-weight:400;font-size:.95rem;color:var(--ink-muted)">
+              {" "}· {rating.count} {rating.count === 1 ? "avaliação" : "avaliações"}
+            </span>
+          </p>
+        </div>
+      )}
+
+      <div class="mt-lg" style="margin-top:3rem">
+        <Reviews reviews={reviews} lang={lang} />
+      </div>
+
+      {SITE.googleBusinessUrl && (
+        <p class="center mt-lg">
+          <a href={SITE.googleBusinessUrl} class="btn btn-outline" target="_blank" rel="noopener">
+            Ver avaliações no Google
+            <Icon name="arrow-right" size={16} color="#2D7A6E" />
+          </a>
+        </p>
+      )}
+    </div>
+    <Wave fill="#F0E4C4" variant={2} />
+  </section>
+
+  <CtaBand lang={lang} context="uma festa de aniversário" />
+</Base>

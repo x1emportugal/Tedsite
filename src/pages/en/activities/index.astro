@@ -1,0 +1,55 @@
+---
+import Base from "../../../layouts/Base.astro";
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import SectionHead from "../../../components/SectionHead.astro";
+import ActivityCard from "../../../components/ActivityCard.astro";
+import CtaBand from "../../../components/CtaBand.astro";
+import Deco from "../../../components/Deco.astro";
+import Wave from "../../../components/Wave.astro";
+import { getActivities } from "../../../lib/content";
+
+const lang = "en" as const;
+const activities = await getActivities(lang);
+const trail = [
+  { name: "Home", href: "/en/" },
+  { name: "Activities", href: "/en/activities" },
+];
+---
+
+<Base
+  title="Children's Party Activities in the Algarve — Ted Animações"
+  description="Treasure hunts, face painting, bracelet workshops and group games for children's parties in the Algarve. See how each activity runs, what ages it suits and how long it takes."
+  lang={lang}
+  path="/en/activities"
+  breadcrumbs={trail}
+>
+  <Breadcrumbs trail={trail} lang={lang} />
+
+  <section class="section bg-cream" style="padding-top:2.5rem">
+    <Deco shape="circle" color="#F5C842" size={70} class="animate-float-med" style="top:12%;right:6%;opacity:.5" />
+
+    <div class="container">
+      <SectionHead
+        eyebrow="The full repertoire"
+        title={`Activities for <span class="text-teal">children's parties</span>`}
+        lede="Every party gets a different combination. We choose together once I know the ages, the group size and the space."
+        as="h1"
+      />
+      <div class="grid grid-4 mt-lg">
+        {activities.map((a, i) => <ActivityCard activity={a.data} lang={lang} delay={i * 90} />)}
+      </div>
+
+      <div class="card mt-lg reveal" style="padding:2rem;max-width:760px;margin-inline:auto;margin-top:3rem">
+        <h2 class="h3 mb-sm">Extras that fit any package</h2>
+        <p style="color:var(--ink-soft);font-size:.96rem">
+          Balloon modelling, giant bubbles, a dance session with music, and circle
+          games for the youngest. Tell me what suits your party and I will build
+          them into the programme.
+        </p>
+      </div>
+    </div>
+    <Wave fill="#F0E4C4" variant={2} />
+  </section>
+
+  <CtaBand lang={lang} context="a party with these activities" />
+</Base>

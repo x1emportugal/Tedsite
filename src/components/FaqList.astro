@@ -1,0 +1,24 @@
+---
+/**
+ * Perguntas frequentes em <details>: funcionam sem JavaScript e o texto
+ * da resposta está sempre no HTML — que é o que os motores e os modelos
+ * de linguagem leem e citam.
+ */
+interface Props {
+  items: { question: string; answer: string }[];
+  /** A primeira aberta ajuda a mostrar que há conteúdo por baixo. */
+  openFirst?: boolean;
+}
+const { items, openFirst = true } = Astro.props;
+---
+
+{items.length > 0 && (
+  <div class="reveal">
+    {items.map((f, i) => (
+      <details class="faq-item" open={openFirst && i === 0}>
+        <summary>{f.question}</summary>
+        <div class="faq-answer"><p>{f.answer}</p></div>
+      </details>
+    ))}
+  </div>
+)}

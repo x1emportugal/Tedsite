@@ -1,0 +1,86 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/ted-logo.png";
+import Icon from "./Icon.astro";
+import Deco from "./Deco.astro";
+import { SITE, NAV, SERVICE_AREAS, whatsappUrl, type Lang } from "../lib/site";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const en = lang === "en";
+const links = NAV[lang];
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <Deco shape="blob" color="#2D7A6E" style="width:300px;top:-80px;right:-60px;opacity:.1" />
+  <Deco shape="circle" color="#F5C842" size={50} class="animate-float-slow" style="bottom:20%;left:5%;opacity:.2" />
+
+  <div class="container" style="position:relative;z-index:1">
+    <div class="footer-cols">
+      <div>
+        <a href={en ? "/en/" : "/"} class="nav-brand" style="margin-bottom:1rem">
+          <Image src={logo} alt="" width={56} height={79} loading="lazy" style="width:3.2rem;height:auto" />
+          <span>
+            <span class="name" style="color:var(--on-dark)">Ted Animações</span><br />
+            <span class="tag" style="color:var(--lime)">{en ? "kids entertainment" : "animação infantil"}</span>
+          </span>
+        </a>
+        <p style="font-size:.94rem;line-height:1.7">
+          {en
+            ? "Professional children's entertainment across the Algarve. Birthday parties, hotels and events — in English and Portuguese."
+            : "Animação infantil profissional no Algarve. Festas de aniversário, hotéis e eventos — em português e inglês."}
+        </p>
+      </div>
+
+      <div>
+        <h3>{en ? "Pages" : "Navegação"}</h3>
+        {links.map((l) => <a href={l.href} class="footer-link">{l.label}</a>)}
+        <a href={en ? "/en/about" : "/sobre-o-ted"} class="footer-link">
+          {en ? "About Ted" : "Sobre o Ted"}
+        </a>
+      </div>
+
+      <div>
+        <h3>{en ? "Where we work" : "Onde atuamos"}</h3>
+        <p style="font-size:.9rem;line-height:1.9">
+          {SERVICE_AREAS.join(" · ")}
+        </p>
+      </div>
+
+      <div>
+        <h3>{en ? "Contact" : "Contactos"}</h3>
+        <a href={whatsappUrl(undefined, lang)} class="footer-contact" target="_blank" rel="noopener" data-cta="footer">
+          <span class="ico" style="background:#25D366"><Icon name="whatsapp" size={16} color="#fff" /></span>
+          <span>
+            <span class="lbl">WhatsApp</span><br />
+            <span class="val">{SITE.phoneDisplay}</span>
+          </span>
+        </a>
+        <a href={`mailto:${SITE.email}`} class="footer-contact">
+          <span class="ico" style="background:#2D7A6E"><Icon name="mail" size={16} color="#FAF0DC" /></span>
+          <span>
+            <span class="lbl">Email</span><br />
+            <span class="val">{SITE.email}</span>
+          </span>
+        </a>
+        <a href={SITE.instagram} class="footer-contact" target="_blank" rel="noopener">
+          <span class="ico" style="background:#E1306C"><Icon name="instagram" size={16} color="#FAF0DC" /></span>
+          <span>
+            <span class="lbl">Instagram</span><br />
+            <span class="val">{SITE.instagramHandle}</span>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-base">
+      <p>© {year} {SITE.name} — {SITE.alternateName}. {en ? "All rights reserved." : "Todos os direitos reservados."}</p>
+      <p>
+        <a href={en ? "/politica-de-privacidade" : "/politica-de-privacidade"}>
+          {en ? "Privacy policy" : "Política de privacidade"}
+        </a>
+      </p>
+    </div>
+  </div>
+</footer>

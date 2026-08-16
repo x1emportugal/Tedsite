@@ -1,0 +1,28 @@
+---
+import type { Lang } from "../lib/site";
+
+interface Props {
+  trail: { name: string; href: string }[];
+  lang: Lang;
+}
+const { trail, lang } = Astro.props;
+---
+
+<nav aria-label={lang === "en" ? "Breadcrumb" : "Navegação estrutural"} style="padding-top:6.5rem">
+  <div class="container">
+    <ol style="list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:.45rem;font-size:.85rem;color:var(--ink-muted)">
+      {trail.map((t, i) => (
+        <li style="display:flex;gap:.45rem;align-items:center">
+          {i < trail.length - 1 ? (
+            <>
+              <a href={t.href} style="color:var(--teal);text-decoration:none;font-weight:700">{t.name}</a>
+              <span aria-hidden="true">›</span>
+            </>
+          ) : (
+            <span aria-current="page">{t.name}</span>
+          )}
+        </li>
+      ))}
+    </ol>
+  </div>
+</nav>

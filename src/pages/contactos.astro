@@ -1,0 +1,104 @@
+---
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import SectionHead from "../components/SectionHead.astro";
+import QuoteForm from "../components/QuoteForm.astro";
+import FaqList from "../components/FaqList.astro";
+import Icon from "../components/Icon.astro";
+import Deco from "../components/Deco.astro";
+import Wave from "../components/Wave.astro";
+import { SITE, whatsappUrl, SERVICE_AREAS } from "../lib/site";
+import { getFaqs } from "../lib/content";
+import { faqSchema } from "../lib/schema";
+
+const lang = "pt" as const;
+const faqs = await getFaqs(lang, "contactos");
+const trail = [
+  { name: "Início", href: "/" },
+  { name: "Contactos", href: "/contactos" },
+];
+---
+
+<Base
+  title="Contactos e Pedido de Orçamento — Ted Animações, Algarve"
+  description="Peça orçamento para animação infantil no Algarve. WhatsApp, email ou formulário. Resposta no próprio dia. Faro, Albufeira, Lagos, Portimão, Vilamoura e restante Algarve."
+  lang={lang}
+  path="/contactos"
+  breadcrumbs={trail}
+  schemas={[faqSchema(faqs)]}
+>
+  <Breadcrumbs trail={trail} lang={lang} />
+
+  <section class="section bg-cream" style="padding-top:2rem">
+    <Deco shape="circle" color="#F5C842" size={80} class="animate-float-slow" style="top:10%;right:4%;opacity:.4" />
+    <Deco shape="dots" color="#2D7A6E" style="width:90px;bottom:12%;left:4%;opacity:.3" />
+
+    <div class="container">
+      <SectionHead
+        eyebrow="Falar comigo"
+        title='Vamos combinar a <span class="text-teal">sua festa</span>'
+        lede="A forma mais rápida é o WhatsApp — costumo responder no próprio dia. Se preferir deixar o pedido por escrito, use o formulário."
+        as="h1"
+      />
+
+      <div class="grid grid-2 mt-lg" style="margin-top:3rem;align-items:start">
+        <div class="stack gap-md reveal">
+          <a href={whatsappUrl()} class="card card-hover" style="padding:1.5rem;display:flex;gap:1rem;align-items:center;text-decoration:none" target="_blank" rel="noopener" data-cta="contactos-whatsapp">
+            <span style="width:3rem;height:3rem;border-radius:var(--r-sm);background:#25D366;display:grid;place-items:center;flex-shrink:0">
+              <Icon name="whatsapp" size={22} color="#fff" />
+            </span>
+            <span>
+              <strong style="font-family:var(--font-display);font-size:1.05rem;display:block">WhatsApp</strong>
+              <span style="color:var(--ink-soft);font-size:.95rem">{SITE.phoneDisplay}</span>
+            </span>
+          </a>
+
+          <a href={`mailto:${SITE.email}`} class="card card-hover" style="padding:1.5rem;display:flex;gap:1rem;align-items:center;text-decoration:none">
+            <span style="width:3rem;height:3rem;border-radius:var(--r-sm);background:var(--teal);display:grid;place-items:center;flex-shrink:0">
+              <Icon name="mail" size={22} color="#FAF0DC" />
+            </span>
+            <span>
+              <strong style="font-family:var(--font-display);font-size:1.05rem;display:block">Email</strong>
+              <span style="color:var(--ink-soft);font-size:.95rem">{SITE.email}</span>
+            </span>
+          </a>
+
+          <a href={SITE.instagram} class="card card-hover" style="padding:1.5rem;display:flex;gap:1rem;align-items:center;text-decoration:none" target="_blank" rel="noopener">
+            <span style="width:3rem;height:3rem;border-radius:var(--r-sm);background:#E1306C;display:grid;place-items:center;flex-shrink:0">
+              <Icon name="instagram" size={22} color="#FAF0DC" />
+            </span>
+            <span>
+              <strong style="font-family:var(--font-display);font-size:1.05rem;display:block">Instagram</strong>
+              <span style="color:var(--ink-soft);font-size:.95rem">{SITE.instagramHandle}</span>
+            </span>
+          </a>
+
+          <div class="card" style="padding:1.5rem;background:var(--cream-deep);box-shadow:none">
+            <p style="font-family:var(--font-display);font-weight:800;margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem">
+              <Icon name="location" size={18} color="#2D7A6E" /> Onde atuo
+            </p>
+            <p style="font-size:.92rem;color:var(--ink-soft);line-height:1.7">
+              {SERVICE_AREAS.join(" · ")} e arredores. Fora destas zonas depende da
+              data e da distância — pergunte.
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <h2 class="h3 mb-md">Pedir orçamento por escrito</h2>
+          <QuoteForm lang={lang} />
+        </div>
+      </div>
+    </div>
+    <Wave fill="#F0E4C4" variant={2} />
+  </section>
+
+  {faqs.length > 0 && (
+    <section class="section bg-cream-deep">
+      <div class="container-narrow">
+        <SectionHead eyebrow="Antes de escrever" title="Perguntas frequentes" eyebrowTeal />
+        <div class="mt-lg"><FaqList items={faqs} /></div>
+      </div>
+    </section>
+  )}
+</Base>

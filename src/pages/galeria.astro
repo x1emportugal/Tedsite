@@ -1,0 +1,45 @@
+---
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import SectionHead from "../components/SectionHead.astro";
+import Gallery from "../components/Gallery.astro";
+import CtaBand from "../components/CtaBand.astro";
+import Deco from "../components/Deco.astro";
+import Wave from "../components/Wave.astro";
+
+const lang = "pt" as const;
+const trail = [
+  { name: "Início", href: "/" },
+  { name: "Galeria", href: "/galeria" },
+];
+---
+
+<Base
+  title="Galeria de Festas Infantis no Algarve — Ted Animações"
+  description="Fotografias de festas de aniversário e animação infantil no Algarve. Caça ao tesouro, pintura facial, oficinas de pulseiras e jogos de grupo em festas reais."
+  lang={lang}
+  path="/galeria"
+  breadcrumbs={trail}
+>
+  <Breadcrumbs trail={trail} lang={lang} />
+
+  <section class="section bg-cream" style="padding-top:2.5rem">
+    <Deco shape="wiggle" color="#2D7A6E" class="animate-float-slow" style="width:220px;top:6%;right:2%;opacity:.4" />
+    <Deco shape="circle" color="#F5C842" size={65} class="animate-float-med" style="bottom:8%;left:3%;opacity:.5" />
+
+    <div class="container">
+      <SectionHead
+        eyebrow="Momentos reais"
+        title='Galeria de <span class="text-teal">festas</span>'
+        lede="Todas as fotografias são de festas que fiz no Algarve. Nenhuma é imagem de banco."
+        as="h1"
+      />
+      <div class="mt-lg" style="margin-top:3rem">
+        <Gallery lang={lang} />
+      </div>
+    </div>
+    <Wave fill="#F0E4C4" variant={1} />
+  </section>
+
+  <CtaBand lang={lang} context="uma festa de aniversário" />
+</Base>

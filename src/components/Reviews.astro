@@ -1,0 +1,66 @@
+---
+import Icon from "./Icon.astro";
+import { whatsappUrl, type Lang } from "../lib/site";
+
+interface Review {
+  author: string;
+  rating: number;
+  body: string;
+  location?: string;
+  context?: string;
+}
+interface Props {
+  reviews: Review[];
+  lang: Lang;
+  /** Mostra o aviso de configuração quando não há avaliações. */
+  showEmptyNotice?: boolean;
+}
+const { reviews, lang, showEmptyNotice = true } = Astro.props;
+const en = lang === "en";
+const initial = (n: string) => n.trim().charAt(0).toUpperCase();
+---
+
+{reviews.length > 0 ? (
+  <div class="grid grid-3">
+    {reviews.map((r, i) => (
+      <article class="review-card reveal" style={`transition-delay:${i * 90}ms`}>
+        <div class="review-stars" aria-label={`${r.rating} ${en ? "out of 5" : "em 5"}`}>
+          {Array.from({ length: 5 }).map((_, s) => (
+            <Icon name="star" size={16} color={s < r.rating ? "#F5C842" : "#E0D4B0"} />
+          ))}
+        </div>
+        <blockquote>{r.body}</blockquote>
+        <footer class="review-author">
+          <span class="review-avatar" aria-hidden="true">{initial(r.author)}</span>
+          <span>
+            <span class="review-name">{r.author}</span><br />
+            <span class="review-meta">
+              {[r.context, r.location].filter(Boolean).join(" · ")}
+            </span>
+          </span>
+        </footer>
+      </article>
+    ))}
+  </div>
+) : showEmptyNotice ? (
+  <div class="card" style="padding:2rem;border:2px dashed var(--line);background:transparent;box-shadow:none;max-width:680px;margin-inline:auto">
+    <p style="font-family:var(--font-display);font-weight:800;margin-bottom:.6rem">
+      {en ? "Reviews not published yet" : "Avaliações ainda por publicar"}
+    </p>
+    <p style="color:var(--ink-soft);font-size:.95rem">
+      {en
+        ? "Add real client reviews to src/content/reviews.json — the section, the star ratings and the Review structured data switch on automatically. Nothing is invented here on purpose."
+        : "Acrescente avaliações reais em src/content/reviews.json — a secção, as estrelas e os dados estruturados Review ligam-se sozinhos. Nada é inventado aqui de propósito."}
+    </p>
+    <a
+      href={whatsappUrl(undefined, lang)}
+      class="btn btn-teal mt-md"
+      target="_blank"
+      rel="noopener"
+      data-cta="avaliacoes-vazio"
+    >
+      <Icon name="whatsapp" size={18} />
+      {en ? "Talk to Ted" : "Falar com o Ted"}
+    </a>
+  </div>
+) : null}

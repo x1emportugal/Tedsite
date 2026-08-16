@@ -1,0 +1,19 @@
+---
+/** Separador ondulado entre secções — assinatura do site original. */
+interface Props {
+  fill: string;
+  variant?: 1 | 2 | 3;
+}
+const { fill, variant = 1 } = Astro.props;
+const paths = {
+  1: "M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z",
+  2: "M0,0 C480,60 960,0 1440,40 L1440,60 L0,60 Z",
+  3: "M0,40 C360,0 1080,60 1440,20 L1440,60 L0,60 Z",
+};
+---
+
+<div class="wave-divider" aria-hidden="true">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+    <path fill={fill} d={paths[variant]}/>
+  </svg>
+</div>

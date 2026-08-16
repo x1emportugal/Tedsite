@@ -1,0 +1,97 @@
+---
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import SectionHead from "../components/SectionHead.astro";
+import Packages from "../components/Packages.astro";
+import FaqList from "../components/FaqList.astro";
+import Reviews from "../components/Reviews.astro";
+import CtaBand from "../components/CtaBand.astro";
+import Icon from "../components/Icon.astro";
+import Deco from "../components/Deco.astro";
+import Wave from "../components/Wave.astro";
+import { getPackages, getFaqs, getReviews, ratingFrom } from "../lib/content";
+import { faqSchema } from "../lib/schema";
+
+const lang = "pt" as const;
+const packages = await getPackages(lang);
+const faqs = await getFaqs(lang, "precos");
+const reviews = await getReviews(lang, true);
+const rating = ratingFrom(reviews);
+
+const trail = [
+  { name: "Início", href: "/" },
+  { name: "Preços", href: "/precos" },
+];
+
+const included = [
+  "Todo o material das atividades",
+  "Deslocação dentro das zonas do Algarve indicadas",
+  "Programa preparado antes da festa, à medida do grupo",
+  "Montagem e arrumação — não fica trabalho para si",
+];
+---
+
+<Base
+  title="Preços de Animação Infantil no Algarve — Ted Animações"
+  description="Pacotes de animação para festas de aniversário no Algarve. Veja o que está incluído em cada formato, quanto tempo dura e o que muda conforme o número de crianças. Orçamento fechado antes da festa."
+  lang={lang}
+  path="/precos"
+  breadcrumbs={trail}
+  rating={rating}
+  schemas={[faqSchema(faqs)]}
+>
+  <Breadcrumbs trail={trail} lang={lang} />
+
+  <section class="section bg-cream" style="padding-top:2.5rem">
+    <Deco shape="circle" color="#F5C842" size={80} class="animate-float-slow" style="top:10%;left:3%;opacity:.4" />
+    <Deco shape="star" color="#2D7A6E" class="animate-spin-slow" style="width:50px;bottom:12%;right:6%;opacity:.3" />
+
+    <div class="container">
+      <SectionHead
+        eyebrow="Preços e pacotes"
+        title='Quanto custa uma festa com <span class="text-teal">animação</span>'
+        lede="Três formatos, todos com material incluído e orçamento fechado antes da festa. Nunca aparecem extras no fim."
+        as="h1"
+      />
+
+      <div class="mt-lg" style="margin-top:3rem">
+        <Packages packages={packages} lang={lang} />
+      </div>
+
+      <div class="card reveal mt-lg" style="padding:2rem;max-width:760px;margin-inline:auto;margin-top:3rem">
+        <h2 class="h3 mb-md">Incluído em todos os pacotes</h2>
+        <ul class="price-list">
+          {included.map((i) => (
+            <li><Icon name="check" size={16} color="#2D7A6E" /><span>{i}</span></li>
+          ))}
+        </ul>
+        <p style="font-size:.9rem;color:var(--ink-muted);margin-top:1.2rem">
+          O valor final depende da duração, do número de crianças e da distância.
+          Grupos acima de 20 crianças levam uma segunda pessoa na equipa, para as
+          atividades continuarem a funcionar sem filas.
+        </p>
+      </div>
+    </div>
+    <Wave fill="#F0E4C4" variant={2} />
+  </section>
+
+  {reviews.length > 0 && (
+    <section class="section bg-cream-deep">
+      <div class="container">
+        <SectionHead eyebrow="Quem já contratou" title="O que dizem sobre o valor" eyebrowTeal />
+        <div class="mt-lg"><Reviews reviews={reviews} lang={lang} showEmptyNotice={false} /></div>
+      </div>
+      <Wave fill="#FAF0DC" variant={1} />
+    </section>
+  )}
+
+  <section class="section bg-cream">
+    <div class="container-narrow">
+      <SectionHead eyebrow="Antes de decidir" title="Perguntas sobre preços e reservas" />
+      <div class="mt-lg"><FaqList items={faqs} /></div>
+    </div>
+    <Wave fill="#F0E4C4" variant={3} />
+  </section>
+
+  <CtaBand lang={lang} context="um orçamento para a minha festa" />
+</Base>

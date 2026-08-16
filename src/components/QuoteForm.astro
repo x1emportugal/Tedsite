@@ -1,0 +1,181 @@
+---
+import Icon from "./Icon.astro";
+import { SERVICE_AREAS, type Lang } from "../lib/site";
+
+/**
+ * Pedido de orçamento.
+ *
+ * Existe para captar quem NÃO quer falar no WhatsApp agora — o site antigo
+ * só tinha esse caminho e por isso não construía lista de contactos nenhuma.
+ *
+ * Envia para o endpoint em PUBLIC_FORM_ENDPOINT (Formspree, Web3Forms,
+ * Netlify Forms, o que preferir). Sem endpoint configurado, o botão compõe
+ * a mensagem e abre o WhatsApp — nunca fica um formulário morto na página.
+ */
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const en = lang === "en";
+const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? "";
+---
+
+<form
+  class="card reveal"
+  style="padding:2rem;box-shadow:var(--shadow-sm)"
+  id="quote-form"
+  data-endpoint={endpoint}
+  data-lang={lang}
+  novalidate
+>
+  <div class="form-grid">
+    <div class="field">
+      <label for="q-name">{en ? "Your name" : "O seu nome"}</label>
+      <input id="q-name" name="nome" type="text" required autocomplete="name" />
+    </div>
+
+    <div class="field">
+      <label for="q-contact">
+        {en ? "Phone or email" : "Telefone ou email"}
+        <span class="hint">{en ? "so I can reply" : "para lhe poder responder"}</span>
+      </label>
+      <input id="q-contact" name="contacto" type="text" required autocomplete="email" />
+    </div>
+
+    <div class="field">
+      <label for="q-date">{en ? "Party date" : "Data da festa"}</label>
+      <input id="q-date" name="data" type="date" />
+    </div>
+
+    <div class="field">
+      <label for="q-place">{en ? "Where" : "Onde"}</label>
+      <select id="q-place" name="local">
+        <option value="">{en ? "Choose an area" : "Escolha a zona"}</option>
+        {SERVICE_AREAS.map((a) => <option value={a}>{a}</option>)}
+        <option value={en ? "Elsewhere in the Algarve" : "Outra zona do Algarve"}>
+          {en ? "Elsewhere in the Algarve" : "Outra zona do Algarve"}
+        </option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="q-kids">{en ? "How many children" : "Quantas crianças"}</label>
+      <input id="q-kids" name="criancas" type="number" min="1" max="100" inputmode="numeric" />
+    </div>
+
+    <div class="field">
+      <label for="q-ages">{en ? "Ages" : "Idades"}</label>
+      <input id="q-ages" name="idades" type="text" placeholder={en ? "e.g. 5 to 9" : "ex.: 5 aos 9"} />
+    </div>
+
+    <div class="field field-full">
+      <label for="q-msg">
+        {en ? "Anything else?" : "Mais alguma coisa?"}
+        <span class="hint">{en ? "optional" : "opcional"}</span>
+      </label>
+      <textarea id="q-msg" name="mensagem" rows="4" placeholder={en
+        ? "Theme, venue, whether the party runs in English…"
+        : "Tema da festa, tipo de espaço, alguma necessidade especial…"}></textarea>
+    </div>
+  </div>
+
+  <!-- Armadilha para robôs: um humano nunca preenche este campo. -->
+  <div style="position:absolute;left:-9999px" aria-hidden="true">
+    <label for="q-website">Website</label>
+    <input id="q-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <p style="font-size:.82rem;color:var(--ink-muted);margin-top:1.2rem">
+    {en
+      ? "Your details are used only to reply to this request. See the privacy policy."
+      : "Os seus dados são usados apenas para responder a este pedido. Ver a política de privacidade."}
+  </p>
+
+  <button type="submit" class="btn btn-teal btn-lg mt-md" style="width:100%">
+    <Icon name="mail" size={19} color="#FAF0DC" />
+    {en ? "Send request" : "Enviar pedido"}
+  </button>
+
+  <p id="q-status" role="status" aria-live="polite" style="margin-top:1rem;font-weight:700;font-family:var(--font-display)"></p>
+</form>
+
+<script>
+  const form = document.getElementById("quote-form") as HTMLFormElement | null;
+  const status = document.getElementById("q-status");
+
+  if (form && status) {
+    const en = form.dataset.lang === "en";
+
+    form.addEventListener("submit", async (ev) => {
+      ev.preventDefault();
+
+      const data = new FormData(form);
+      if (data.get("website")) return; // robô
+
+      const name = String(data.get("nome") ?? "").trim();
+      const contact = String(data.get("contacto") ?? "").trim();
+      if (!name || !contact) {
+        status.style.color = "var(--coral)";
+        status.textContent = en
+          ? "Please fill in your name and a way to reach you."
+          : "Preencha o nome e um contacto para lhe podermos responder.";
+        return;
+      }
+
+      const endpoint = form.dataset.endpoint;
+      const btn = form.querySelector("button[type=submit]") as HTMLButtonElement;
+
+      // Sem endpoint configurado: compor a mensagem e abrir o WhatsApp,
+      // para o pedido não se perder.
+      if (!endpoint) {
+        const lines = [
+          en ? "Hi Ted! Quote request:" : "Olá Ted! Pedido de orçamento:",
+          `${en ? "Name" : "Nome"}: ${name}`,
+          `${en ? "Contact" : "Contacto"}: ${contact}`,
+          data.get("data") ? `${en ? "Date" : "Data"}: ${data.get("data")}` : "",
+          data.get("local") ? `${en ? "Where" : "Local"}: ${data.get("local")}` : "",
+          data.get("criancas") ? `${en ? "Children" : "Crianças"}: ${data.get("criancas")}` : "",
+          data.get("idades") ? `${en ? "Ages" : "Idades"}: ${data.get("idades")}` : "",
+          data.get("mensagem") ? `${data.get("mensagem")}` : "",
+        ].filter(Boolean);
+        // @ts-ignore
+        window.umami?.track?.("form-para-whatsapp");
+        window.open(
+          `https://wa.me/351936331843?text=${encodeURIComponent(lines.join("\n"))}`,
+          "_blank",
+          "noopener",
+        );
+        status.style.color = "var(--teal)";
+        status.textContent = en
+          ? "Opening WhatsApp with your request filled in."
+          : "A abrir o WhatsApp com o pedido já preenchido.";
+        return;
+      }
+
+      btn.disabled = true;
+      status.style.color = "var(--ink-muted)";
+      status.textContent = en ? "Sending…" : "A enviar…";
+
+      try {
+        const res = await fetch(endpoint, {
+          method: "POST",
+          body: data,
+          headers: { Accept: "application/json" },
+        });
+        if (!res.ok) throw new Error(String(res.status));
+        form.reset();
+        status.style.color = "var(--teal)";
+        status.textContent = en
+          ? "Request sent. I usually reply the same day."
+          : "Pedido enviado. Costumo responder no próprio dia.";
+        // @ts-ignore
+        window.umami?.track?.("form-enviado");
+      } catch {
+        status.style.color = "var(--coral)";
+        status.textContent = en
+          ? "That did not go through. Please message on WhatsApp instead — it is the fastest way."
+          : "O envio falhou. Escreva antes pelo WhatsApp — é o caminho mais rápido.";
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  }
+</script>

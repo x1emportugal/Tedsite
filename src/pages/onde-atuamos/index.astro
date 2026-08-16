@@ -1,0 +1,83 @@
+---
+import { Image } from "astro:assets";
+import Base from "../../layouts/Base.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import SectionHead from "../../components/SectionHead.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import Icon from "../../components/Icon.astro";
+import Deco from "../../components/Deco.astro";
+import Wave from "../../components/Wave.astro";
+import { photo } from "../../lib/images";
+import { SERVICE_AREAS } from "../../lib/site";
+import { getLocations } from "../../lib/content";
+
+const lang = "pt" as const;
+const locations = await getLocations(lang);
+const withPages = locations.map((l) => l.data.name);
+const others = SERVICE_AREAS.filter((a) => !withPages.includes(a));
+const trail = [
+  { name: "Início", href: "/" },
+  { name: "Onde atuamos", href: "/onde-atuamos" },
+];
+---
+
+<Base
+  title="Onde Atuo no Algarve — Ted Animações"
+  description="Animação infantil em Faro, Albufeira, Vilamoura, Lagos, Portimão, Loulé, Quarteira, Olhão, Tavira e Silves. Veja o que muda em cada zona e peça disponibilidade para a sua data."
+  lang={lang}
+  path="/onde-atuamos"
+  breadcrumbs={trail}
+>
+  <Breadcrumbs trail={trail} lang={lang} />
+
+  <section class="section bg-cream" style="padding-top:2.5rem">
+    <Deco shape="dots" color="#2D7A6E" style="width:100px;top:14%;right:5%;opacity:.3" />
+
+    <div class="container">
+      <SectionHead
+        eyebrow="Zonas de atuação"
+        title='Animação infantil em todo o <span class="text-teal">Algarve</span>'
+        lede="Cada zona tem os seus espaços típicos e o seu tipo de festa. Aqui fica o que muda de umas para as outras."
+        as="h1"
+      />
+
+      <div class="grid grid-3 mt-lg" style="margin-top:3rem">
+        {locations.map((l, i) => (
+          <article class="card card-hover reveal" style={`transition-delay:${i * 90}ms`}>
+            <a href={`/onde-atuamos/${l.data.slug}`} style="text-decoration:none;color:inherit">
+              <div style="aspect-ratio:16/10;overflow:hidden">
+                <Image
+                  src={photo(l.data.image)}
+                  alt={l.data.imageAlt}
+                  widths={[360, 560, 760]}
+                  sizes="(min-width: 1024px) 30vw, 90vw"
+                  loading="lazy"
+                />
+              </div>
+              <div class="card-body">
+                <h2 class="h3 mb-sm">{l.data.name}</h2>
+                <p style="font-size:.94rem;color:var(--ink-soft);line-height:1.6">{l.data.intro}</p>
+                <span class="card-link" style="margin-top:1rem;display:inline-flex">
+                  Ver detalhes <Icon name="arrow-right" size={15} color="#2D7A6E" />
+                </span>
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
+
+      {others.length > 0 && (
+        <div class="card reveal" style="padding:2rem;max-width:760px;margin-inline:auto;margin-top:3rem;background:var(--cream-deep);box-shadow:none">
+          <h2 class="h3 mb-sm">Também trabalho em</h2>
+          <p style="color:var(--ink-soft);font-size:.96rem">
+            {others.join(" · ")}. Fora destas zonas depende da data e da
+            distância — pergunte antes de assumir que não dá.
+          </p>
+        </div>
+      )}
+    </div>
+    <Wave fill="#F0E4C4" variant={2} />
+  </section>
+
+  <CtaBand lang={lang} context="uma festa no Algarve" />
+</Base>
