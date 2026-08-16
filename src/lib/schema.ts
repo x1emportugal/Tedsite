@@ -124,7 +124,7 @@ export function faqSchema(items: { question: string; answer: string }[]) {
 
 /** Avaliações individuais, só com testemunhos reais. */
 export function reviewSchema(
-  reviews: { author: string; rating: number; body: string; date?: string }[],
+  reviews: { author: string; rating?: number; body: string; date?: string }[],
 ) {
   if (!reviews.length) return null;
   return {
@@ -137,12 +137,14 @@ export function reviewSchema(
         "@type": "Review",
         itemReviewed: { "@id": BUSINESS_ID },
         author: { "@type": "Person", name: r.author },
-        reviewRating: {
-          "@type": "Rating",
-          ratingValue: r.rating,
-          bestRating: 5,
-          worstRating: 1,
-        },
+        reviewRating: typeof r.rating === "number"
+          ? {
+              "@type": "Rating",
+              ratingValue: r.rating,
+              bestRating: 5,
+              worstRating: 1,
+            }
+          : undefined,
         reviewBody: r.body,
         datePublished: r.date,
       }),

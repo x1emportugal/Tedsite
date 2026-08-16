@@ -55,7 +55,7 @@ export async function getFaqs(lang: Lang, topic?: string) {
 const reviewSchema = z.object({
   id: z.string(),
   author: z.string(),
-  rating: z.number().min(1).max(5),
+  rating: z.number().min(1).max(5).optional(),
   body: z.string(),
   location: z.string().optional(),
   context: z.string().optional(),
@@ -94,14 +94,17 @@ export function getReviews(lang: Lang, onlyFeatured = false) {
  * Em modo de demonstração devolve `undefined`: um aggregateRating com
  * dados inventados é exatamente o que o Google penaliza.
  */
-export function ratingForSchema(reviews: { rating: number }[]) {
+export function ratingForSchema(reviews: { rating?: number }[]) {
   if (DEMO_REVIEWS) return undefined;
   return ratingFrom(reviews);
 }
 
 /** Média e contagem, só para o aggregateRating quando existirem dados. */
-export function ratingFrom(reviews: { rating: number }[]) {
-  if (!reviews.length) return undefined;
-  const value = reviews.reduce((s, r) => s + r.rating, 0) / reviews.length;
-  return { value, count: reviews.length };
+export function ratingFrom(reviews: { rating?: number }[]) {
+  const rated = reviews.filter(
+    (review): review is { rating: number } => typeof review.rating === "number",
+  );
+  if (!rated.length) return undefined;
+  const value = rated.reduce((sum, review) => sum + review.rating, 0) / rated.length;
+  return { value, count: rated.length };
 }

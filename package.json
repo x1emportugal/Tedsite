@@ -9,7 +9,7 @@
     "dev": "astro dev",
     "dev:demo": "PUBLIC_DEMO_REVIEWS=1 astro dev",
     "build": "node scripts/guard-demo.mjs && npm run check && astro build",
-    "check": "node scripts/check-placeholders.mjs",
+    "check": "node scripts/check-placeholders.mjs && node scripts/check-unrated-reviews.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },

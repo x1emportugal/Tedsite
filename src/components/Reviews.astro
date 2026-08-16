@@ -5,7 +5,7 @@ import { DEMO_REVIEWS } from "../lib/content";
 
 interface Review {
   author: string;
-  rating: number;
+  rating?: number;
   body: string;
   location?: string;
   context?: string;
@@ -34,11 +34,13 @@ const initial = (n: string) => n.trim().charAt(0).toUpperCase();
     {reviews.map((r, i) => (
       <article class:list={["review-card", "reveal", DEMO_REVIEWS && "is-demo"]} style={`transition-delay:${i * 90}ms`}>
         {DEMO_REVIEWS && <span class="demo-tag">{en ? "SAMPLE" : "EXEMPLO"}</span>}
-        <div class="review-stars" aria-label={`${r.rating} ${en ? "out of 5" : "em 5"}`}>
-          {Array.from({ length: 5 }).map((_, s) => (
-            <Icon name="star" size={16} color={s < r.rating ? "#F5C842" : "#E0D4B0"} />
-          ))}
-        </div>
+        {typeof r.rating === "number" && (
+          <div class="review-stars" aria-label={`${r.rating} ${en ? "out of 5" : "em 5"}`}>
+            {Array.from({ length: 5 }).map((_, s) => (
+              <Icon name="star" size={16} color={s < r.rating! ? "#F5C842" : "#E0D4B0"} />
+            ))}
+          </div>
+        )}
         <blockquote>{r.body}</blockquote>
         <footer class="review-author">
           <span class="review-avatar" aria-hidden="true">{initial(r.author)}</span>
