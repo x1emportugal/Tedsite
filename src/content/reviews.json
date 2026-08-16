@@ -27,5 +27,60 @@
     "context": "Harry Potter party",
     "lang": "en",
     "featured": true
+  },
+  {
+    "id": "aquashow-vacation49138591246",
+    "author": "Vacation49138591246",
+    "rating": 5,
+    "body": "Brincámos com o Ted e tornou a nossa experiência inesquecível. A caça ao tesouro e o jeito como ele interage com as crianças e adultos faz com que nós voltemos a ser crianças. É uma sensação de conforto enorme.",
+    "location": "Quarteira",
+    "context": "Aquashow Park Hotel · TripAdvisor",
+    "date": "2025-11",
+    "lang": "pt",
+    "featured": false
+  },
+  {
+    "id": "aquashow-joao-m",
+    "author": "João M",
+    "rating": 5,
+    "body": "A animação estava perfeita. Parabéns ao Ted, excelente animador, dinâmico, paciente e respeita muito o espaço e o tempo das crianças para a integração do grupo.",
+    "location": "Quarteira",
+    "context": "Aquashow Park Hotel · TripAdvisor",
+    "date": "2025-11",
+    "lang": "pt",
+    "featured": false
+  },
+  {
+    "id": "aquashow-maria-d",
+    "author": "Maria d",
+    "rating": 5,
+    "body": "A animação surpreendeu-nos com o Ted. Ele soube entreter muito bem os miúdos. A minha filha amou!",
+    "location": "Quarteira",
+    "context": "Aquashow Park Hotel · TripAdvisor",
+    "date": "2025-11",
+    "lang": "pt",
+    "featured": false
+  },
+  {
+    "id": "aquashow-ricardo-a",
+    "author": "Ricardo A",
+    "rating": 5,
+    "body": "O animador Ted criou uma atividade de caça ao tesouro que entreteve a nossa filha e ajudou a quebrar o gelo com os outros miúdos.",
+    "location": "Quarteira",
+    "context": "Aquashow Park Hotel · TripAdvisor",
+    "date": "2025-11",
+    "lang": "pt",
+    "featured": false
+  },
+  {
+    "id": "aquashow-ana-martins",
+    "author": "Ana Martins",
+    "rating": 5,
+    "body": "As atividades com as crianças e com o maravilhoso Ted foram espetaculares. 🥰",
+    "location": "Quarteira",
+    "context": "Aquashow Park Hotel · TripAdvisor",
+    "date": "2025-11",
+    "lang": "pt",
+    "featured": false
   }
 ]

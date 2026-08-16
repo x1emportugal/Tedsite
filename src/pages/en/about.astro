@@ -2,13 +2,10 @@
 import { Image } from "astro:assets";
 import Base from "../../layouts/Base.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
-import SectionHead from "../../components/SectionHead.astro";
-import TrustStrip from "../../components/TrustStrip.astro";
 import CtaBand from "../../components/CtaBand.astro";
 import Deco from "../../components/Deco.astro";
 import Wave from "../../components/Wave.astro";
 import { photo } from "../../lib/images";
-import { SITE } from "../../lib/site";
 
 const lang = "en" as const;
 const trail = [
@@ -19,7 +16,7 @@ const trail = [
 
 <Base
   title="About Ted | Children's Entertainer in the Algarve"
-  description="Who Ted is: an English-speaking children's entertainer in the Algarve working at private parties, villas and hotels. How each party is planned and what documentation is in place."
+  description="Meet Ted, a bear from Brazil who loves to play and brings children's entertainment to parties, hotels and events in Portugal."
   lang={lang}
   path="/en/about"
   breadcrumbs={trail}
@@ -31,17 +28,6 @@ const trail = [
 
     <div class="container">
       <div class="split">
-        <div>
-          <p class="eyebrow eyebrow-teal mb-md">About me</p>
-          <h1 class="h1 mb-md">Hi, I'm <span class="text-teal">Ted</span></h1>
-          <p class="lede">
-            I run children's entertainment across the Algarve, birthday parties,
-            hotel programmes and family events. This page exists to answer the
-            question that matters before you book anyone: who is this person, and
-            how do they work?
-          </p>
-        </div>
-
         <div class="blob-frame-alt" style="aspect-ratio:3/4;max-width:400px;margin-inline:auto">
           <Image
             src={photo("ted-com-criancas.jpg")}
@@ -52,68 +38,17 @@ const trail = [
             fetchpriority="high"
           />
         </div>
+        <div>
+          <p class="eyebrow eyebrow-teal mb-md">About me</p>
+          <h1 class="h1 mb-md">Hi, I'm <span class="text-teal">Ted</span></h1>
+          <p class="lede">
+            I'm a bear who loves to play. I came from Brazil to bring children's
+            entertainment to Portugal. What's your favourite game?
+          </p>
+        </div>
       </div>
     </div>
     <Wave fill="#F0E4C4" variant={1} />
-  </section>
-
-  <section class="section bg-cream-deep">
-    <div class="container-narrow">
-      <article class="prose reveal">
-        <h2>How I plan a party</h2>
-        <p>
-          Before any party I ask the same three questions: how many children,
-          what ages, and what the space is like. They sound like small details,
-          but they decide whether the entertainment works, relays do not work in
-          an apartment, and circle games do not work for thirty children in a
-          large garden.
-        </p>
-        <p>
-          From those answers I build a sequence pitched to the rhythm of the
-          party: energetic at the start so the group loosens up, winding down
-          towards the cake, when children need to be seated and calm.
-        </p>
-
-        <h2>Why there is no fixed script</h2>
-        <p>
-          A prepared programme is only worth keeping while it is working. During
-          the party I read the group: if a game is not landing, I change it; if
-          one is going particularly well, I stretch it.
-        </p>
-        <p>
-          The rule I never break is that <strong>nobody is left out</strong>. I use
-          rotating teams rather than elimination, precisely so no child spends the
-          party sitting down after losing the first game. At a birthday party, an
-          excluded child is the thing the parents will remember.
-        </p>
-
-        <h2>Working in English</h2>
-        <p>
-          Half the parties I run in the Algarve have Portuguese and international
-          families together. I work in English, Portuguese, or both at once. In
-          practice the children handle it faster than the adults expect, they
-          often end up translating for each other.
-        </p>
-        <p>
-          A lot of my summer work is at rental villas and hotels, so I am used to
-          venue rules for outside suppliers and will deal with them directly
-          rather than leaving it to you.
-        </p>
-
-      </article>
-    </div>
-    <Wave fill="#2D7A6E" variant={2} />
-  </section>
-
-  <section class="section bg-teal">
-    <div class="container">
-      <SectionHead eyebrow="Assurances" title="What is always in place" dark />
-      <div class="mt-lg"><TrustStrip lang={lang} /></div>
-      <p class="center mt-lg" style="color:var(--on-dark-soft);font-size:.9rem">
-        Direct contact: {SITE.phoneDisplay} · {SITE.email}
-      </p>
-    </div>
-    <Wave fill="#F0E4C4" variant={3} />
   </section>
 
   <CtaBand lang={lang} context="a birthday party" />

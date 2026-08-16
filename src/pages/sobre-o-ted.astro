@@ -2,13 +2,10 @@
 import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
-import SectionHead from "../components/SectionHead.astro";
-import TrustStrip from "../components/TrustStrip.astro";
 import CtaBand from "../components/CtaBand.astro";
 import Deco from "../components/Deco.astro";
 import Wave from "../components/Wave.astro";
 import { photo } from "../lib/images";
-import { SITE } from "../lib/site";
 
 const lang = "pt" as const;
 const trail = [
@@ -19,7 +16,7 @@ const trail = [
 
 <Base
   title="Sobre o Ted | Animador Infantil no Algarve"
-  description="Quem é o Ted: animador infantil no Algarve, com trabalho em festas privadas, hotéis e eventos. Como preparo cada festa, que materiais uso e que documentação tenho em dia."
+  description="Conheça o Ted, um urso que veio do Brasil para brincar e fazer animação infantil em festas, hotéis e eventos em Portugal."
   lang={lang}
   path="/sobre-o-ted"
   breadcrumbs={trail}
@@ -31,17 +28,6 @@ const trail = [
 
     <div class="container">
       <div class="split">
-        <div>
-          <p class="eyebrow eyebrow-teal mb-md">Sobre mim</p>
-          <h1 class="h1 mb-md">Olá, eu sou o <span class="text-teal">Ted</span></h1>
-          <p class="lede">
-            Faço animação infantil no Algarve, festas de aniversário, hotéis e
-            eventos de família. Esta página existe para responder à pergunta que
-            interessa antes de contratar alguém: quem é esta pessoa e como
-            trabalha.
-          </p>
-        </div>
-
         <div class="blob-frame-alt" style="aspect-ratio:3/4;max-width:400px;margin-inline:auto">
           <Image
             src={photo("ted-com-criancas.jpg")}
@@ -52,67 +38,17 @@ const trail = [
             fetchpriority="high"
           />
         </div>
+        <div>
+          <p class="eyebrow eyebrow-teal mb-md">Sobre mim</p>
+          <h1 class="h1 mb-md">Olá, eu sou o <span class="text-teal">Ted</span></h1>
+          <p class="lede">
+            Sou um urso que gosta muito de brincar. Vim do Brasil para fazer
+            animação em Portugal. Qual é a sua brincadeira favorita?
+          </p>
+        </div>
       </div>
     </div>
     <Wave fill="#F0E4C4" variant={1} />
-  </section>
-
-  <section class="section bg-cream-deep">
-    <div class="container-narrow">
-      <article class="prose reveal">
-        <h2>Como preparo uma festa</h2>
-        <p>
-          Antes de qualquer festa faço sempre as mesmas três perguntas: quantas
-          crianças, que idades e como é o espaço. Parecem detalhes pequenos, mas
-          são o que decide se a animação funciona ou não, estafetas num
-          apartamento não resultam, e jogos de roda para trinta crianças num
-          jardim grande também não.
-        </p>
-        <p>
-          Com essas respostas monto uma sequência de atividades pensada para o
-          ritmo da festa: começa com energia alta, para o grupo se soltar, e vai
-          baixando até ao momento do bolo, em que as crianças já precisam de
-          estar sentadas e calmas.
-        </p>
-
-        <h2>Porque não trabalho com guião fixo</h2>
-        <p>
-          Um programa preparado só vale enquanto está a resultar. Durante a
-          festa vou lendo o grupo: se um jogo não está a pegar, mudo; se está a
-          correr especialmente bem, estico. É essa leitura que separa animação a
-          sério de uma lista de atividades cumprida à força.
-        </p>
-        <p>
-          A regra que não quebro é que <strong>ninguém fica de fora</strong>. Uso
-          equipas rotativas em vez de eliminação, precisamente para nenhuma
-          criança passar a festa sentada por ter perdido no primeiro jogo. Numa
-          festa de aniversário, uma criança excluída é o problema que os pais vão
-          lembrar.
-        </p>
-
-        <h2>Português e inglês</h2>
-        <p>
-          No Algarve, metade das festas tem famílias portuguesas e estrangeiras
-          juntas. Faço a animação em português, em inglês, ou nas duas línguas ao
-          mesmo tempo. As crianças alternam entre línguas com muito mais
-          naturalidade do que os adultos, e é frequente serem elas a traduzir
-          umas para as outras.
-        </p>
-
-      </article>
-    </div>
-    <Wave fill="#2D7A6E" variant={2} />
-  </section>
-
-  <section class="section bg-teal">
-    <div class="container">
-      <SectionHead eyebrow="Garantias" title="O que está sempre assegurado" dark />
-      <div class="mt-lg"><TrustStrip lang={lang} /></div>
-      <p class="center mt-lg" style="color:var(--on-dark-soft);font-size:.9rem">
-        Contacto direto: {SITE.phoneDisplay} · {SITE.email}
-      </p>
-    </div>
-    <Wave fill="#F0E4C4" variant={3} />
   </section>
 
   <CtaBand lang={lang} context="uma festa de aniversário" />
