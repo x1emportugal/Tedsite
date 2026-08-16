@@ -3,7 +3,7 @@ lang: pt
 slug: vilamoura
 name: Vilamoura
 seoTitle: Animação Infantil e Festas de Aniversário em Vilamoura
-description: Animador infantil em Vilamoura e Quarteira para festas de aniversário, resorts e eventos. Animação bilingue português e inglês, com seguro e faturação.
+description: Animador infantil em Vilamoura e Quarteira para festas de aniversário, resorts e eventos. Animação bilingue português e inglês, com programa à medida.
 intro: Em Vilamoura o trabalho divide-se entre festas privadas em resorts e condomínios, e animação contratada por hotéis e organizadores de eventos.
 image: ted-mesa-atividades.jpg
 imageAlt: Mesa de atividades criativas montada para animação infantil em Vilamoura
@@ -20,7 +20,7 @@ Vilamoura e Quarteira são a zona onde o trabalho é mais equilibrado entre fest
 
 ## Festas em resorts e condomínios
 
-A maior parte dos espaços em Vilamoura tem regras próprias para prestadores externos: acesso, horários e seguro. Trato disso diretamente com a administração antes do dia, para não sobrar burocracia para quem organiza a festa.
+A maior parte dos espaços em Vilamoura tem regras próprias para prestadores externos, como acesso e horários. Trato disso diretamente com a administração antes do dia, para não sobrar burocracia para quem organiza a festa.
 
 ## Casamentos e eventos
 

@@ -13,7 +13,7 @@ faqs:
   - question: Faz festas em villas de aluguer em Albufeira?
     answer: Faço, e é uma parte grande do trabalho de verão. Muitas villas têm jardim e piscina, o que abre possibilidades para jogos ao ar livre, mas exige combinar antes as regras da casa e a zona de segurança à volta da água.
   - question: Trabalha com hotéis em Albufeira?
-    answer: Sim, em regime pontual ou de época. Para hotéis o contacto costuma ser mais direto por email, porque envolve disponibilidade, seguro e faturação. Há uma página própria com essas condições.
+    answer: Sim, em regime pontual ou de época. Para hotéis o contacto costuma ser mais direto por email, porque envolve disponibilidade, programação e faturação. Há uma página própria com essas condições.
 ---
 
 Albufeira concentra dois tipos de festa muito diferentes. Há as festas de famílias residentes, normalmente em casa ou em salão alugado, e há as festas de férias, em villas, apartamentos turísticos e hotéis, estas muitas vezes com convidados de várias nacionalidades.

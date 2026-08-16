@@ -90,18 +90,6 @@
     "order": 8
   },
   {
-    "id": "seguro",
-    "lang": "pt",
-    "question": "Tem seguro e documentação em dia?",
-    "answer": "PREENCHER: confirmar seguro de responsabilidade civil, registo criminal e situação fiscal, e escrever aqui em concreto. É a pergunta que os pais mais atentos e todos os hotéis fazem. Responder com clareza é uma vantagem competitiva real, porque quase nenhum concorrente do Algarve o comunica.",
-    "topics": [
-      "home",
-      "contactos",
-      "hoteis"
-    ],
-    "order": 9
-  },
-  {
     "id": "hoteis-recorrente",
     "lang": "pt",
     "question": "Trabalha com hotéis de forma regular?",

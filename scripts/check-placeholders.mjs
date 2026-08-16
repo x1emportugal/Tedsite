@@ -66,6 +66,6 @@ for (const h of hits) {
 }
 console.log(
   "\n   Preencha-os antes de apontar o domínio para este site.\n" +
-    "   Prioridade: preços (packages.json), avaliações (reviews.json),\n" +
-    "   seguro e NIF (src/lib/site.ts e TrustStrip).\n",
+    "   Prioridade: Perfil de Empresa no Google, avaliações reais\n" +
+    "   e endpoint do formulário.\n",
 );

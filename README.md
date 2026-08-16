@@ -62,17 +62,6 @@ NIF, morada, código postal, coordenadas, ano de início e o URL do Perfil de
 Empresa do Google. Alimentam o JSON-LD. Campos que comecem por `TODO_` são
 **automaticamente omitidos** do JSON-LD, portanto nada inválido chega ao HTML.
 
-### 4. Seguro e documentação
-`src/components/TrustStrip.astro`
-Seguro de responsabilidade civil, registo criminal e situação fiscal. Quase
-nenhum concorrente do Algarve comunica isto. É vantagem real, sobretudo com
-hotéis.
-
-### 5. Percurso
-`src/pages/sobre-o-ted.astro` e `src/pages/en/about.astro`
-Quando começou, onde trabalhou, formação, quantas festas fez. É a secção que
-mais pesa na credibilidade e que os motores usam para avaliar experiência real.
-
 ---
 
 ## Onde mexer em quê

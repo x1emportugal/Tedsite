@@ -70,8 +70,6 @@ Confirmar com o Ted antes de empurrar mudanças de conteúdo visível.
 
 ## Por preencher
 
-Corre `npm run check`. Faltam dados que só o Ted tem: seguro de
-responsabilidade civil, registo criminal e o percurso profissional.
-Falta também o Perfil de Empresa no Google (`googleBusinessUrl` em
+Corre `npm run check`. Falta o Perfil de Empresa no Google (`googleBusinessUrl` em
 `site.ts`), avaliações reais e o endpoint do formulário
 (`PUBLIC_FORM_ENDPOINT`).
