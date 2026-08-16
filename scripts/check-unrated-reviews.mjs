@@ -13,7 +13,7 @@ const expected = [
 for (const id of expected) {
   const review = reviews.find((item) => item.id === id);
   assert.ok(review, `Falta a avaliação ${id}`);
-  assert.equal(review.rating, undefined, `${id} não pode ter estrelas inventadas`);
+  assert.equal(review.rating, 5, `${id} deve ter as 5 estrelas confirmadas pelo Ted`);
 }
 
 const content = readFileSync(new URL("../src/lib/content.ts", import.meta.url), "utf8");
