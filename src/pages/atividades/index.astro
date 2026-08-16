@@ -7,6 +7,8 @@ import CtaBand from "../../components/CtaBand.astro";
 import Deco from "../../components/Deco.astro";
 import Wave from "../../components/Wave.astro";
 import { getActivities } from "../../lib/content";
+import { Image } from "astro:assets";
+import slimeImage from "../../assets/images/slime-roxo-decorado.png";
 
 const lang = "pt" as const;
 const activities = await getActivities(lang);
@@ -43,11 +45,16 @@ const trail = [
         ))}
       </div>
 
-      <div class="card mt-lg reveal center" style="padding:2rem;max-width:760px;margin-inline:auto;margin-top:3rem;background:#F5E7FF">
-        <p class="eyebrow eyebrow-teal mb-sm">Nova atividade</p>
-        <h2 class="h3 mb-sm">Slime com o Ted</h2>
-        <p style="color:var(--ink-soft);font-size:.96rem">Mistura, cores e muita diversão.</p>
-        <a href="/slime" class="btn btn-teal mt-md">Ver os vídeos de slime</a>
+      <div class="card mt-lg reveal slime-card">
+        <a href="/slime" class="slime-photo" aria-label="Ver a atividade de slime">
+          <Image src={slimeImage} alt="Slime roxo decorado com flores, corações e doces coloridos" widths={[360, 640]} sizes="(max-width: 700px) 100vw, 320px" />
+        </a>
+        <div class="slime-copy center">
+          <p class="eyebrow eyebrow-teal mb-sm">Nova atividade</p>
+          <h2 class="h3 mb-sm">Slime com o Ted</h2>
+          <p style="color:var(--ink-soft);font-size:.96rem">Mistura, cores e muita diversão.</p>
+          <a href="/slime" class="btn btn-teal mt-md">Ver os vídeos de slime</a>
+        </div>
       </div>
 
       <div class="card mt-lg reveal" style="padding:2rem;max-width:760px;margin-inline:auto;margin-top:3rem">
@@ -65,3 +72,15 @@ const trail = [
 
   <CtaBand lang={lang} context="uma festa com estas atividades" />
 </Base>
+
+<style>
+  .slime-card { display:grid; grid-template-columns:320px 1fr; max-width:760px; margin:3rem auto 0; overflow:hidden; background:#F5E7FF; }
+  .slime-photo { display:block; min-height:360px; }
+  .slime-photo :global(img) { width:100%; height:100%; display:block; object-fit:cover; }
+  .slime-copy { align-self:center; padding:2rem; }
+  @media (max-width:700px) {
+    .slime-card { grid-template-columns:1fr; }
+    .slime-photo { min-height:0; }
+    .slime-photo :global(img) { height:auto; }
+  }
+</style>
