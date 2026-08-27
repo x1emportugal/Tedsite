@@ -8,12 +8,11 @@ import Icon from "../../components/Icon.astro";
 import Deco from "../../components/Deco.astro";
 import Wave from "../../components/Wave.astro";
 import { SITE } from "../../lib/site";
-import { getReviews, ratingForSchema, DEMO_REVIEWS } from "../../lib/content";
-import { reviewSchema } from "../../lib/schema";
+import { getReviews, ratingFrom } from "../../lib/content";
 
 const lang = "en" as const;
 const reviews = await getReviews(lang);
-const rating = ratingForSchema(reviews);
+const rating = ratingFrom(reviews);
 const trail = [
   { name: "Home", href: "/en/" },
   { name: "Reviews", href: "/en/reviews" },
@@ -26,8 +25,6 @@ const trail = [
   lang={lang}
   path="/en/reviews"
   breadcrumbs={trail}
-  rating={rating}
-  schemas={[DEMO_REVIEWS ? null : reviewSchema(reviews)]}
 >
   <Breadcrumbs trail={trail} lang={lang} />
 

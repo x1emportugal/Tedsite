@@ -10,14 +10,13 @@ import Icon from "../../components/Icon.astro";
 import Deco from "../../components/Deco.astro";
 import Wave from "../../components/Wave.astro";
 import { whatsappUrl } from "../../lib/site";
-import { getPackages, getFaqs, getReviews, ratingForSchema, DEMO_REVIEWS } from "../../lib/content";
+import { getPackages, getFaqs, getReviews } from "../../lib/content";
 import { faqSchema } from "../../lib/schema";
 
 const lang = "en" as const;
 const packages = await getPackages(lang);
 const faqs = await getFaqs(lang, "precos");
 const reviews = await getReviews(lang, true);
-const rating = ratingForSchema(reviews);
 
 const trail = [
   { name: "Home", href: "/en/" },
@@ -51,7 +50,6 @@ const steps = [
   lang={lang}
   path="/en/prices"
   breadcrumbs={trail}
-  rating={rating}
   schemas={[faqSchema(faqs)]}
 >
   <Breadcrumbs trail={trail} lang={lang} />

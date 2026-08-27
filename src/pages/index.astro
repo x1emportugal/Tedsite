@@ -13,15 +13,14 @@ import Gallery from "../components/Gallery.astro";
 import CtaBand from "../components/CtaBand.astro";
 import { photo } from "../lib/images";
 import { whatsappUrl, SERVICE_AREAS, T } from "../lib/site";
-import { getActivities, getFaqs, getReviews, ratingForSchema, DEMO_REVIEWS } from "../lib/content";
-import { faqSchema, reviewSchema } from "../lib/schema";
+import { getActivities, getFaqs, getReviews } from "../lib/content";
+import { faqSchema } from "../lib/schema";
 
 const lang = "pt" as const;
 const t = T[lang];
 const activities = await getActivities(lang);
 const faqs = await getFaqs(lang, "home");
 const reviews = await getReviews(lang, true);
-const rating = ratingForSchema(reviews);
 
 const steps = [
   { n: "1", icon: "chat", title: "Fale comigo no WhatsApp", desc: "Diga-me a data, o local e quantas crianças espera. Respondo no próprio dia." },
@@ -40,12 +39,11 @@ const why = [
 ---
 
 <Base
-  title="Ted Animações | Animador Infantil no Algarve e Festas de Aniversário"
+  title="Ted in Portugal | Ted Animações | Animação Infantil no Algarve"
   description="Animação infantil para festas de aniversário no Algarve. Caça ao tesouro, pintura facial, oficinas e jogos, em português e inglês. Faro, Albufeira, Lagos, Portimão e Vilamoura. Peça orçamento."
   lang={lang}
   path="/"
-  rating={rating}
-  schemas={[faqSchema(faqs), DEMO_REVIEWS ? null : reviewSchema(reviews)]}
+  schemas={[faqSchema(faqs)]}
 >
   {/* ── HERO ── */}
   <section class="section bg-cream" style="padding-top:8rem;display:flex;align-items:center">
@@ -66,9 +64,9 @@ const why = [
             Festas de aniversário <span class="text-teal">inesquecíveis</span>
           </h1>
           <p class="lede mb-lg">
-            Jogos, oficinas criativas e aventuras que fazem os miúdos esquecerem o
-            telemóvel e viverem momentos reais, enquanto os pais finalmente
-            aproveitam a festa.
+            Sou o Ted, da Ted Animações. Aqui no Ted in Portugal preparo jogos,
+            oficinas e aventuras para os miúdos viverem momentos reais, enquanto
+            os pais aproveitam também.
           </p>
 
           <div class="row gap-md">

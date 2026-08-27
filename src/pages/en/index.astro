@@ -13,15 +13,14 @@ import Gallery from "../../components/Gallery.astro";
 import CtaBand from "../../components/CtaBand.astro";
 import { photo } from "../../lib/images";
 import { whatsappUrl, SERVICE_AREAS, T } from "../../lib/site";
-import { getActivities, getFaqs, getReviews, ratingForSchema, DEMO_REVIEWS } from "../../lib/content";
-import { faqSchema, reviewSchema } from "../../lib/schema";
+import { getActivities, getFaqs, getReviews } from "../../lib/content";
+import { faqSchema } from "../../lib/schema";
 
 const lang = "en" as const;
 const t = T[lang];
 const activities = await getActivities(lang);
 const faqs = await getFaqs(lang, "home");
 const reviews = await getReviews(lang, true);
-const rating = ratingForSchema(reviews);
 
 const steps = [
   { n: "1", icon: "chat", title: "Message me on WhatsApp", desc: "Tell me the date, the place and how many children. I usually reply the same day." },
@@ -44,8 +43,7 @@ const why = [
   description="English-speaking children's entertainer in the Algarve. Birthday parties at villas, hotels and homes: treasure hunts, face painting, craft workshops and games. Albufeira, Vilamoura, Lagos, Faro."
   lang={lang}
   path="/en/"
-  rating={rating}
-  schemas={[faqSchema(faqs), DEMO_REVIEWS ? null : reviewSchema(reviews)]}
+  schemas={[faqSchema(faqs)]}
 >
   <section class="section bg-cream" style="padding-top:8rem;display:flex;align-items:center">
     <Deco shape="wiggle" color="#2D7A6E" class="animate-float-slow" style="width:380px;top:8%;right:-60px;opacity:.7" />

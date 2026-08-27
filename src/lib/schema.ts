@@ -9,6 +9,7 @@
 import { SITE, SERVICE_AREAS, absoluteUrl } from "./site";
 
 const BUSINESS_ID = `${SITE.url}/#business`;
+const WEBSITE_ID = `${SITE.url}/#website`;
 
 /** Só emite campos preenchidos, nada de TODO_ a chegar ao HTML. */
 function clean<T extends Record<string, unknown>>(obj: T): T {
@@ -23,10 +24,11 @@ function clean<T extends Record<string, unknown>>(obj: T): T {
 
 /**
  * O negócio em si. Vai em todas as páginas.
- * @param rating, só passar quando existirem avaliações REAIS visíveis na
- *   página. Classificações inventadas são motivo de penalização manual.
+ * As avaliações continuam visíveis nas páginas próprias, mas não entram no
+ * schema da entidade: o Google não apresenta avaliações autocontroladas de
+ * LocalBusiness/Organization como rich result.
  */
-export function businessSchema(rating?: { value: number; count: number }) {
+export function businessSchema() {
   return clean({
     "@context": "https://schema.org",
     "@type": "EntertainmentBusiness",
@@ -58,18 +60,19 @@ export function businessSchema(rating?: { value: number; count: number }) {
     areaServed: SERVICE_AREAS.map((name) => ({ "@type": "City", name })),
     knowsLanguage: ["pt-PT", "en-GB"],
     sameAs: [SITE.instagram, SITE.googleBusinessUrl].filter(Boolean),
-    ...(rating && rating.count > 0
-      ? {
-          aggregateRating: {
-            "@type": "AggregateRating",
-            ratingValue: rating.value.toFixed(1),
-            reviewCount: rating.count,
-            bestRating: 5,
-            worstRating: 1,
-          },
-        }
-      : {}),
   });
+}
+
+/** O site oficial, separado da entidade do negócio. */
+export function websiteSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": WEBSITE_ID,
+    name: SITE.alternateName,
+    alternateName: SITE.name,
+    url: SITE.url,
+  };
 }
 
 /** Um serviço concreto (atividade, pacote, animação para hotéis). */
@@ -122,36 +125,6 @@ export function faqSchema(items: { question: string; answer: string }[]) {
   };
 }
 
-/** Avaliações individuais, só com testemunhos reais. */
-export function reviewSchema(
-  reviews: { author: string; rating?: number; body: string; date?: string }[],
-) {
-  if (!reviews.length) return null;
-  return {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    itemListElement: reviews.map((r, i) => ({
-      "@type": "ListItem",
-      position: i + 1,
-      item: clean({
-        "@type": "Review",
-        itemReviewed: { "@id": BUSINESS_ID },
-        author: { "@type": "Person", name: r.author },
-        reviewRating: typeof r.rating === "number"
-          ? {
-              "@type": "Rating",
-              ratingValue: r.rating,
-              bestRating: 5,
-              worstRating: 1,
-            }
-          : undefined,
-        reviewBody: r.body,
-        datePublished: r.date,
-      }),
-    })),
-  };
-}
-
 /** Migalhas de navegação, ajuda o Google a perceber a hierarquia. */
 export function breadcrumbSchema(trail: { name: string; href: string }[]) {
   if (trail.length < 2) return null;
@@ -181,11 +154,7 @@ export function webPageSchema(input: {
     description: input.description,
     url: absoluteUrl(input.url),
     inLanguage: input.lang === "en" ? "en-GB" : "pt-PT",
-    isPartOf: {
-      "@type": "WebSite",
-      name: SITE.name,
-      url: SITE.url,
-    },
+    isPartOf: { "@id": WEBSITE_ID },
     about: { "@id": BUSINESS_ID },
   };
 }

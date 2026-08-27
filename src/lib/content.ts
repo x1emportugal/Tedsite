@@ -89,18 +89,7 @@ export function getReviews(lang: Lang, onlyFeatured = false) {
   return parsed.data.filter((r) => !onlyFeatured || r.featured);
 }
 
-/**
- * Classificação agregada para o JSON-LD.
- *
- * Em modo de demonstração devolve `undefined`: um aggregateRating com
- * dados inventados é exatamente o que o Google penaliza.
- */
-export function ratingForSchema(reviews: { rating?: number }[]) {
-  if (DEMO_REVIEWS) return undefined;
-  return ratingFrom(reviews);
-}
-
-/** Média e contagem, só para o aggregateRating quando existirem dados. */
+/** Média e contagem para o resumo visível de avaliações. */
 export function ratingFrom(reviews: { rating?: number }[]) {
   const rated = reviews.filter(
     (review): review is { rating: number } => typeof review.rating === "number",

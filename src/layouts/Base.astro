@@ -4,7 +4,7 @@ import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import WhatsAppFloat from "../components/WhatsAppFloat.astro";
 import { SITE, absoluteUrl, altLanguageUrls, T, type Lang } from "../lib/site";
-import { businessSchema, webPageSchema, breadcrumbSchema } from "../lib/schema";
+import { businessSchema, websiteSchema, webPageSchema, breadcrumbSchema } from "../lib/schema";
 import "../styles/global.css";
 
 interface Props {
@@ -19,8 +19,6 @@ interface Props {
   schemas?: (object | null)[];
   /** Migalhas de navegação: também geram BreadcrumbList. */
   breadcrumbs?: { name: string; href: string }[];
-  /** Classificação agregada, só passar com avaliações reais publicadas. */
-  rating?: { value: number; count: number };
   /** Impedir indexação (usado no 404 e na política de privacidade). */
   noindex?: boolean;
 }
@@ -33,7 +31,6 @@ const {
   ogImage,
   schemas = [],
   breadcrumbs,
-  rating,
   noindex = false,
 } = Astro.props;
 
@@ -49,7 +46,8 @@ const analyticsId = import.meta.env.PUBLIC_ANALYTICS_ID;
 // Blocos de dados estruturados: o negócio vai em todas as páginas,
 // mais a página em si, as migalhas e o que a página acrescentar.
 const jsonLd = [
-  businessSchema(rating),
+  businessSchema(),
+  websiteSchema(),
   webPageSchema({ title, description, url: path, lang }),
   breadcrumbs ? breadcrumbSchema(breadcrumbs) : null,
   ...schemas,
