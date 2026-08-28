@@ -35,7 +35,7 @@ const initial = (n: string) => n.trim().charAt(0).toUpperCase();
       <article class:list={["review-card", "reveal", DEMO_REVIEWS && "is-demo"]} style={`transition-delay:${i * 90}ms`}>
         {DEMO_REVIEWS && <span class="demo-tag">{en ? "SAMPLE" : "EXEMPLO"}</span>}
         {typeof r.rating === "number" && (
-          <div class="review-stars" aria-label={`${r.rating} ${en ? "out of 5" : "em 5"}`}>
+          <div class="review-stars" role="img" aria-label={`${r.rating} ${en ? "out of 5" : "em 5"}`}>
             {Array.from({ length: 5 }).map((_, s) => (
               <Icon name="star" size={16} color={s < r.rating! ? "#F5C842" : "#E0D4B0"} />
             ))}

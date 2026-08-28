@@ -42,11 +42,11 @@ const en = lang === "en";
         {en ? "all materials included" : "todo o material incluído"}
       </p>
 
-      <div class="package-facts" aria-label={en ? "Package summary" : "Resumo do pacote"}>
-        <span><strong>{p.entertainers}</strong> {en ? "entertainers" : "animadores"}</span>
-        <span><strong>{p.workshops}</strong> {p.workshops === 1 ? "workshop" : "workshops"}</span>
-        <span><strong>{p.activities}</strong> {en ? (p.activities === 1 ? "activity" : "activities") : (p.activities === 1 ? "atividade" : "atividades")}</span>
-      </div>
+      <ul class="package-facts" aria-label={en ? "Package summary" : "Resumo do pacote"}>
+        <li><strong>{p.entertainers}</strong> {en ? "entertainers" : "animadores"}</li>
+        <li><strong>{p.workshops}</strong> {p.workshops === 1 ? "workshop" : "workshops"}</li>
+        <li><strong>{p.activities}</strong> {en ? (p.activities === 1 ? "activity" : "activities") : (p.activities === 1 ? "atividade" : "atividades")}</li>
+      </ul>
 
       <ul class="price-list">
         {p.includes.map((item) => (
@@ -80,8 +80,10 @@ const en = lang === "en";
     grid-template-columns: repeat(3, 1fr);
     gap: .45rem;
     margin: 1rem 0 1.25rem;
+    padding: 0;
+    list-style: none;
   }
-  .package-facts span {
+  .package-facts li {
     padding: .65rem .35rem;
     border-radius: .8rem;
     background: var(--cream-deep);

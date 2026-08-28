@@ -78,9 +78,9 @@ const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? "";
   </div>
 
   <!-- Armadilha para robôs: um humano nunca preenche este campo. -->
-  <div style="position:absolute;left:-9999px" aria-hidden="true">
+  <div hidden>
     <label for="q-website">Website</label>
-    <input id="q-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+    <input id="q-website" name="website" type="text" tabindex="-1" autocomplete="off" hidden />
   </div>
 
   <p style="font-size:.82rem;color:var(--ink-muted);margin-top:1.2rem">
