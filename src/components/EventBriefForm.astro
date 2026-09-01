@@ -1,0 +1,684 @@
+---
+import { SERVICE_AREAS, SITE } from "../lib/site";
+
+const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? "";
+
+const eventTypes = [
+  "Aniversário",
+  "Batizado",
+  "Casamento",
+  "Comunhão",
+  "Festa familiar",
+  "Evento de empresa",
+  "Evento escolar",
+  "Festa em hotel",
+  "Outro",
+];
+
+const activities = [
+  "Jogos e brincadeiras",
+  "Modelagem de balões",
+  "Pintura facial",
+  "Bolhas de sabão",
+  "Oficina de slime",
+  "Pulseiras criativas",
+  "Caça ao tesouro",
+  "Atividades tranquilas",
+  "Ainda não sei, quero sugestões",
+];
+
+const discoverySources = ["Instagram", "Google", "Recomendação", "Hotel", "Evento anterior", "Outro"];
+---
+
+<div class="event-form-shell">
+  <div class="form-progress" aria-label="Progresso do formulário">
+    <div class="progress-copy">
+      <span id="event-step-label">Passo 1 de 5</span>
+      <span id="event-step-name">O seu contacto</span>
+    </div>
+    <progress id="event-progress" max="5" value="1">1 de 5</progress>
+  </div>
+
+  <form
+    id="event-brief-form"
+    class="event-form"
+    data-endpoint={endpoint}
+    data-whatsapp={SITE.phone.replace(/\D/g, "")}
+    novalidate
+  >
+    <section data-step-panel="0" aria-labelledby="step-contact-title">
+      <div class="step-heading">
+        <span class="step-number" aria-hidden="true">1</span>
+        <div>
+          <h2 id="step-contact-title">Primeiro, como falamos consigo?</h2>
+          <p>Só usamos estes dados para responder ao pedido.</p>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="field field-full">
+          <label for="event-name">O seu nome</label>
+          <input id="event-name" name="nome" type="text" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="event-whatsapp">WhatsApp</label>
+          <input id="event-whatsapp" name="whatsapp" type="tel" autocomplete="tel" inputmode="tel" required />
+        </div>
+        <div class="field">
+          <label for="event-email">Email</label>
+          <input id="event-email" name="email" type="email" autocomplete="email" required />
+        </div>
+      </div>
+    </section>
+
+    <section data-step-panel="1" aria-labelledby="step-event-title" hidden>
+      <div class="step-heading">
+        <span class="step-number" aria-hidden="true">2</span>
+        <div>
+          <h2 id="step-event-title">Conte-nos sobre o evento</h2>
+          <p>Data, local e tamanho ajudam-nos a preparar uma proposta certa.</p>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="field field-full">
+          <label for="event-type">Tipo de evento</label>
+          <select id="event-type" name="tipo_evento" required>
+            <option value="">Escolha uma opção</option>
+            {eventTypes.map((type) => <option value={type}>{type}</option>)}
+          </select>
+        </div>
+        <div class="field">
+          <label for="event-date">Data do evento</label>
+          <input id="event-date" name="data_evento" type="date" required />
+        </div>
+        <div class="field">
+          <label for="event-time">Horário aproximado</label>
+          <input id="event-time" name="horario" type="text" placeholder="ex.: 15h às 18h" required />
+        </div>
+        <div class="field">
+          <label for="event-area">Zona</label>
+          <select id="event-area" name="zona" required>
+            <option value="">Escolha a zona</option>
+            {SERVICE_AREAS.map((area) => <option value={area}>{area}</option>)}
+            <option value="Outra zona do Algarve">Outra zona do Algarve</option>
+            <option value="Fora do Algarve">Fora do Algarve</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="event-place">Local ou espaço</label>
+          <input id="event-place" name="local_evento" type="text" placeholder="Nome do espaço ou morada" required />
+        </div>
+        <div class="field">
+          <label for="event-guests">Número de convidados <span class="hint">aproximado</span></label>
+          <input id="event-guests" name="convidados" type="number" min="1" max="1000" inputmode="numeric" />
+        </div>
+        <div class="field field-full">
+          <label for="event-description">Conte-nos um pouco sobre o evento <span class="hint">opcional</span></label>
+          <textarea id="event-description" name="descricao_evento" rows="3" placeholder="O que já está planeado e o que espera da animação?"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section data-step-panel="2" aria-labelledby="step-kids-title" hidden>
+      <div class="step-heading">
+        <span class="step-number" aria-hidden="true">3</span>
+        <div>
+          <h2 id="step-kids-title">E sobre as crianças?</h2>
+          <p>As idades ajudam a escolher atividades seguras e divertidas.</p>
+        </div>
+      </div>
+
+      <fieldset class="choice-group field-full">
+        <legend>Haverá crianças no evento?</legend>
+        <div class="choice-grid choice-grid-3">
+          {[
+            ["sim", "Sim"],
+            ["nao", "Não"],
+            ["incerto", "Ainda não sei"],
+          ].map(([value, label]) => (
+            <label class="choice-card">
+              <input type="radio" name="tem_criancas" value={value} required />
+              <span>{label}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <div id="children-details" class="form-grid children-details" hidden>
+        <div class="field">
+          <label for="children-count">Quantas crianças?</label>
+          <input id="children-count" name="numero_criancas" type="number" min="1" max="150" inputmode="numeric" />
+        </div>
+        <div class="field">
+          <label for="children-ages">Idades</label>
+          <input id="children-ages" name="idades_criancas" type="text" placeholder="ex.: 4 aos 9 anos" />
+        </div>
+        <div class="field">
+          <label for="child-name">Nome da criança <span class="hint">se for aniversário</span></label>
+          <input id="child-name" name="nome_crianca" type="text" />
+        </div>
+        <div class="field">
+          <label for="child-birthday">Data de aniversário <span class="hint">opcional</span></label>
+          <input id="child-birthday" name="aniversario_crianca" type="date" />
+        </div>
+        <div class="field field-full">
+          <label for="children-notes">Algo importante que devemos saber? <span class="hint">opcional</span></label>
+          <textarea id="children-notes" name="informacoes_criancas" rows="3" placeholder="Necessidades, sensibilidades, dinâmica do grupo…"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section data-step-panel="3" aria-labelledby="step-experience-title" hidden>
+      <div class="step-heading">
+        <span class="step-number" aria-hidden="true">4</span>
+        <div>
+          <h2 id="step-experience-title">Como imagina a experiência?</h2>
+          <p>Pode escolher várias atividades. Se estiver em dúvida, nós sugerimos.</p>
+        </div>
+      </div>
+
+      <fieldset class="choice-group">
+        <legend>Atividades que gostaria de incluir</legend>
+        <div class="choice-grid activity-grid">
+          {activities.map((activity) => (
+            <label class="choice-card">
+              <input type="checkbox" name="atividades" value={activity} />
+              <span>{activity}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <fieldset class="choice-group">
+        <legend>O que espera para as crianças?</legend>
+        <div class="choice-grid">
+          {[
+            "Muita diversão e brincadeiras",
+            "Uma experiência mais tranquila",
+            "Crianças entretidas enquanto os adultos aproveitam",
+            "Ainda não sei, quero sugestões",
+          ].map((experience) => (
+            <label class="choice-card">
+              <input type="radio" name="experiencia" value={experience} required />
+              <span>{experience}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <div class="form-grid">
+        <div class="field">
+          <label for="event-theme">Tema, personagem ou estilo <span class="hint">opcional</span></label>
+          <input id="event-theme" name="tema" type="text" />
+        </div>
+        <div class="field">
+          <label for="must-have">Atividade indispensável <span class="hint">opcional</span></label>
+          <input id="must-have" name="atividade_especial" type="text" />
+        </div>
+        <div class="field">
+          <label for="avoid-activity">Algo que prefere evitar <span class="hint">opcional</span></label>
+          <input id="avoid-activity" name="atividade_evitar" type="text" />
+        </div>
+        <div class="field">
+          <label for="space-type">Tipo de espaço <span class="hint">opcional</span></label>
+          <select id="space-type" name="tipo_espaco">
+            <option value="">Escolha uma opção</option>
+            <option>Interior</option>
+            <option>Exterior</option>
+            <option>Interior e exterior</option>
+            <option>Ainda não sei</option>
+          </select>
+        </div>
+        <div class="field field-full">
+          <label for="space-details">Detalhes do espaço <span class="hint">opcional</span></label>
+          <textarea id="space-details" name="detalhes_espaco" rows="3" placeholder="Tamanho, jardim, tomadas, sombra ou outras informações úteis"></textarea>
+        </div>
+      </div>
+
+      <fieldset class="choice-group">
+        <legend>Como conheceu o Ted? <span class="hint">opcional</span></legend>
+        <div class="choice-grid discovery-grid">
+          {discoverySources.map((source) => (
+            <label class="choice-card">
+              <input type="checkbox" name="como_conheceu" value={source} />
+              <span>{source}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+    </section>
+
+    <section data-step-panel="4" aria-labelledby="step-review-title" hidden>
+      <div class="step-heading">
+        <span class="step-number" aria-hidden="true">5</span>
+        <div>
+          <h2 id="step-review-title">Está tudo certo?</h2>
+          <p>Reveja o pedido. Pode voltar atrás para alterar qualquer informação.</p>
+        </div>
+      </div>
+
+      <div id="event-review" class="event-review" aria-live="polite"></div>
+
+      <label class="privacy-check">
+        <input type="checkbox" name="privacidade" value="aceite" required />
+        <span>
+          Aceito que os meus dados sejam usados apenas para responder a este pedido, conforme a
+          <a href="/politica-de-privacidade/" target="_blank">política de privacidade</a>.
+        </span>
+      </label>
+
+      <div hidden>
+        <label for="event-website">Website</label>
+        <input id="event-website" name="website" type="text" autocomplete="off" tabindex="-1" hidden />
+      </div>
+    </section>
+
+    <div class="form-actions">
+      <button type="button" class="btn btn-ghost" data-form-back hidden>Voltar</button>
+      <button type="button" class="btn btn-teal" data-form-next>Continuar</button>
+      <button type="submit" class="btn btn-whatsapp" data-form-submit hidden>Enviar pedido</button>
+    </div>
+
+    <p id="event-form-status" class="form-status" role="status" aria-live="polite"></p>
+  </form>
+
+  <div id="event-form-success" class="success-card" hidden tabindex="-1">
+    <span aria-hidden="true">🎉</span>
+    <h2>Pedido enviado!</h2>
+    <p>Obrigado por contar os detalhes. Costumamos responder no próprio dia.</p>
+    <a href="/" class="btn btn-teal">Voltar ao início</a>
+  </div>
+</div>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("#event-brief-form");
+
+  if (form) {
+    const panels = [...form.querySelectorAll<HTMLElement>("[data-step-panel]")];
+    const backButton = form.querySelector<HTMLButtonElement>("[data-form-back]");
+    const nextButton = form.querySelector<HTMLButtonElement>("[data-form-next]");
+    const submitButton = form.querySelector<HTMLButtonElement>("[data-form-submit]");
+    const progress = document.querySelector<HTMLProgressElement>("#event-progress");
+    const stepLabel = document.querySelector<HTMLElement>("#event-step-label");
+    const stepName = document.querySelector<HTMLElement>("#event-step-name");
+    const review = document.querySelector<HTMLElement>("#event-review");
+    const status = document.querySelector<HTMLElement>("#event-form-status");
+    const success = document.querySelector<HTMLElement>("#event-form-success");
+    const childrenDetails = form.querySelector<HTMLElement>("#children-details");
+    const childCount = form.querySelector<HTMLInputElement>("#children-count");
+    const childAges = form.querySelector<HTMLInputElement>("#children-ages");
+    const stepNames = ["O seu contacto", "O evento", "As crianças", "A experiência", "Rever e enviar"];
+    let currentStep = 0;
+
+    const selectedValues = (name: string) =>
+      [...form.querySelectorAll<HTMLInputElement>(`input[name="${name}"]:checked`)].map((input) => input.value);
+
+    const valueOf = (name: string) => {
+      const field = form.elements.namedItem(name);
+      if (field instanceof RadioNodeList) return field.value.trim();
+      if (field instanceof HTMLInputElement || field instanceof HTMLSelectElement || field instanceof HTMLTextAreaElement) {
+        return field.value.trim();
+      }
+      return "";
+    };
+
+    const updateChildren = () => {
+      const answer = valueOf("tem_criancas");
+      const show = answer === "sim" || answer === "incerto";
+      if (childrenDetails) childrenDetails.hidden = !show;
+      if (childCount) childCount.required = answer === "sim";
+      if (childAges) childAges.required = answer === "sim";
+      if (!show && childrenDetails) {
+        childrenDetails.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>("input, textarea").forEach((field) => {
+          field.value = "";
+        });
+      }
+    };
+
+    const appendReviewGroup = (title: string, entries: Array<[string, string]>) => {
+      if (!review) return;
+      const visibleEntries = entries.filter(([, value]) => value);
+      if (!visibleEntries.length) return;
+      const section = document.createElement("section");
+      const heading = document.createElement("h3");
+      const list = document.createElement("dl");
+      heading.textContent = title;
+      for (const [label, value] of visibleEntries) {
+        const term = document.createElement("dt");
+        const description = document.createElement("dd");
+        term.textContent = label;
+        description.textContent = value;
+        list.append(term, description);
+      }
+      section.append(heading, list);
+      review.append(section);
+    };
+
+    const buildReview = () => {
+      if (!review) return;
+      review.replaceChildren();
+      appendReviewGroup("Contacto", [
+        ["Nome", valueOf("nome")],
+        ["WhatsApp", valueOf("whatsapp")],
+        ["Email", valueOf("email")],
+      ]);
+      appendReviewGroup("Evento", [
+        ["Tipo", valueOf("tipo_evento")],
+        ["Data", valueOf("data_evento")],
+        ["Horário", valueOf("horario")],
+        ["Zona", valueOf("zona")],
+        ["Local", valueOf("local_evento")],
+        ["Convidados", valueOf("convidados")],
+        ["Descrição", valueOf("descricao_evento")],
+      ]);
+      appendReviewGroup("Crianças", [
+        ["Haverá crianças", ({ sim: "Sim", nao: "Não", incerto: "Ainda não sei" } as Record<string, string>)[valueOf("tem_criancas")] ?? ""],
+        ["Quantidade", valueOf("numero_criancas")],
+        ["Idades", valueOf("idades_criancas")],
+        ["Nome", valueOf("nome_crianca")],
+        ["Aniversário", valueOf("aniversario_crianca")],
+        ["Informações", valueOf("informacoes_criancas")],
+      ]);
+      appendReviewGroup("Experiência", [
+        ["Atividades", selectedValues("atividades").join(", ")],
+        ["Objetivo", valueOf("experiencia")],
+        ["Tema", valueOf("tema")],
+        ["Indispensável", valueOf("atividade_especial")],
+        ["Evitar", valueOf("atividade_evitar")],
+        ["Espaço", valueOf("tipo_espaco")],
+        ["Detalhes", valueOf("detalhes_espaco")],
+        ["Conheceu pelo", selectedValues("como_conheceu").join(", ")],
+      ]);
+    };
+
+    const goToStep = (next: number) => {
+      currentStep = Math.max(0, Math.min(next, panels.length - 1));
+      panels.forEach((panel, index) => {
+        panel.hidden = index !== currentStep;
+      });
+      if (progress) progress.value = currentStep + 1;
+      if (stepLabel) stepLabel.textContent = `Passo ${currentStep + 1} de ${panels.length}`;
+      if (stepName) stepName.textContent = stepNames[currentStep] ?? "";
+      if (backButton) backButton.hidden = currentStep === 0;
+      if (nextButton) nextButton.hidden = currentStep === panels.length - 1;
+      if (submitButton) submitButton.hidden = currentStep !== panels.length - 1;
+      if (currentStep === panels.length - 1) buildReview();
+      panels[currentStep]?.querySelector<HTMLElement>("h2")?.focus({ preventScroll: true });
+      document.querySelector(".event-form-shell")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+
+    const validateCurrentStep = () => {
+      const currentPanel = panels[currentStep];
+      if (!currentPanel) return false;
+      const fields = [...currentPanel.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>("input, select, textarea")]
+        .filter((field) => !field.disabled && !field.closest("[hidden]"));
+      const invalid = fields.find((field) => !field.checkValidity());
+      if (invalid) {
+        invalid.reportValidity();
+        invalid.focus();
+        return false;
+      }
+      return true;
+    };
+
+    form.querySelectorAll<HTMLInputElement>('input[name="tem_criancas"]').forEach((input) => {
+      input.addEventListener("change", updateChildren);
+    });
+
+    nextButton?.addEventListener("click", () => {
+      if (validateCurrentStep()) goToStep(currentStep + 1);
+    });
+    backButton?.addEventListener("click", () => goToStep(currentStep - 1));
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!validateCurrentStep() || !status || !submitButton) return;
+      const data = new FormData(form);
+      if (data.get("website")) return;
+
+      const endpoint = form.dataset.endpoint ?? "";
+      submitButton.disabled = true;
+      status.dataset.state = "loading";
+      status.textContent = endpoint ? "A enviar o pedido…" : "A preparar o pedido no WhatsApp…";
+
+      if (!endpoint) {
+        const lines = [
+          "Olá Ted! Novo briefing de evento:",
+          `Nome: ${valueOf("nome")}`,
+          `WhatsApp: ${valueOf("whatsapp")}`,
+          `Email: ${valueOf("email")}`,
+          `Evento: ${valueOf("tipo_evento")}`,
+          `Data e horário: ${valueOf("data_evento")} — ${valueOf("horario")}`,
+          `Local: ${valueOf("local_evento")}, ${valueOf("zona")}`,
+          valueOf("convidados") ? `Convidados: ${valueOf("convidados")}` : "",
+          `Crianças: ${valueOf("tem_criancas")}`,
+          valueOf("numero_criancas") ? `Número de crianças: ${valueOf("numero_criancas")}` : "",
+          valueOf("idades_criancas") ? `Idades: ${valueOf("idades_criancas")}` : "",
+          selectedValues("atividades").length ? `Atividades: ${selectedValues("atividades").join(", ")}` : "",
+          `Experiência: ${valueOf("experiencia")}`,
+          valueOf("tema") ? `Tema: ${valueOf("tema")}` : "",
+          valueOf("descricao_evento") || valueOf("informacoes_criancas") || valueOf("detalhes_espaco")
+            ? `Observações: ${[valueOf("descricao_evento"), valueOf("informacoes_criancas"), valueOf("detalhes_espaco")].filter(Boolean).join(" | ")}`
+            : "",
+        ].filter(Boolean);
+        const phone = form.dataset.whatsapp ?? "351936331843";
+        window.open(`https://wa.me/${phone}?text=${encodeURIComponent(lines.join("\n"))}`, "_blank", "noopener");
+        status.dataset.state = "success";
+        status.textContent = "Abrimos o WhatsApp com o pedido preenchido. Basta confirmar o envio.";
+        submitButton.disabled = false;
+        // @ts-ignore
+        window.umami?.track?.("briefing-para-whatsapp");
+        return;
+      }
+
+      try {
+        const response = await fetch(endpoint, { method: "POST", body: data, headers: { Accept: "application/json" } });
+        if (!response.ok) throw new Error(String(response.status));
+        form.reset();
+        form.hidden = true;
+        document.querySelector<HTMLElement>(".form-progress")?.setAttribute("hidden", "");
+        if (success) {
+          success.hidden = false;
+          success.focus();
+        }
+        // @ts-ignore
+        window.umami?.track?.("briefing-enviado");
+      } catch {
+        status.dataset.state = "error";
+        status.textContent = "O envio falhou. Tente novamente ou fale connosco pelo WhatsApp.";
+        submitButton.disabled = false;
+      }
+    });
+
+    updateChildren();
+    goToStep(0);
+  }
+</script>
+
+<style>
+  .event-form-shell {
+    max-width: 860px;
+    margin: 0 auto;
+    scroll-margin-top: 7rem;
+  }
+  .form-progress {
+    margin-bottom: 1rem;
+    padding: 1rem 1.25rem;
+    background: var(--cream-deep);
+    border: 1.5px solid var(--line);
+    border-radius: var(--r-md);
+  }
+  .progress-copy {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.65rem;
+    color: var(--ink-soft);
+    font-size: 0.88rem;
+    font-weight: 700;
+  }
+  #event-step-name { color: var(--teal); }
+  progress {
+    display: block;
+    width: 100%;
+    height: 0.65rem;
+    overflow: hidden;
+    border: 0;
+    border-radius: 999px;
+    background: var(--white);
+    accent-color: var(--teal);
+  }
+  progress::-webkit-progress-bar { background: var(--white); border-radius: 999px; }
+  progress::-webkit-progress-value { background: var(--teal); border-radius: 999px; transition: width 0.25s ease; }
+  progress::-moz-progress-bar { background: var(--teal); border-radius: 999px; }
+  .event-form {
+    padding: clamp(1.25rem, 4vw, 2.5rem);
+    background: var(--white);
+    border: 1.5px solid var(--line);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-sm);
+  }
+  [data-step-panel][hidden] { display: none; }
+  .step-heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+    margin-bottom: 1.8rem;
+  }
+  .step-heading h2 {
+    font-size: clamp(1.35rem, 4vw, 1.85rem);
+    margin-bottom: 0.25rem;
+    outline: 0;
+  }
+  .step-heading p { color: var(--ink-soft); font-size: 0.94rem; }
+  .step-number {
+    display: grid;
+    place-items: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    flex: 0 0 2.4rem;
+    border-radius: 50%;
+    background: var(--yellow);
+    color: var(--ink);
+    font-family: var(--font-display), sans-serif;
+    font-weight: 800;
+  }
+  .choice-group {
+    border: 0;
+    padding: 0;
+    margin: 0 0 1.5rem;
+  }
+  .choice-group legend {
+    margin-bottom: 0.75rem;
+    font-family: var(--font-display), sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+  .choice-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+  .choice-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .activity-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .discovery-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .choice-card { position: relative; cursor: pointer; }
+  .choice-card input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+  .choice-card span {
+    display: flex;
+    align-items: center;
+    min-height: 3.3rem;
+    padding: 0.75rem 0.9rem;
+    border: 2px solid var(--line);
+    border-radius: var(--r-sm);
+    background: var(--cream);
+    color: var(--ink-soft);
+    font-weight: 700;
+    line-height: 1.25;
+    transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+  }
+  .choice-card input:checked + span {
+    border-color: var(--teal);
+    background: color-mix(in srgb, var(--teal) 12%, var(--cream));
+    color: var(--ink);
+  }
+  .choice-card input:focus-visible + span {
+    outline: 3px solid color-mix(in srgb, var(--teal) 35%, transparent);
+    outline-offset: 2px;
+  }
+  .children-details { margin-top: 1.3rem; }
+  .event-review {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+    margin-bottom: 1.3rem;
+  }
+  .event-review :global(section) {
+    padding: 1rem;
+    border-radius: var(--r-sm);
+    background: var(--cream-deep);
+  }
+  .event-review :global(h3) { margin-bottom: 0.65rem; font-size: 1rem; color: var(--teal); }
+  .event-review :global(dl) { display: grid; grid-template-columns: minmax(80px, auto) 1fr; gap: 0.3rem 0.75rem; }
+  .event-review :global(dt) { font-size: 0.78rem; font-weight: 800; color: var(--ink-muted); }
+  .event-review :global(dd) { margin: 0; font-size: 0.84rem; overflow-wrap: anywhere; }
+  .privacy-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    padding: 1rem;
+    border: 1.5px solid var(--line);
+    border-radius: var(--r-sm);
+    font-size: 0.86rem;
+    line-height: 1.5;
+  }
+  .privacy-check input { width: 1.1rem; height: 1.1rem; margin-top: 0.15rem; flex: 0 0 auto; accent-color: var(--teal); }
+  .form-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.8rem;
+    margin-top: 1.8rem;
+    padding-top: 1.2rem;
+    border-top: 1.5px solid var(--line);
+  }
+  .form-actions .btn:last-child { margin-left: auto; }
+  .btn-ghost { background: var(--cream-deep); color: var(--ink); }
+  .form-status { min-height: 1.5rem; margin-top: 0.85rem; font-size: 0.9rem; font-weight: 700; }
+  .form-status[data-state="error"] { color: var(--coral); }
+  .form-status[data-state="success"] { color: var(--teal); }
+  .success-card {
+    padding: clamp(2rem, 7vw, 4rem);
+    text-align: center;
+    background: var(--white);
+    border: 1.5px solid var(--line);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-sm);
+  }
+  .success-card > span { display: block; margin-bottom: 0.8rem; font-size: 3rem; }
+  .success-card h2 { margin-bottom: 0.5rem; }
+  .success-card p { margin-bottom: 1.4rem; color: var(--ink-soft); }
+  @media (hover: hover) {
+    .choice-card:hover span { transform: translateY(-2px); border-color: var(--teal); }
+  }
+  @media (max-width: 720px) {
+    .choice-grid,
+    .choice-grid-3,
+    .activity-grid,
+    .discovery-grid,
+    .event-review { grid-template-columns: 1fr; }
+    .progress-copy { align-items: flex-start; flex-direction: column; gap: 0.1rem; }
+    .form-actions { flex-wrap: wrap; }
+    .form-actions .btn { flex: 1 1 8rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    progress::-webkit-progress-value,
+    .choice-card span { transition: none; }
+    .choice-card:hover span { transform: none; }
+  }
+</style>

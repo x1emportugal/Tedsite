@@ -1,0 +1,43 @@
+---
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import SectionHead from "../components/SectionHead.astro";
+import EventBriefForm from "../components/EventBriefForm.astro";
+import Deco from "../components/Deco.astro";
+import Wave from "../components/Wave.astro";
+
+const trail = [
+  { name: "Início", href: "/" },
+  { name: "Formulário do evento", href: "/formulario" },
+];
+---
+
+<Base
+  title="Formulário do Evento | Ted Animações"
+  description="Conte-nos os detalhes da sua festa ou evento no Algarve. Data, local, idades e atividades para prepararmos a animação infantil certa."
+  lang="pt"
+  path="/formulario"
+  breadcrumbs={trail}
+>
+  <Breadcrumbs trail={trail} lang="pt" />
+
+  <section class="section bg-cream" style="padding-top:2rem">
+    <Deco shape="circle" color="#F5C842" size={85} class="animate-float-slow" style="top:7%;right:4%;opacity:.35" />
+    <Deco shape="dots" color="#2D7A6E" style="width:90px;top:24%;left:2%;opacity:.22" />
+
+    <div class="container">
+      <SectionHead
+        eyebrow="Conte-me a sua ideia"
+        title='Vamos preparar o seu <span class="text-teal">evento</span>'
+        lede="São cinco passos rápidos. No fim, recebemos tudo o que precisamos para responder com uma proposta pensada para o seu evento."
+        as="h1"
+      />
+
+      <div style="margin-top:clamp(2rem,5vw,3.5rem)">
+        <EventBriefForm />
+      </div>
+    </div>
+
+    <Wave fill="#F0E4C4" variant={2} />
+  </section>
+</Base>

@@ -129,8 +129,9 @@ adequado: **Cloudflare Pages** ou **Netlify**.
 - Node: 22 ou superior
 
 ### Formulário de orçamento
-Sem configuração, o formulário compõe a mensagem e abre o WhatsApp. Funciona,
-mas não constrói lista de contactos. Para receber por email, criar um endpoint
+O formulário próprio vive em `/formulario/`, tem cinco passos e substitui o
+formulário curto que existia em Contactos. Sem configuração, compõe o briefing e
+abre o WhatsApp. Funciona, mas não constrói lista de contactos. Para receber por email, criar um endpoint
 (Formspree, Web3Forms ou Netlify Forms) e definir a variável de ambiente:
 
 ```

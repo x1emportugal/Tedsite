@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "dev:demo": "PUBLIC_DEMO_REVIEWS=1 astro dev",
-    "build": "node scripts/guard-demo.mjs && npm run check && astro build && node scripts/check-pagespeed-output.mjs",
+    "build": "node scripts/guard-demo.mjs && npm run check && astro build && node scripts/check-event-form.mjs && node scripts/check-pagespeed-output.mjs",
     "check": "node scripts/check-placeholders.mjs && node scripts/check-unrated-reviews.mjs && node scripts/check-review-visibility.mjs && node scripts/check-package-structure.mjs && node scripts/check-social-preview.mjs && node scripts/check-brand-identity.mjs && node scripts/check-google-analytics.mjs",
     "preview": "astro preview",
     "astro": "astro"

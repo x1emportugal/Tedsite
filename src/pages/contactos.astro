@@ -2,7 +2,6 @@
 import Base from "../layouts/Base.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import SectionHead from "../components/SectionHead.astro";
-import QuoteForm from "../components/QuoteForm.astro";
 import FaqList from "../components/FaqList.astro";
 import Icon from "../components/Icon.astro";
 import Deco from "../components/Deco.astro";
@@ -84,9 +83,20 @@ const trail = [
           </div>
         </div>
 
-        <div>
-          <h2 class="h3 mb-md">Pedir orçamento por escrito</h2>
-          <QuoteForm lang={lang} />
+        <div class="card reveal" style="padding:clamp(1.5rem,4vw,2.4rem);background:var(--cream-deep);box-shadow:var(--shadow-sm)">
+          <span class="eyebrow mb-md">Conte os detalhes</span>
+          <h2 class="h3 mb-md">Prefere preencher com calma?</h2>
+          <p style="color:var(--ink-soft);line-height:1.75;margin-bottom:1.4rem">
+            Criámos um formulário simples, dividido em cinco passos. Diga a data,
+            as idades e as atividades que imagina, sem precisar escrever tudo numa mensagem.
+          </p>
+          <a href="/formulario/" class="btn btn-teal btn-lg" style="width:100%">
+            <Icon name="party" size={20} color="#FAF0DC" />
+            Preencher formulário do evento
+          </a>
+          <p style="font-size:.82rem;color:var(--ink-muted);margin-top:1rem;text-align:center">
+            Leva cerca de 4 minutos.
+          </p>
         </div>
       </div>
     </div>
