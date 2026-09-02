@@ -124,6 +124,17 @@ const jsonLd = [
       />
     )}
 
+    <!-- Google Analytics: visitas e conversões no website oficial. -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RZCRSSVVK4"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        window.dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'G-RZCRSSVVK4');
+    </script>
+
     <script is:inline>
       // Ativa o estado escondido das revelações ANTES da primeira pintura, e
       // só se o IntersectionObserver existir para as voltar a mostrar. Sem
@@ -197,6 +208,8 @@ const jsonLd = [
         const where = link.getAttribute("data-cta") || "desconhecido";
         // @ts-ignore, umami é opcional
         window.umami?.track?.("whatsapp-click", { origem: where });
+        // @ts-ignore, Google Analytics está carregado no head.
+        window.gtag?.("event", "whatsapp_click", { origem: where });
       });
     </script>
   </body>

@@ -138,6 +138,8 @@ const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? "";
         ].filter(Boolean);
         // @ts-ignore
         window.umami?.track?.("form-para-whatsapp");
+        // @ts-ignore
+        window.gtag?.("event", "quote_form_to_whatsapp");
         window.open(
           `https://wa.me/351936331843?text=${encodeURIComponent(lines.join("\n"))}`,
           "_blank",
@@ -168,6 +170,8 @@ const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? "";
           : "Pedido enviado. Costumo responder no próprio dia.";
         // @ts-ignore
         window.umami?.track?.("form-enviado");
+        // @ts-ignore
+        window.gtag?.("event", "quote_form_submitted");
       } catch {
         status.style.color = "var(--coral)";
         status.textContent = en
